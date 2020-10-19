@@ -45,6 +45,14 @@ dependencies {
     // Toasty https://github.com/GrenderG/Toasty
     api rootProject.ext.dependencies["toasty"]
 
+    // Jetpack
+    // ViewModel
+    api rootProject.ext.dependencies["viewModel"]
+    // LiveData
+    api rootProject.ext.dependencies["liveData"]
+    // App Startup
+    api rootProject.ext.dependencies["startup"]
+
     // Koin
     // Koin AndroidX Scope feature
     api rootProject.ext.dependencies["KoinAndroidX"]
@@ -52,4 +60,7 @@ dependencies {
     api rootProject.ext.dependencies["KoinAndroidXViewModel"]
     // Koin AndroidX Fragment Factory
     api rootProject.ext.dependencies["KoinAndroidXFragment"]
+
+    // LeakCanary
+    debugApi rootProject.ext.dependencies["leakcanary"]
 }

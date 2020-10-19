@@ -31,10 +31,10 @@ class SplashActivity : BaseActivity() {
                     what = MSG_START_INTENT
                 })
             } else {
-                sendMessageDelayed(Message.obtain().apply {
+                sendMessage(Message.obtain().apply {
                     what = MSG_CONTINUE
                     this.arg1 = 3
-                }, 1 * 1000)
+                })
             }
         }
     }
@@ -45,8 +45,8 @@ class SplashActivity : BaseActivity() {
             super.handleMessage(msg)
             when (msg.what) {
                 MSG_CONTINUE -> {
-                    if (msg.arg1 == 0) {
-                        // 当为0了，则证明倒计时结束，就可以进行跳转了
+                    if (msg.arg1 == -1) {
+                        // 当为 -1 了，则证明倒计时结束，就可以进行跳转了
                         sendMessage(Message.obtain().apply {
                             what = MSG_START_INTENT
                         })
@@ -55,7 +55,7 @@ class SplashActivity : BaseActivity() {
                             val text = "${msg.arg1}s"
                             (it.findViewById(R.id.tv_time) as TextView).text = text
                         }
-                        // 延迟1秒发送消息，达到倒计时的效果
+                        // 延迟1秒发送一条消息，以达到倒计时的效果
                         sendMessageDelayed(Message.obtain().apply {
                             what = MSG_CONTINUE
                             arg1 = msg.arg1 - 1
@@ -64,15 +64,13 @@ class SplashActivity : BaseActivity() {
                     }
                 }
                 MSG_START_INTENT -> {
-                    // appContext.get()?.start<MainActivity>() ?: Toasty.error(
-                    //     appContext.get()!!,
-                    //     "获取到的AppContext为null"
-                    // )
                     //TODO 这块的错误判断有点逻辑混乱，activity都为null了，那么肯定弹不了Toast，但是一时没想好该怎么改
                     activity.get()?.start<MainActivity>() ?: Toasty.error(
                         activity.get()!!,
                         "获取到的Activity为null"
                     )
+                    // 销毁此Activity，以便在MainActivity返回时不再会显示此Activity
+                    activity.get()?.finish()
                 }
             }
         }

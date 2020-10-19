@@ -1,18 +1,17 @@
 package com.littlecorgi.commonlib
 
 import android.app.Application
-import android.graphics.Typeface
+import androidx.startup.AppInitializer
 import com.littlecorgi.commonlib.context.AppContextRepository
 import com.littlecorgi.commonlib.context.AppContextRepositoryImpl
 import com.littlecorgi.commonlib.context.MyAppContextPresenter
-import es.dmoral.toasty.Toasty
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 /**
- *
+ * 重写Application
  * @author littlecorgi 2020/10/19
  */
 class App : Application() {
@@ -23,12 +22,12 @@ class App : Application() {
         // context = applicationContext
 
         // Toasty配置
-        Toasty.Config.getInstance()
-            .tintIcon(true) // 图标着色
-            .setToastTypeface(Typeface.DEFAULT_BOLD) // 字体粗度
-            .setTextSize(12) // 字体大小
-            .allowQueue(true) // 防止多个toast排队
-            .apply()
+        // 放在了Startup中，具体见 {@link com.littlecorgi.commonlib.Initializer}
+
+        // LeakCanary手动配置，我想禁止LeakCanary通过他的ContentProvider来初始化，减少ContentProvider
+        AppInitializer.getInstance(this).initializeComponent(
+            LeakCanaryInitializer::class.java
+        )
 
         // AppContextKoinModule 用来通过依赖注入注入Application的Context
         val appContextModule = module {
