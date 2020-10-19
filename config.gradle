@@ -1,0 +1,54 @@
+ext {
+    //有重用的地方写在这里面，保证代码一致
+    android = [
+            compileSdkVersion       : 30,
+            buildToolsVersion       : "30.0.0",
+            minSdkVersion           : 21,
+            targetSdkVersion        : 30,
+            versionCode             : 1,
+            versionName             : "1.0",
+            androidSupportSdkVersion: "29.0.2",
+            lifecycleVersion        : "2.2.0",
+            espressoSdkVersion      : "3.0.2",
+            glideVersion            : "4.11.0",
+            retrofitVersion         : '2.9.0',
+            kotlinVersion           : '1.4.10'
+    ]
+    dependencies = [
+            "javax.annotation"       : 'javax.annotation:jsr250-api:1.0',
+            "appcompat"           : 'androidx.appcompat:appcompat:1.2.0',
+            "design"                 : 'com.google.android.material:material:1.0.0',
+            "support-v4"             : "com.android.support:support-v4:${android["androidSupportSdkVersion"]}",
+            "annotations"            : 'androidx.annotation:annotation:1.0.0',
+            "material"               : 'com.google.android.material:material:1.2.0',
+            "recyclerView"           : 'androidx.recyclerview:recyclerview:1.1.0',
+            "palette"                : 'androidx.palette:palette:1.0.0', // 调色板
+            "kotlinStdlib"           : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${android["kotlinVersion"]}",
+            "coreKtx"                : 'androidx.core:core-ktx:1.3.2',
+            "viewModel"              : "androidx.lifecycle:lifecycle-viewmodel:${android["lifecycleVersion"]}",
+            "liveData"               : "androidx.lifecycle:lifecycle-livedata:${android["lifecycleVersion"]}",
+            "viewModelKtx"           : "androidx.lifecycle:lifecycle-viewmodel-ktx:${android["lifecycleVersion"]}",
+
+            //test
+            "junit"                  : "junit:junit:4.13.1",
+            "constraintLayout"      : 'androidx.constraintlayout:constraintlayout:2.0.2',//约束性布局
+            "testExtJunit"            : 'androidx.test.ext:junit:1.1.2',//测试依赖，新建项目时会默认添加，一般不建议添加
+            "espressoCore"          : 'androidx.test.espresso:espresso-core:3.3.0',//测试依赖，新建项目时会默认添加，一般不建议添加
+            "kotlin-stdlib-jre7"     : 'org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version',
+
+            // 第三方框架
+            "arouter-api"            : 'com.alibaba:arouter-api:1.5.0',//ARouter api
+            "arouter-compiler"       : 'com.alibaba:arouter-compiler:1.2.2',//ARouter
+            "AndroidAutoSize"        : 'me.jessyan:autosize:1.1.2',//AndroidAutoSize
+            "Glide"                  : "com.github.bumptech.glide:glide:${android["glideVersion"]}",// Glide
+            "Glide-compiler"         : "com.github.bumptech.glide:compiler:${android["glideVersion"]}",// Glide-Compiler
+            "Retrofit"               : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",//Retrofit
+            "Retrofit-converter-gson": "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",//Retrofit
+            "leakcanary"             : 'com.squareup.leakcanary:leakcanary-android:2.4',//LeakCanary
+            "Qiniu"                  : 'com.qiniu:qiniu-android-sdk:7.6.4',//七牛云
+            "EventBus"               : 'org.greenrobot:eventbus:3.2.0',//EventBus
+            "AndPermission"          : 'com.yanzhenjie:permission:2.0.3',//AndPermission
+            "StatusBarCompat"        : 'com.githang:status-bar-compat:0.7',//StatusBarCompat
+            "toasty"                 : 'com.github.GrenderG:Toasty:1.5.0',//Toasty
+    ]
+}
