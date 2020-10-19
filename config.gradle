@@ -12,11 +12,12 @@ ext {
             espressoSdkVersion      : "3.0.2",
             glideVersion            : "4.11.0",
             retrofitVersion         : '2.9.0',
-            kotlinVersion           : '1.4.10'
+            kotlinVersion           : '1.4.10',
+            koinVersion             : "2.2.0-rc-1"
     ]
     dependencies = [
             "javax.annotation"       : 'javax.annotation:jsr250-api:1.0',
-            "appcompat"           : 'androidx.appcompat:appcompat:1.2.0',
+            "appcompat"              : 'androidx.appcompat:appcompat:1.2.0',
             "design"                 : 'com.google.android.material:material:1.0.0',
             "support-v4"             : "com.android.support:support-v4:${android["androidSupportSdkVersion"]}",
             "annotations"            : 'androidx.annotation:annotation:1.0.0',
@@ -31,10 +32,18 @@ ext {
 
             //test
             "junit"                  : "junit:junit:4.13.1",
-            "constraintLayout"      : 'androidx.constraintlayout:constraintlayout:2.0.2',//约束性布局
-            "testExtJunit"            : 'androidx.test.ext:junit:1.1.2',//测试依赖，新建项目时会默认添加，一般不建议添加
-            "espressoCore"          : 'androidx.test.espresso:espresso-core:3.3.0',//测试依赖，新建项目时会默认添加，一般不建议添加
+            "constraintLayout"       : 'androidx.constraintlayout:constraintlayout:2.0.2',//约束性布局
+            "testExtJunit"           : 'androidx.test.ext:junit:1.1.2',//测试依赖，新建项目时会默认添加，一般不建议添加
+            "espressoCore"           : 'androidx.test.espresso:espresso-core:3.3.0',//测试依赖，新建项目时会默认添加，一般不建议添加
             "kotlin-stdlib-jre7"     : 'org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version',
+
+            // koin
+            "KoinAndroidX"           : "org.koin:koin-androidx-scope:${android["koinVersion"]}",
+            "KoinAndroidXViewModel"  : "org.koin:koin-androidx-viewmodel:${android["koinVersion"]}",
+            "KoinAndroidXFragment"   : "org.koin:koin-androidx-fragment:${android["koinVersion"]}",
+            "KoinAndroid"            : "org.koin:koin-android:${android["koinVersion"]}",
+            "KoinAndroidScope"       : "org.koin:koin-android-scope:${android["koinVersion"]}",
+            "KoinAndroidViewModel"   : "org.koin:koin-android-viewmodel:${android["koinVersion"]}",
 
             // 第三方框架
             "arouter-api"            : 'com.alibaba:arouter-api:1.5.0',//ARouter api
