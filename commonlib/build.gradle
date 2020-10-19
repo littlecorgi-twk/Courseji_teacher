@@ -63,4 +63,7 @@ dependencies {
 
     // LeakCanary
     debugApi rootProject.ext.dependencies["leakcanary"]
+
+    // AndPermission
+    api rootProject.ext.dependencies["AndPermission"]
 }
