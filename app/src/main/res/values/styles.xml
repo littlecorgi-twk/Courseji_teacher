@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="material_button">
+        <item name="android:textColor">@color/mtrl_text_btn_text_color_selector</item>
+        <item name="paddingStart">8dp</item>
+        <item name="paddingEnd">8dp</item>
+        <item name="android:backgroundTint">@color/mtrl_btn_text_btn_bg_color_selector</item>
+        <item name="rippleColor">@color/mtrl_btn_text_btn_ripple_color</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+</resources>

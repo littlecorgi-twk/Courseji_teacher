@@ -1,4 +1,4 @@
-package com.littlecorgi.corseji
+package com.littlecorgi.courseji
 
 import android.app.Activity
 import android.os.Bundle

@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -8,7 +10,7 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        applicationId "com.littlecorgi.corseji"
+        applicationId "com.littlecorgi.courseji"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -30,12 +32,22 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation project(':commonlib')
 
     // 在下面添加只有APP需要的依赖
+    testImplementation rootProject.ext.dependencies["junit"]
+    androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
+    androidTestImplementation rootProject.ext.dependencies["espressoCore"]
+
+    // apt必须各个模块自行添加
+    // Glide-compiler
+    annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
 
     if (!isRunAlone.toBoolean()) {
 //        implementation project(':camera')

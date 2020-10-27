@@ -1,4 +1,4 @@
-package com.littlecorgi.corseji
+package com.littlecorgi.courseji
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
