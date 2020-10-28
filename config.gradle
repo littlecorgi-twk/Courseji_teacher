@@ -2,7 +2,7 @@ ext {
     //有重用的地方写在这里面，保证代码一致
     android = [
             compileSdkVersion       : 30,
-            buildToolsVersion       : "30.0.0",
+            buildToolsVersion       : "30.0.2",
             minSdkVersion           : 21,
             targetSdkVersion        : 30,
             versionCode             : 1,
@@ -24,7 +24,7 @@ ext {
             // view
             "material"               : 'com.google.android.material:material:1.2.1',
             "recyclerView"           : 'androidx.recyclerview:recyclerview:1.1.0',
-            "constraintLayout"       : 'androidx.constraintlayout:constraintlayout:2.0.2',//约束性布局
+            "constraintLayout"       : 'androidx.constraintlayout:constraintlayout:2.0.3',//约束性布局
             "DrawerLayout"           : 'androidx.drawerlayout:drawerlayout:1.1.1',
             "viewpager2"             : "androidx.viewpager2:viewpager2:1.0.0",
 
