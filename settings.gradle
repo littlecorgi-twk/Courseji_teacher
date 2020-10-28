@@ -1,3 +1,4 @@
+include ':my'
 include ':commonlib'
 include ':app'
 rootProject.name = "Courseji"

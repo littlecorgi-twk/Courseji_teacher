@@ -75,6 +75,8 @@ dependencies {
     // apt必须各个模块自行添加
     // Glide-compiler
     annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
+    // ARouterCompiler
+    annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
 
     if (!isRunAlone.toBoolean()) {
 //        implementation project(':camera')
