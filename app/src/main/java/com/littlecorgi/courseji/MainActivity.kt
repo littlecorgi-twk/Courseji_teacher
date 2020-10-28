@@ -28,6 +28,7 @@ class MainActivity : BaseActivity() {
         initView()
         // 初始化数据
         initData()
+        // 
     }
 
     private fun initView() {
