@@ -23,6 +23,7 @@ jobs:
       - name: Change Gradlew Permission
         run:
           chmod +x ./gradlew
+          chmod +x app/build/outputs/apk/release/signingKey.jks
       - name: "Sign Android release"
         uses: r0adkll/sign-android-release@v1
         with:
