@@ -20,16 +20,16 @@ jobs:
         with:
           args: "./gradlew assembleRelease"
 #          args: "./gradlew assembleDebug"
-      - name: Change Gradlew Permission
-        run:
-          chmod +x ./gradlew
-          |
-          chmod +x app/build/outputs/apk/release/signingKey.jks
-      - name: "Sign Android release"
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+#      - name: Change Gradlew Permission
+#        run:
+#          chmod +x ./gradlew
+#          |
+#          chmod +x app/build/outputs/apk/release/signingKey.jks
+#      - name: "Sign Android release"
+#        uses: r0adkll/sign-android-release@v1
+#        with:
+#          releaseDirectory: app/build/outputs/apk/release
+#          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+#          alias: ${{ secrets.ALIAS }}
+#          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+#          keyPassword: ${{ secrets.KEY_PASSWORD }}
