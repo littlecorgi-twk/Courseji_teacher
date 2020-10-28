@@ -16,9 +16,9 @@
             <meta-data
                 android:name="com.littlecorgi.commonlib.ToastyInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.littlecorgi.commonlib.LeakCanaryInitializer"
-                android:value="remove" />
+            <!--<meta-data-->
+            <!--    android:name="com.littlecorgi.commonlib.LeakCanaryInitializer"-->
+            <!--    android:value="remove" />-->
         </provider>
     </application>
 
