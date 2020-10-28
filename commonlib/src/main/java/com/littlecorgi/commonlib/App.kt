@@ -1,7 +1,6 @@
 package com.littlecorgi.commonlib
 
 import android.app.Application
-import androidx.startup.AppInitializer
 import com.littlecorgi.commonlib.context.AppContextRepository
 import com.littlecorgi.commonlib.context.AppContextRepositoryImpl
 import com.littlecorgi.commonlib.context.MyAppContextPresenter
@@ -25,9 +24,11 @@ class App : Application() {
         // 放在了Startup中，具体见 {@link com.littlecorgi.commonlib.Initializer}
 
         // LeakCanary手动配置，我想禁止LeakCanary通过他的ContentProvider来初始化，减少ContentProvider
-        AppInitializer.getInstance(this).initializeComponent(
+        // 突然发现，release包找不到LeakCanary，所以导致导出release包此处会报错，换回LeakCanary自己的ContentProvider
+        // TODO 2020.10.28 之后记得删除
+        /*AppInitializer.getInstance(this).initializeComponent(
             LeakCanaryInitializer::class.java
-        )
+        )*/
 
         // AppContextKoinModule 用来通过依赖注入注入Application的Context
         val appContextModule = module {

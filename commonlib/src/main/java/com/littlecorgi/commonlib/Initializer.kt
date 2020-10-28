@@ -1,11 +1,9 @@
 package com.littlecorgi.commonlib
 
-import android.app.Application
 import android.content.Context
 import android.graphics.Typeface
 import androidx.startup.Initializer
 import es.dmoral.toasty.Toasty
-import leakcanary.AppWatcher
 
 /**
  * APP Startup 的 Initializer 类
@@ -28,14 +26,14 @@ class ToastyInitializer : Initializer<Unit> {
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }
 
-/**
- * 初始化 LeakCanary ，配置为手动初始化
- */
-class LeakCanaryInitializer : Initializer<Unit> {
-    override fun create(context: Context) {
-        val application = context.applicationContext as Application
-        AppWatcher.manualInstall(application)
-    }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
-}
+// /**
+//  * 初始化 LeakCanary ，配置为手动初始化
+//  */
+// class LeakCanaryInitializer : Initializer<Unit> {
+//     override fun create(context: Context) {
+//         val application = context.applicationContext as Application
+//         AppWatcher.manualInstall(application)
+//     }
+//
+//     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+// }
