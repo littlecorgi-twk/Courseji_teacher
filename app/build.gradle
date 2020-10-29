@@ -74,11 +74,12 @@ dependencies {
 
     // apt必须各个模块自行添加
     // Glide-compiler
-    annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
+    kapt rootProject.ext.dependencies["Glide-compiler"]
     // ARouterCompiler
-    annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
+    kapt rootProject.ext.dependencies["ARouterCompiler"]
 
+    // 每加入一个新的模块，就需要在下面对应的添加一行
     if (!isRunAlone.toBoolean()) {
-//        implementation project(':camera')
+        implementation project(':my')
     }
 }

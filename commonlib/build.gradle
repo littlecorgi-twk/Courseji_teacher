@@ -76,12 +76,12 @@ dependencies {
     // Glide
     api rootProject.ext.dependencies["Glide"]
     // annotationProcessor 代表「注解处理器」，每个模块里面都得写
-    annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
+    kapt rootProject.ext.dependencies["Glide-compiler"]
 
     // BaseRecyclerViewAdapterHelper
     api rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
 
     // ARouter
     api rootProject.ext.dependencies["ARouter"]
-    annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
+    kapt rootProject.ext.dependencies["ARouterCompiler"]
 }
