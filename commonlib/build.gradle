@@ -99,6 +99,9 @@ dependencies {
 
     // 友盟
     // 已从这里移除，请见UMeng_Push.gradle以及此文件最后一行
+
+    // Bugly
+    api rootProject.ext.dependencies["Bugly"]
 }
 
 apply from: 'UMeng_Push.gradle'

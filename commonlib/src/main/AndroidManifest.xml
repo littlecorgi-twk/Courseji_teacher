@@ -40,6 +40,9 @@
             <meta-data
                 android:name="com.littlecorgi.commonlib.ARouterInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.littlecorgi.commonlib.BuglyInitializer"
+                android:value="androidx.startup" />
             <!--<meta-data-->
             <!--    android:name="com.littlecorgi.commonlib.LeakCanaryInitializer"-->
             <!--    android:value="remove" />-->

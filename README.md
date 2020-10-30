@@ -1,5 +1,6 @@
 # Courseji
 
+![Travis状态](https://travis-ci.com/littlecorgi-twk/Courseji.svg?branch=master)
 课记-你的课堂签到小助手
 
 # 1. 简介
@@ -29,6 +30,7 @@
 - [Travis CI/CD](https://travis-ci.org/)
 - [CymChad/BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 - [友盟Umeng](https://www.umeng.com/)
+- [Bugly 腾讯APP崩溃上报平台](https://bugly.qq.com/v2/index)
 
 # 3. 版本日志
 

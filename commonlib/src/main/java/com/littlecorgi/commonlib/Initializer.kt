@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.startup.Initializer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.littlecorgi.commonlib.App.Companion.isDebug
+import com.tencent.bugly.crashreport.CrashReport
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
@@ -95,6 +96,24 @@ class ARouterInitializer : Initializer<Unit> {
             ARouter.openDebug()   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(context as Application) // 尽可能早，推荐在Application中初始化
+    }
+
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
+}
+
+/**
+ * 初始化 Bugly
+ */
+class BuglyInitializer : Initializer<Unit> {
+    override fun create(context: Context) {
+        // 第三个参数为SDK调试模式开关，调试模式的行为特性如下：
+        // - 输出详细的Bugly SDK的Log；
+        // - 每一条Crash都会被立即上报；
+        // - 自定义日志将会在Logcat中输出：true为输出，false为不输出，建议在测试阶段建议设置成true，发布时设置为false。
+        CrashReport.initCrashReport(context, "28d25075a1", isDebug)
+
+        // 如果需要测试崩溃，可以模拟设置一个按钮调用以下代码，APP就会崩溃，等待一会(应该不会超过1min)，就能在bugly后台看到信息了
+        // CrashReport.testJavaCrash()
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
