@@ -12,6 +12,9 @@
 
 # 2. 使用到的技术
 
+相关文档：
+- [代码规范文档](/代码规范文档.md)
+
 - [ConstraintLayout 约束布局](https://developer.android.com/training/constraint-layout?hl=zh-cn)
 - ViewPager2
 - [Jetpack-Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle?hl=zh-cn)
