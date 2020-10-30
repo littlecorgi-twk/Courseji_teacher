@@ -3,11 +3,14 @@ package com.littlecorgi.commonlib
 import android.app.Application
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Process
 import android.util.Log
 import androidx.startup.Initializer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.littlecorgi.commonlib.App.Companion.isDebug
+import com.littlecorgi.commonlib.util.getProcessName
 import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.bugly.crashreport.CrashReport.UserStrategy
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
@@ -106,6 +109,17 @@ class ARouterInitializer : Initializer<Unit> {
  */
 class BuglyInitializer : Initializer<Unit> {
     override fun create(context: Context) {
+
+        // 多进程时，每个进程默认都会初始化bugly，避免这种情况发生，设置为只有主进程才数据上报
+        // 获取当前包名
+        val packageName = context.packageName
+        // 获取当前进程名
+        val processName = getProcessName(Process.myPid())
+        // 设置是否为上报进程
+        val strategy = UserStrategy(context)
+        strategy.isUploadProcess = processName == null || processName == packageName
+
+        // 初始化Bugly
         // 第三个参数为SDK调试模式开关，调试模式的行为特性如下：
         // - 输出详细的Bugly SDK的Log；
         // - 每一条Crash都会被立即上报；
