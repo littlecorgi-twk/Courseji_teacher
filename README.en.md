@@ -1,6 +1,7 @@
 # Courseji
 
 ![Travis状态](https://travis-ci.com/littlecorgi-twk/Courseji.svg?branch=master)
+
 Courseji-A Classroom Sign-in Assistant
 
 # 1. Intro (English version is coming soon...)

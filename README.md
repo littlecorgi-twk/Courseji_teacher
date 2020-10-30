@@ -1,6 +1,8 @@
 # Courseji
 
 ![Travis状态](https://travis-ci.com/littlecorgi-twk/Courseji.svg?branch=master)
+
+
 课记-你的课堂签到小助手
 
 # 1. 简介
@@ -15,6 +17,7 @@
 相关文档：
 - [代码规范文档](/代码规范文档.md)
 
+相关库：
 - [ConstraintLayout 约束布局](https://developer.android.com/training/constraint-layout?hl=zh-cn)
 - ViewPager2
 - [Jetpack-Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle?hl=zh-cn)
