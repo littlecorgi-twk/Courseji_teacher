@@ -29,6 +29,7 @@ Courseji-A Classroom Sign-in Assistant
 - [alibaba/ARouter 组件化路由库](https://github.com/alibaba/ARouter)
 - [Travis CI/CD](https://travis-ci.org/)
 - [CymChad/BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+- [Umeng](https://www.umeng.com/)
 
 # 3. Logger
 
@@ -36,3 +37,4 @@ Courseji-A Classroom Sign-in Assistant
 - init project
 - init [Travis CI/CD](https://travis-ci.org/)
 - init Github Actions
+- Integrate[UMengPush](https://developer.umeng.com/docs/67966/detail/153908#h2-2-push-sdk4)

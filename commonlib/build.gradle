@@ -4,6 +4,13 @@ plugins {
     id 'kotlin-kapt'
 }
 
+kapt {
+    // ARouter-Kotlin
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -33,6 +40,11 @@ android {
     }
     dataBinding {
         enabled = true
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 }
 
@@ -84,4 +96,9 @@ dependencies {
     // ARouter
     api rootProject.ext.dependencies["ARouter"]
     kapt rootProject.ext.dependencies["ARouterCompiler"]
+
+    // 友盟
+    // 已从这里移除，请见UMeng_Push.gradle以及此文件最后一行
 }
+
+apply from: 'UMeng_Push.gradle'

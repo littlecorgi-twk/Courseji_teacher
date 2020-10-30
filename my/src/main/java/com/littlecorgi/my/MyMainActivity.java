@@ -2,9 +2,9 @@ package com.littlecorgi.my;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.littlecorgi.commonlib.BaseActivity;
 
-public class MyMainActivity extends AppCompatActivity {
+public class MyMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
