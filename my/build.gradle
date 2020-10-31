@@ -3,9 +3,6 @@ if (isRunAlone.toBoolean()) {
 } else {
     apply plugin: 'com.android.library'
 }
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]

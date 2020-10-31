@@ -13,6 +13,7 @@ import com.littlecorgi.commonlib.BaseActivity
 import com.littlecorgi.commonlib.util.TimeUtil
 import com.littlecorgi.courseji.databinding.ActivityMainBinding
 import com.littlecorgi.courseji.schedule.ui.ScheduleViewPagerFragmentStateAdapter
+import com.tencent.bugly.beta.Beta
 
 class MainActivity : BaseActivity() {
 
@@ -24,6 +25,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBottomSheetBehavior = BottomSheetBehavior.from(mBinding.bottomSheet)
+        // Bugly升级 检测是否有新版本
+        Beta.checkUpgrade()
         // 初始化View
         initView()
         // 初始化数据

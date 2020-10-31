@@ -9,12 +9,15 @@ import androidx.startup.Initializer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.littlecorgi.commonlib.App.Companion.isDebug
 import com.littlecorgi.commonlib.util.getProcessName
-import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.bugly.Bugly
+import com.tencent.bugly.beta.Beta
+import com.tencent.bugly.beta.upgrade.UpgradeStateListener
 import com.tencent.bugly.crashreport.CrashReport.UserStrategy
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
 import es.dmoral.toasty.Toasty
+
 
 /**
  * APP Startup 的 Initializer 类
@@ -119,12 +122,52 @@ class BuglyInitializer : Initializer<Unit> {
         val strategy = UserStrategy(context)
         strategy.isUploadProcess = processName == null || processName == packageName
 
+        //监听APP升级状态
+        Beta.upgradeStateListener = object : UpgradeStateListener {
+            override fun onUpgradeFailed(b: Boolean) {
+                Log.d("BuglyInitializer", "upgradeStateListener upgrade fail")
+            }
+
+            override fun onUpgradeSuccess(b: Boolean) {
+                Log.d("BuglyInitializer", "upgradeStateListener upgrade success")
+            }
+
+            override fun onUpgradeNoVersion(b: Boolean) {
+                Log.d("BuglyInitializer", "upgradeStateListener upgrade has no new version")
+            }
+
+            override fun onUpgrading(b: Boolean) {
+                Log.d("BuglyInitializer", "upgradeStateListener upgrading")
+            }
+
+            override fun onDownloadCompleted(b: Boolean) {
+                Log.d("BuglyInitializer", "upgradeStateListener download apk file success")
+            }
+        }
+
+        /**
+         * 设置这个是为了防止在SplashActivity倒计时还没结束时就检测到升级进而导致升级页面的Activity无法正常显示
+         * 会手动在MainActivity中调用Beta.checkUpgrade()
+         * true表示初始化时自动检查升级;
+         * false表示不会自动检查升级,需要手动调用Beta.checkUpgrade()方法;
+         */
+        Beta.autoCheckUpgrade = false
+
+        /**
+         * 此方法不行，因为commonlib中检查不到MainActivity这个类
+         * 只允许在MainActivity上显示更新弹窗，其他activity上不显示弹窗;
+         * 不设置会默认所有activity都可以显示弹窗;
+         */
+        // Beta.canShowUpgradeActs.add(MainActivity::class)
+
         // 初始化Bugly
         // 第三个参数为SDK调试模式开关，调试模式的行为特性如下：
         // - 输出详细的Bugly SDK的Log；
         // - 每一条Crash都会被立即上报；
         // - 自定义日志将会在Logcat中输出：true为输出，false为不输出，建议在测试阶段建议设置成true，发布时设置为false。
-        CrashReport.initCrashReport(context, "28d25075a1", isDebug)
+        // CrashReport.initCrashReport(context, "28d25075a1", isDebug)
+        // 接入热修复后使用此方法
+        Bugly.init(context, "28d25075a1", isDebug)
 
         // 如果需要测试崩溃，可以模拟设置一个按钮调用以下代码，APP就会崩溃，等待一会(应该不会超过1min)，就能在bugly后台看到信息了
         // CrashReport.testJavaCrash()
