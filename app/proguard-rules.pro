@@ -50,6 +50,11 @@
    public static final int *;
 }
 
+# 友盟Push 小米Push集成
+-keep class org.android.agoo.xiaomi.MiPushBroadcastReceiver {*;}
+#可以防止一个误报的 warning 导致无法成功编译，如果编译使用的 Android 版本是 23。
+-dontwarn com.xiaomi.push.**
+
 # Atouter的配置
 -keep public class com.alibaba.android.arouter.routes.**{*;}
 -keep public class com.alibaba.android.arouter.facade.**{*;}
