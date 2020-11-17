@@ -20,4 +20,9 @@ dependencies {
     // 小米Push通道SDK 稳定版
     api 'com.umeng.umsdk:xiaomi-push:3.7.0'
     api 'com.umeng.umsdk:xiaomi-umengaccs:1.1.4'
+
+    // 华为Push通道SDK 稳定版
+    api 'com.umeng.umsdk:huawei-basetb:2.6.3.306'
+    api 'com.umeng.umsdk:huawei-pushtb:2.6.3.306'
+    api 'com.umeng.umsdk:huawei-umengaccs:1.2.4'
 }

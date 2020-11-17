@@ -7,7 +7,11 @@ import com.littlecorgi.commonlib.R
 import com.umeng.message.UmengNotifyClickActivity
 import org.android.agoo.common.AgooConstants
 
-
+/**
+ * MiPush和HUAWEIPush都是这个，详见
+ *  1. https://developer.umeng.com/docs/67966/detail/98589#h2-u4F7Fu7528u5C0Fu7C73u5F39u7A97u529Fu80FD5
+ *  2. https://developer.umeng.com/docs/67966/detail/98589#h2-u4F7Fu7528u534Eu4E3Au5F39u7A97u529Fu80FD15
+ */
 class MiPushActivity : UmengNotifyClickActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
