@@ -69,10 +69,18 @@ android {
     buildFeatures {
         dataBinding  = true
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
     implementation project(':commonlib')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // 在下面添加只有APP需要的依赖
     testImplementation rootProject.ext.dependencies["junit"]

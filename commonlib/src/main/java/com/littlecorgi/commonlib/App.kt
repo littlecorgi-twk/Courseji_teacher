@@ -13,7 +13,7 @@ import org.koin.dsl.module
  * 重写Application
  * @author littlecorgi 2020/10/19
  */
-class App : Application() {
+open class App : Application() {
 
     override fun onCreate() {
         super.onCreate()

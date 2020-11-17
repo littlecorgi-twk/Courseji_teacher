@@ -13,9 +13,6 @@ import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
 import com.tencent.bugly.beta.upgrade.UpgradeStateListener
 import com.tencent.bugly.crashreport.CrashReport.UserStrategy
-import com.umeng.commonsdk.UMConfigure
-import com.umeng.message.IUmengRegisterCallback
-import com.umeng.message.PushAgent
 import es.dmoral.toasty.Toasty
 
 
@@ -35,58 +32,6 @@ class ToastyInitializer : Initializer<Unit> {
             .setTextSize(12) // 字体大小
             .allowQueue(true) // 防止多个toast排队
             .apply()
-    }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
-}
-
-/**
- * 初始化 友盟
- */
-class UMengInitializer : Initializer<Unit> {
-    override fun create(context: Context) {
-        UMConfigure.init(
-            context, "5f9a8e3e1c520d30739bfe55", "Umeng",
-            UMConfigure.DEVICE_TYPE_PHONE, "7f70e2dc06073c2988d4d26f6eeee1b5"
-        )
-        // 获取消息推送代理示例
-        val mPushAgent = PushAgent.getInstance(context)
-
-        mPushAgent.isPushCheck = true
-
-        Log.i("UMengInitializer", "create: resourcePackageName: ${mPushAgent.resourcePackageName}")
-
-        // 设置资源包名
-        // mPushAgent.resourcePackageName = "com.littlecorgi.commonlib"
-        mPushAgent.resourcePackageName = "com.littlecorgi.courseji"
-
-        // mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SERVER); //服务端控制声音
-
-        // 注册推送服务，每次调用register方法都会回调该接口
-        mPushAgent.register(object : IUmengRegisterCallback {
-            override fun onSuccess(deviceToken: String) {
-                // 注册成功会返回deviceToken deviceToken是推送消息的唯一标志
-                Log.i("UMengInitializer", "注册成功：deviceToken：-------->  $deviceToken")
-            }
-
-            override fun onFailure(s: String, s1: String) {
-                Log.e("UMengInitializer", "注册失败：-------->  s:$s,s1:$s1")
-            }
-        })
-
-        // /**
-        //  * 初始化厂商通道
-        //  */
-        // //小米通道
-        // MiPushRegistar.register(this, "填写您在小米后台APP对应的xiaomi id", "填写您在小米后台APP对应的xiaomi key");
-        // //华为通道，注意华为通道的初始化参数在minifest中配置
-        // HuaWeiRegister.register(this);
-        // //魅族通道
-        // MeizuRegister.register(this, "填写您在魅族后台APP对应的app id", "填写您在魅族后台APP对应的app key");
-        // //OPPO通道
-        // OppoRegister.register(this, "填写您在OPPO后台APP对应的app key", "填写您在魅族后台APP对应的app secret");
-        // //VIVO 通道，注意VIVO通道的初始化参数在minifest中配置
-        // VivoRegister.register(this);
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
