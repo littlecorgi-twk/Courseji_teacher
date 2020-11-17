@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.littlecorgi.commonlib.BaseActivity
@@ -14,6 +15,7 @@ import com.littlecorgi.commonlib.util.TimeUtil
 import com.littlecorgi.courseji.databinding.ActivityMainBinding
 import com.littlecorgi.courseji.schedule.ui.ScheduleViewPagerFragmentStateAdapter
 
+@Route(path = "app/MainActivity")
 class MainActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityMainBinding

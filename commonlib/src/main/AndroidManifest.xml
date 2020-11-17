@@ -34,9 +34,9 @@
             <meta-data
                 android:name="com.littlecorgi.commonlib.ToastyInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.littlecorgi.commonlib.UMengInitializer"
-                android:value="androidx.startup" />
+            <!--<meta-data-->
+            <!--    android:name="com.littlecorgi.commonlib.UMengInitializer"-->
+            <!--    android:value="androidx.startup" />-->
             <meta-data
                 android:name="com.littlecorgi.commonlib.ARouterInitializer"
                 android:value="androidx.startup" />
