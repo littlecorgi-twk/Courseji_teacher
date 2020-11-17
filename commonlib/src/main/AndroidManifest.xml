@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
@@ -43,11 +44,31 @@
             <meta-data
                 android:name="com.littlecorgi.commonlib.ARouterInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.littlecorgi.commonlib.BuglyInitializer"
+                android:value="androidx.startup" />
             <!-- <meta-data -->
             <!-- android:name="com.littlecorgi.commonlib.LeakCanaryInitializer" -->
             <!-- android:value="remove" /> -->
-        </provider> <!-- 友盟 -->
-        <!-- 以下为基本配置信息，需要自行添加至您的AndroidManifest文件中 start -->
+        </provider>
+      
+        <!--Bugly-->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <!--友盟-->
+        <!-- 以下为基本配置信息，需要自行添加至您的AndroidManifest文件中 start-->
         <service
             android:name="com.taobao.accs.ChannelService"
             android:exported="true"

@@ -74,5 +74,8 @@ ext {
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",// BaseRecyclerViewAdapterHelper
             "ARouter"                : "com.alibaba:arouter-api:1.5.1",//ARouter
             "ARouterCompiler"        : "com.alibaba:arouter-compiler:1.5.1",// ARouterCompiler
+            "BuglyCrashReport"       : "com.tencent.bugly:crashreport:latest.release",//BuglyCrashReport
+            "BuglyCrashReportUpgrade": "com.tencent.bugly:crashreport_upgrade:latest.release",//BuglyCrashReport升级功能
+            "BuglyNativeCrashReport" : "com.tencent.bugly:nativecrashreport:latest.release",//BuglyNativeCrashReport
     ]
 }

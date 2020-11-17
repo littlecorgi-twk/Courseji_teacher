@@ -1,5 +1,7 @@
 # Courseji
 
+![Travis状态](https://travis-ci.com/littlecorgi-twk/Courseji.svg?branch=master)
+
 Courseji-A Classroom Sign-in Assistant
 
 # 1. Intro (English version is coming soon...)
@@ -30,6 +32,7 @@ Courseji-A Classroom Sign-in Assistant
 - [Travis CI/CD](https://travis-ci.org/)
 - [CymChad/BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 - [Umeng](https://www.umeng.com/)
+- [Bugly 腾讯APP崩溃上报平台](https://bugly.qq.com/v2/index)
 
 # 3. Logger
 

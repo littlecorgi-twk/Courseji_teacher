@@ -15,6 +15,9 @@
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!--bugly必须的权限，AndroidStudio lint检查时会报错，忽略掉即可-->
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".AppApp"
