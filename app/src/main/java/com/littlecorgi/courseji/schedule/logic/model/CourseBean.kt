@@ -1,13 +1,12 @@
 package com.littlecorgi.courseji.schedule.logic.model
 
+import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 
 /**
  *
  * @author littlecorgi 2020/10/21
  */
-@Parcelize
 data class CourseBean(
     // 课程ID
     var id: Int,
@@ -35,6 +34,22 @@ data class CourseBean(
     var tableId: Int
 ) : Parcelable {
 
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readInt()
+    ) {
+    }
+
     /**
      * 返回从第几节到第几节
      */
@@ -54,6 +69,35 @@ data class CourseBean(
             // 双周，并且判断是否在此周，以及此周是否是双周
             2 -> (startWeek <= week) && (week <= endWeek) && (week % 2 == 0)
             else -> false
+        }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(courseName)
+        parcel.writeInt(day)
+        parcel.writeString(room)
+        parcel.writeString(teacher)
+        parcel.writeInt(startNode)
+        parcel.writeInt(step)
+        parcel.writeInt(startWeek)
+        parcel.writeInt(endWeek)
+        parcel.writeInt(type)
+        parcel.writeString(color)
+        parcel.writeInt(tableId)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<CourseBean> {
+        override fun createFromParcel(parcel: Parcel): CourseBean {
+            return CourseBean(parcel)
+        }
+
+        override fun newArray(size: Int): Array<CourseBean?> {
+            return arrayOfNulls(size)
         }
     }
 }
