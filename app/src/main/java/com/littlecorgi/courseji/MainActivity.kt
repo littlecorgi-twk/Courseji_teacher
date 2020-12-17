@@ -80,13 +80,6 @@ class MainActivity : BaseActivity() {
         }
         mBinding.vpSchedule.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            }
 
             // 当课程表滑动时
             override fun onPageSelected(position: Int) {
@@ -95,9 +88,6 @@ class MainActivity : BaseActivity() {
                 Log.d("ViewPager", "onPageSelected: $position ${mViewModel.currentWeek}")
             }
 
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
-            }
         })
     }
 

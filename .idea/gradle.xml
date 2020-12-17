@@ -13,7 +13,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/attendance" />
             <option value="$PROJECT_DIR$/commonlib" />
+            <option value="$PROJECT_DIR$/leave" />
             <option value="$PROJECT_DIR$/my" />
           </set>
         </option>

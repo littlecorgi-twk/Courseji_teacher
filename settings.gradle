@@ -1,3 +1,7 @@
+include ':leave'
+include ':leave'
+include ':leave'
+include ':attendance'
 include ':my'
 include ':commonlib'
 include ':app'
