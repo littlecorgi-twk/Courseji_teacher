@@ -93,7 +93,7 @@ public class PeopleHistoryFragment extends Fragment {
         otherPhone = pref.getString("otherPhone","");
         reason = pref.getString("leaveSituation","");
 
-        numberText.setText(name);
+        nameText.setText(name);
         type1Text.setText(type1);
         type2Text.setText(type2);
         startTimeText.setText(startTime);

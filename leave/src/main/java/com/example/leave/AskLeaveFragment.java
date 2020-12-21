@@ -1,11 +1,16 @@
 package com.example.leave;
 
 import android.animation.Animator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +21,35 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AskLeaveFragment extends Fragment {
+    private RecyclerView recycler;
+    private static final String TAG = "AskLeave";
+    private SelectPlotAdapter adapter;
+    private ArrayList<String> allSelectList;//所有图片集合
+    private ArrayList<String> categoryLists;//查看图片集合
+    private List<LocalMedia> selectList = new ArrayList<>();
 
     private EditText nameEditText;
     private EditText classTextEditText;
@@ -98,8 +121,9 @@ public class AskLeaveFragment extends Fragment {
         otherPhoneEditText = (EditText) getActivity().findViewById(R.id.edit_text_other_phone);
         leaveSituationEditText = (EditText) getActivity().findViewById(R.id.edit_text_leave_situation);
 
-        addPictureImage = (ImageView) getActivity().findViewById(R.id.image_add_picture);
         submitButton = getActivity().findViewById(R.id.submit);
+
+        recycler = getActivity().findViewById(R.id.recycler);
 
 
 
@@ -119,12 +143,12 @@ public class AskLeaveFragment extends Fragment {
             }
         });
 
-        addPictureImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
+        // addPictureImage.setOnClickListener(new View.OnClickListener() {
+        //     @Override
+        //     public void onClick(View v) {
+        //         showDialog();
+        //     }
+        // });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +187,89 @@ public class AskLeaveFragment extends Fragment {
                 viewPager.setCurrentItem(1);
             }
         });
+
+
+
+        //添加多张图片
+        if(null == allSelectList){
+            allSelectList = new ArrayList<>();
+        }
+        if(null == categoryLists){
+            categoryLists = new ArrayList<>();
+        }
+        Tools.requestPermissions((AppCompatActivity) getActivity());
+        initAdapter();
+
     }
+
+    private void initAdapter(){
+        //最多九张有图片
+
+        adapter = new SelectPlotAdapter(getActivity().getApplicationContext(),9);
+        recycler.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(),3));
+        adapter.setImageList(allSelectList);
+        recycler.setAdapter(adapter);
+        adapter.setListener(new SelectPlotAdapter.CallbackListener() {
+            @Override
+            public void add() {
+                int size = 9-allSelectList.size();
+                Tools.galleryPictures((AppCompatActivity) getActivity(),size);
+            }
+
+
+            @Override
+            public void delete(int position) {
+                allSelectList.remove(position);
+                categoryLists.remove(position);
+                adapter.setImageList(allSelectList); //再set所有集合
+            }
+
+            @Override
+            public void item(int position, List<String> mList) {
+                selectList.clear();
+                for(int i=0;i<allSelectList.size();i++){
+                    LocalMedia localMedia = new LocalMedia();
+                    localMedia.setPath(allSelectList.get(i));
+                    selectList.add(localMedia);
+                }
+                //①、图片选择器自带预览
+                PictureSelector.create(getActivity())
+                        .themeStyle(R.style.picture_default_style)
+                        .isNotPreviewDownload(true)//是否显示保存弹框
+                        .imageEngine(GlideEngine.createGlideEngine()) // 选择器展示不出图片则添加
+                        .openExternalPreview(position, selectList);
+                //②:自定义布局预览
+                //Tools.startPhotoViewActivity(MainActivity.this, categoryLists, position);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            //结果回调
+            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+            showSelectPic(selectList);
+        }
+    }
+
+    private void showSelectPic(List<LocalMedia> result){
+        for(int i=0;i<result.size();i++){
+            String path;
+            //判断是否10.0以上
+            if (Build.VERSION.SDK_INT >= 29) {
+                path = result.get(i).getAndroidQToPath();
+            } else {
+                path = result.get(i).getPath();
+            }
+            allSelectList.add(path);
+            categoryLists.add(path);
+            Log.e(TAG, "图片链接: " + path);
+        }
+        adapter.setImageList(allSelectList);
+    }
+
 
 
 
