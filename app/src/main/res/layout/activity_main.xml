@@ -156,7 +156,6 @@
                 app:headerLayout="@layout/nav_header"
                 app:menu="@menu/menu_navigation" />
         </androidx.drawerlayout.widget.DrawerLayout>
-
         <FrameLayout
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
@@ -164,7 +163,6 @@
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             app:behavior_hideable="true"
             app:behavior_peekHeight="0dp">
-
             <include layout="@layout/bottom_change_week" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

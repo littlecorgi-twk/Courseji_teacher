@@ -27,6 +27,7 @@ ext {
             "constraintLayout"       : 'androidx.constraintlayout:constraintlayout:2.0.3',//约束性布局
             "DrawerLayout"           : 'androidx.drawerlayout:drawerlayout:1.1.1',
             "viewpager2"             : "androidx.viewpager2:viewpager2:1.0.0",
+            "swiperefreshlayout"     : "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
 
             // Jetpack
             "viewModel"              : "androidx.lifecycle:lifecycle-viewmodel:${android["lifecycleVersion"]}",
@@ -75,5 +76,11 @@ ext {
             "ARouter"                : "com.alibaba:arouter-api:1.5.1",//ARouter
             "ARouterCompiler"        : "com.alibaba:arouter-compiler:1.5.1",// ARouterCompiler
             "Bugly"                  : "com.tencent.bugly:crashreport:latest.release",//Bugly
+            "PickerView"             : 'com.contrarywind:Android-PickerView:4.1.9',  //PickerView
+            "circleimageview"        : 'de.hdodenhof:circleimageview:3.1.0',        //CircleImageView
+            "PictureSelector"        : 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0',   //PictureSelector
+
+            "refresh-layout-kernel"  : 'com.scwang.smart:refresh-layout-kernel:2.0.1',                  //SmartRefreshLayout
+            "refresh-header-classics": 'com.scwang.smart:refresh-header-classics:2.0.1',
     ]
 }

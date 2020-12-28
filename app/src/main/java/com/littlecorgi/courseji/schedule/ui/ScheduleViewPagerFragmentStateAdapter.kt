@@ -16,7 +16,6 @@ class ScheduleViewPagerFragmentStateAdapter(
     override fun getItemCount(): Int {
         return classList.size
     }
-
     override fun createFragment(position: Int): Fragment {
         return ScheduleFragment().apply {
             arguments = Bundle().apply {

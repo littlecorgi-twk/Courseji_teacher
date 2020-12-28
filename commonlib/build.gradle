@@ -107,6 +107,7 @@ dependencies {
 
     // Bugly
     api rootProject.ext.dependencies["Bugly"]
+
 }
 
 apply from: 'UMeng_Push.gradle'
