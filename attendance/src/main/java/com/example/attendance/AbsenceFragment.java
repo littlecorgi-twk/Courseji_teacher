@@ -4,15 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.attendance.Tools.Absence;
 import com.example.attendance.Tools.AbsenceFragmentAdapter;
+import com.example.attendance.weight.TitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,7 @@ import java.util.List;
 public class AbsenceFragment extends Fragment {
 
     private List<Absence> absenceLists = new ArrayList<>();
+    private Button returnButton;
 
     @Nullable
     @Override
@@ -31,9 +36,17 @@ public class AbsenceFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         AbsenceFragmentAdapter adapter = new AbsenceFragmentAdapter(absenceLists);
         recyclerView.setAdapter(adapter);
+
+        returnButton = view.findViewById(R.id.btn_return);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.popBackStack();
+            }
+        });
         return view;
     }
-
 
 
     public void initData() {
@@ -42,5 +55,6 @@ public class AbsenceFragment extends Fragment {
         Absence absence2 = new Absence("数学", "张三", "2020-12-20-10:00");
         absenceLists.add(absence2);
     }
+
 
 }

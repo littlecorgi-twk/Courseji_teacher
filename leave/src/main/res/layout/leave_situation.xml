@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F8F8F8">
+    <include layout="@layout/layout_titleview"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
                             android:id="@+id/number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="04191225"/>
+                            android:text="111111"/>
 
                     </LinearLayout>
 
@@ -264,7 +265,7 @@
                                 android:id="@+id/teacher_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="邢雅博"
+                                android:text="老师"
                                 android:textColor="@android:color/black"
                                 android:textSize="17sp"/>
                             <TextView
@@ -279,7 +280,7 @@
                                 android:id="@+id/agree_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="11.26 10:17"
+                                android:text="1.1 10:17"
                                 android:paddingLeft="10dp"/>
                         </LinearLayout>
 
@@ -292,7 +293,39 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/xiaojia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="销假"
+                android:background="@drawable/button_shape"
+                android:layout_margin="20dp"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/location_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/location"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/location_text"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

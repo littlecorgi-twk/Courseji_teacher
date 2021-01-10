@@ -203,7 +203,7 @@
                         android:maxLength="10"
                         android:textColor="#686B6E"
                         android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:hint="2020-12.2"
+                        android:hint="2021-1.1"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -229,7 +229,7 @@
                         android:layout_marginStart="10dp"
                         android:background="@null"
                         android:maxLength="10"
-                        android:hint="2020-12.2"
+                        android:hint="2021-1.1"
                         android:textCursorDrawable="@drawable/edit_text_shape"
                         android:textColor="#686B6E"
                         android:textSize="15sp" />
@@ -257,7 +257,7 @@
                         android:layout_marginStart="10dp"
                         android:background="@null"
                         android:maxLength="10"
-                        android:hint="西安邮电大学长安校区"
+                        android:hint="地点"
                         android:textColor="#686B6E"
                         android:textSize="15sp" />
                 </LinearLayout>

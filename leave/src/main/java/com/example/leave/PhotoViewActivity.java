@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.leave.student.MyImageAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -66,7 +66,7 @@
                                 android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="李璇"
+                                android:text="李华"
                                 android:textColor="@android:color/white"
                                 android:textSize="18dp"/>
 
@@ -170,29 +170,6 @@
                             android:textSize="20sp"
                             android:textStyle="bold"/>
 
-                        <LinearLayout
-                            android:id="@+id/ll_switchover_chart"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center_vertical"
-                                android:src="@mipmap/icon_switch"/>
-
-                            <TextView
-                                android:id="@+id/tv_switchover_chart"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="5dp"
-                                android:text="切换考勤课程占比图"/>
-
-                        </LinearLayout>
                     </RelativeLayout>
 
                     <View
@@ -421,8 +398,6 @@
                             android:src="@mipmap/icon_right_gray" />
 
                     </RelativeLayout>
-
-
 
                 </LinearLayout>
 

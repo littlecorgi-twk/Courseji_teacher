@@ -21,14 +21,14 @@
             android:paddingTop="11dp"
             android:paddingRight="10dp"
             />
-           <TextView
-               android:id="@+id/leaveBackText"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="已销假"
-               android:background="@drawable/leave_flag"
-               android:textSize="15dp"
-               android:textColor="@android:color/white"/>
+        <TextView
+            android:id="@+id/leaveBackText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未销假"
+            android:background="@drawable/leave_red_flag"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
     <LinearLayout
