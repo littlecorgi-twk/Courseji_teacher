@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Courseji</string>
+
+    <string name="text_login_web_title">Log in educational system</string>
+    <string name="hint_student_id">Student ID</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_check_code">Verification code</string>
+    <string name="toast_check_code_get_error">Failed to get verification code</string>
+    <string name="text_login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="sure">Sure</string>
 </resources>

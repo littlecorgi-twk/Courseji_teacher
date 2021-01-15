@@ -15,8 +15,7 @@
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <!--bugly必须的权限，AndroidStudio lint检查时会报错，忽略掉即可-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- bugly必须的权限，AndroidStudio lint检查时会报错，忽略掉即可 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
@@ -28,6 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Corseji">
+        <activity android:name=".schedule_import.LoginWebActivity"></activity>
+        <activity android:name=".schedule_import.SchoolListActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -174,8 +175,7 @@
             android:authorities="${applicationId}.umeng.message"
             android:exported="false">
             <grant-uri-permission android:pathPattern=".*" />
-        </provider>
-        <!--华为Push配置-->
+        </provider> <!-- 华为Push配置 -->
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="appid=103176589" />

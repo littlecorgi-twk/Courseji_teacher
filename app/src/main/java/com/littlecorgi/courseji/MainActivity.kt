@@ -14,6 +14,7 @@ import com.littlecorgi.commonlib.BaseActivity
 import com.littlecorgi.commonlib.util.TimeUtil
 import com.littlecorgi.courseji.databinding.ActivityMainBinding
 import com.littlecorgi.courseji.schedule.ui.ScheduleViewPagerFragmentStateAdapter
+import com.littlecorgi.courseji.schedule_import.ui.ChooseImportFragment
 import com.tencent.bugly.beta.Beta
 
 @Route(path = "app/MainActivity")
@@ -37,6 +38,7 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         initNav()
+        initImport()
         initBottomSheet()
         initScheduleViewPager()
     }
@@ -48,6 +50,16 @@ class MainActivity : BaseActivity() {
         // 点击导航按钮显示NavigationView
         mBinding.tvNav.setOnClickListener {
             mBinding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+    }
+
+    /**
+     * 初始化导入图标功能
+     */
+    private fun initImport() {
+        // 点击导航按钮显示NavigationView
+        mBinding.tvImport.setOnClickListener {
+            ChooseImportFragment().show(supportFragmentManager, "importDialog")
         }
     }
 

@@ -9,4 +9,16 @@
         <item name="rippleColor">@color/mtrl_btn_text_btn_ripple_color</item>
         <item name="android:elevation">0dp</item>
     </style>
+
+    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ButtonBackground">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
 </resources>

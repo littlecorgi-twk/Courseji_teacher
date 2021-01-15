@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 kapt {
@@ -60,6 +61,7 @@ android {
 
 dependencies {
     api rootProject.ext.dependencies["kotlinStdlib"]
+    api rootProject.ext.dependencies["kotlinCoroutinesAndroid"]
     api rootProject.ext.dependencies["coreKtx"]
     api rootProject.ext.dependencies["appcompat"]
     api rootProject.ext.dependencies["material"]
@@ -80,6 +82,10 @@ dependencies {
     api rootProject.ext.dependencies["liveData"]
     // App Startup
     api rootProject.ext.dependencies["startup"]
+    // Room
+    api rootProject.ext.dependencies["room"]
+    api rootProject.ext.dependencies["roomKtx"]
+    kapt rootProject.ext.dependencies["room-compiler"]
 
     // Koin
     // Koin AndroidX Scope feature
@@ -114,6 +120,12 @@ dependencies {
     // api rootProject.ext.dependencies["BuglyCrashReport"]
     api rootProject.ext.dependencies["BuglyCrashReportUpgrade"]
     api rootProject.ext.dependencies["BuglyNativeCrashReport"]
+
+    // NumberPickerView
+    api rootProject.ext.dependencies["NumberPickerView"]
+
+    // Jsoup
+    api rootProject.ext.dependencies["Jsoup"]
 }
 
 apply from: 'UMeng_Push.gradle'
