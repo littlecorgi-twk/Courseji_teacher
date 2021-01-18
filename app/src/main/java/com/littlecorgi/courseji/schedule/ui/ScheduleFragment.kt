@@ -24,16 +24,23 @@ class ScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
-        mBinding.tvText.text = arguments?.getString("text") ?: "null"
+        mBinding.tvText.text = "${arguments?.getInt("week")}"
         // 监听Fragment生命周期变化
         parentFragmentManager.registerFragmentLifecycleCallbacks(
             MyFragmentLifecycleCallbacks(
-                ScheduleFragment::class.java.simpleName + arguments?.getString(
-                    "text"
-                )
+                ScheduleFragment::class.java.simpleName + arguments?.getInt("week")
             ),
             false
         )
         return mBinding.root
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(week: Int) = ScheduleFragment().apply {
+            arguments = Bundle().apply {
+                putInt("week", week)
+            }
+        }
     }
 }

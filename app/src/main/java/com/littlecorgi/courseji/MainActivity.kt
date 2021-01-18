@@ -2,9 +2,9 @@ package com.littlecorgi.courseji
 
 import android.animation.StateListAnimator
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.annotation.UiThread
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +24,7 @@ import com.littlecorgi.courseji.schedule.vm.ScheduleViewModel
 import com.littlecorgi.courseji.schedule_import.ui.ChooseImportFragment
 import com.littlecorgi.courseji.utils.CourseUtils
 import com.tencent.bugly.beta.Beta
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.ParseException
@@ -35,6 +36,7 @@ class MainActivity : BaseActivity() {
     private val mViewModel by viewModels<ScheduleViewModel>()
     private lateinit var mBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var mWeekToggleGroup: MaterialButtonToggleGroup
+    private lateinit var mVPAdapter: ScheduleViewPagerFragmentStateAdapter
 
     private val mScheduleViewPagerScrollerListener = object : ViewPager2.OnPageChangeCallback() {
         // 当课程表滑动时
@@ -51,6 +53,7 @@ class MainActivity : BaseActivity() {
                         mBinding.tvWeek.text = text
                         mBinding.tvWeekday.text = "非本周"
                     }
+
                 } else {
                     val text = "第${mViewModel.selectedWeek}周"
                     mBinding.tvWeek.text = text
@@ -59,26 +62,13 @@ class MainActivity : BaseActivity() {
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-            // super.onPageSelected(position)
-            // // 如果非本周，则更新Text
-            // Log.d("ViewPager", "onPageSelected: $position ${mViewModel.currentWeek}")
-            // val text = "第${position + 1}周"
-            // mBinding.tvWeek.text = text
-            // Log.d("MainActivity8888", "initScheduleViewPager: 第${position}周")
         }
     }
 
-    private val mBottomSheetCallback = object :
-        BottomSheetBehavior.BottomSheetCallback() {
+    private val mBottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                mBinding.bottomSheetSvWeek.smoothScrollTo(
-                    if (mViewModel.selectedWeek > 4) (mViewModel.selectedWeek - 4) * dip(56) else 0,
-                    0
-                )
-                if (mWeekToggleGroup.checkedButtonId != mViewModel.selectedWeek) {
-                    mWeekToggleGroup.check(mViewModel.selectedWeek)
-                }
+                switchWeekToggleGroupAndAnimation()
             }
         }
 
@@ -103,37 +93,26 @@ class MainActivity : BaseActivity() {
         //todo
         // 此处需要先执行数据库操作，读取到table，之后才能走后面的初始化流程，
         // 但是数据库的读取属于耗时任务，此时会阻塞后面的View操作，所以会造成UI显示暂停1s左右
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.table = mViewModel.getDefaultTable()
-            initWeekToggleGroup()
-            initNav()
-            initImport()
-            initBottomSheet()
-            initScheduleViewPager()
-        }
-        // 上面todo的解决方案，但是还未完成
-        // 此方法中会进行读取数据库操作，执行耗时任务，所以单领出来，让他去读取数据库，并将读取出来的数据更新View显示，
-        // 所以上面的方法中与mViewModel.table这个变量相关的，必须放到此方法中去执行，不然会显示"变量在初始化前被使用"
-        // initViewAfterTableInitialized()
-    }
+            // 获得当前周数
+            mViewModel.currentWeek =
+                CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst)
+            // 设置默认的选中周数
+            mViewModel.selectedWeek = mViewModel.currentWeek
+            // 切换到主线程来更新UI
+            launch(Dispatchers.Main) {
+                initBottomSheet()
+                initScheduleViewPager()
+                initWeekToggleGroup()
 
-    /**
-     * 初始化导航图标功能
-     */
-    private fun initNav() {
-        // 点击导航按钮显示NavigationView
-        mBinding.tvNav.setOnClickListener {
-            mBinding.drawerLayout.openDrawer(GravityCompat.START)
-        }
-    }
-
-    /**
-     * 初始化导入图标功能
-     */
-    private fun initImport() {
-        // 点击导航按钮显示NavigationView
-        mBinding.tvImport.setOnClickListener {
-            ChooseImportFragment().show(supportFragmentManager, "importDialog")
+                // 此处两行代码最后就这样，别进行修改，一定得先initEvent()再showTvWeekText()
+                // 初始化事件
+                initEvent()
+                // 根据当前周数显示周数Text，放在此处是为了确保在加载完ViewPager的监听事件后，再去显示周数Text
+                // 防止监听事件中的对周数Text的显示的修改对我们此处的显示造成干扰
+                showTvWeekText()
+            }
         }
     }
 
@@ -145,62 +124,47 @@ class MainActivity : BaseActivity() {
     private fun initBottomSheet() {
         // 默认先隐藏，不显示BottomSheet
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        // 点击more按钮显示BottomSheet
-        mBinding.tvMore.setOnClickListener {
-            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-        // 点击BottomSheet自动隐藏
-        // 事先一定需要将behavior_hidden设置为true
-        // 见 https://blog.csdn.net/wjr1949/article/details/105447735
-        // 额外需要注意的是，我特地将BottomSheet的高度设置成了parent，这样给用户看起来点击的不是BottomSheet，但是实际上就是BottomSheet
-        // 来达到点击外部自动隐藏的效果
-        mBinding.bottomSheet.setOnClickListener {
-            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        }
-        mBottomSheetBehavior.addBottomSheetCallback(mBottomSheetCallback)
     }
 
     /**
      * 初始化课程表ViewPager
      */
     private fun initScheduleViewPager() {
-        val classList = MutableList(mViewModel.table.maxWeek) { i ->
-            "Fragment$i"
-        }
+        mVPAdapter =
+            ScheduleViewPagerFragmentStateAdapter(this@MainActivity, mViewModel.table.maxWeek)
         mBinding.vpSchedule.apply {
-            this.adapter = ScheduleViewPagerFragmentStateAdapter(this@MainActivity, classList)
+            this.adapter = mVPAdapter
+            this.offscreenPageLimit = 1
         }
-        mBinding.vpSchedule.registerOnPageChangeCallback(mScheduleViewPagerScrollerListener)
+        mVPAdapter.notifyDataSetChanged()
+        if (CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst) > 0) {
+            mBinding.vpSchedule.currentItem =
+                CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst) - 1
+        } else {
+            mBinding.vpSchedule.currentItem = 0
+        }
     }
 
     /**
      * 初始化周数选择组件
      */
     private fun initWeekToggleGroup() {
-        // // 事先初始化好table
-        // lifecycleScope.launch {
-        //     mViewModel.table = mViewModel.getDefaultTable()
-        // 获得当前周数
-        mViewModel.currentWeek =
-            CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst)
-        // 设置默认的选中周数
-        mViewModel.selectedWeek = mViewModel.currentWeek
-        if (mViewModel.currentWeek > 0) {
-            if (mViewModel.currentWeek <= mViewModel.table.maxWeek) {
-                val text = "第${mViewModel.currentWeek}周"
-                // 其实此处和上面ViewPager的滚动监听的设置text重复了
-                mBinding.tvWeek.text = text
-                Log.d("MainActivity8888", "initWeekToggleGroup: 第${mViewModel.currentWeek}周")
-            } else {
-                mBinding.tvWeek.text = "当前周已超出设定范围"
-                //TODO 完善周数管理逻辑，当超过时可以选择手动设置上学周期
-            }
-        } else {
-            mBinding.tvWeek.text = "还没有开学哦"
+        // 添加Button
+        addWeekToggleGroupButton()
+        lifecycleScope.launch {
+            delay(1000)
+            switchWeekToggleGroupAndAnimation()
         }
-        // 添加Buton
+    }
+
+    /**
+     * 必须在UIThread中进行操作
+     */
+    @UiThread
+    private fun addWeekToggleGroupButton() {
         mWeekToggleGroup.removeAllViews()
         mWeekToggleGroup.clearChecked()
+        // 根据周数，总共有几个周就添加几个Button进去
         for (i in 1..mViewModel.table.maxWeek) {
             mWeekToggleGroup.addView(
                 MaterialButton(this@MainActivity).apply {
@@ -222,30 +186,36 @@ class MainActivity : BaseActivity() {
                 dip(48), dip(48)
             )
         }
-        lifecycleScope.launch {
-            delay(1000)
-            if (mWeekToggleGroup.checkedButtonId != mViewModel.selectedWeek) {
-                mWeekToggleGroup.check(mViewModel.selectedWeek)
+    }
+
+    /**
+     * 根据currentWeek和maxWeek的信息判断当前是在课程表的周内还是周外，并显示对应信息
+     */
+    private fun showTvWeekText() {
+        if (mViewModel.currentWeek > 0) {
+            if (mViewModel.currentWeek <= mViewModel.table.maxWeek) {
+                val text = "第${mViewModel.currentWeek}周"
+                // 其实此处和上面ViewPager的滚动监听的设置text重复了
+                mBinding.tvWeek.text = text
+            } else {
+                mBinding.tvWeek.text = "当前周已超出设定范围"
+                //TODO 完善周数管理逻辑，当超过时可以选择手动设置上学周期
             }
-            // 滑动动画
-            mBinding.bottomSheetSvWeek.smoothScrollTo(
-                if (mViewModel.selectedWeek > 4) (mViewModel.selectedWeek - 4) * dip(
-                    56
-                ) else 0, 0
-            )
-        }
-        // 点击事件
-        mWeekToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                mBinding.vpSchedule.currentItem = checkedId - 1
-            }
+        } else {
+            mBinding.tvWeek.text = "还没有开学哦"
         }
     }
-// }
 
-    private fun initViewAfterTableInitialized() {
-        lifecycleScope.launch {
-            mViewModel.table = mViewModel.getDefaultTable()
+    /**
+     * 当课程表ViewPager滑动后，再次打开BottomSheetBehavior的时候自动跳转到对应周Button及其滑动动画
+     */
+    private fun switchWeekToggleGroupAndAnimation() {
+        mBinding.bottomSheetSvWeek.smoothScrollTo(
+            if (mViewModel.selectedWeek > 4) (mViewModel.selectedWeek - 4) * dip(56) else 0,
+            0
+        )
+        if (mWeekToggleGroup.checkedButtonId != mViewModel.selectedWeek) {
+            mWeekToggleGroup.check(mViewModel.selectedWeek)
         }
     }
 
@@ -278,6 +248,44 @@ class MainActivity : BaseActivity() {
         mBinding.tvDate.text = TimeUtil.getTodayDate()
         // 显示 周n
         mBinding.tvWeekday.text = TimeUtil.getTodayWeekDay()
+    }
+
+    private fun initEvent() {
+        // 点击导航按钮显示NavigationView
+        mBinding.tvNav.setOnClickListener {
+            mBinding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        // 点击导入按钮
+        mBinding.tvImport.setOnClickListener {
+            ChooseImportFragment().show(supportFragmentManager, "importDialog")
+        }
+
+        // 点击more按钮显示BottomSheet
+        mBinding.tvMore.setOnClickListener {
+            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        // 点击BottomSheet自动隐藏
+        // 事先一定需要将behavior_hidden设置为true
+        // 见 https://blog.csdn.net/wjr1949/article/details/105447735
+        // 额外需要注意的是，我特地将BottomSheet的高度设置成了parent，这样给用户看起来点击的不是BottomSheet，但是实际上就是BottomSheet
+        // 来达到点击外部自动隐藏的效果
+        mBinding.bottomSheet.setOnClickListener {
+            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+        // BottomSheetBehavior的状态监听
+        mBottomSheetBehavior.addBottomSheetCallback(mBottomSheetCallback)
+
+        // 周数选择的点击事件。这个View是BottomSheetBehavior里面的那个
+        mWeekToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                mBinding.vpSchedule.currentItem = checkedId - 1
+            }
+        }
+
+        // 课程表ViewPager的页面切换事件监听
+        mBinding.vpSchedule.registerOnPageChangeCallback(mScheduleViewPagerScrollerListener)
     }
 
     override fun onBackPressed() {
