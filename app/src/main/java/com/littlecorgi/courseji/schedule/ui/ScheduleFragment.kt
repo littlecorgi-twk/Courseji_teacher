@@ -22,7 +22,7 @@ class ScheduleFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
         mBinding.tvText.text = arguments?.getString("text") ?: "null"
         // 监听Fragment生命周期变化
@@ -36,6 +36,4 @@ class ScheduleFragment : Fragment() {
         )
         return mBinding.root
     }
-
-
 }
