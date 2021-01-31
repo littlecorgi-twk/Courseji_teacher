@@ -1,4 +1,3 @@
-
 if (isRunAlone.toBoolean()) {
     apply plugin: 'com.android.application'
 } else {
