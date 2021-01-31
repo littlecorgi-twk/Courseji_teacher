@@ -10,4 +10,6 @@
     <string name="text_login">登录</string>
     <string name="cancel">取消</string>
     <string name="sure">确定</string>
+    <string name="error_course_data">检测到课程数据有误，请仔细核对</string>
+    <string name="error_course_node">有课程的节数大于课表的最大节数</string>
 </resources>

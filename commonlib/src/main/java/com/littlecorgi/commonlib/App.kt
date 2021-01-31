@@ -55,7 +55,8 @@ open class App : Application() {
          *
          * true代表调试，false代表线上
          */
-        const val isDebug: Boolean = false
+        @JvmField
+        val isDebug: Boolean = BuildConfig.DEBUG
 
         // private lateinit var context: Context
         //

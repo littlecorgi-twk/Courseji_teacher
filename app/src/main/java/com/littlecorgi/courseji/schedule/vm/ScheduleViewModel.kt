@@ -10,7 +10,7 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.*
 import com.littlecorgi.courseji.utils.CourseUtils
 
 /**
- *
+ * 课程ViewModel
  * @author littlecorgi 2020/12/26
  */
 class ScheduleViewModel(application: Application) : AndroidViewModel(application) {

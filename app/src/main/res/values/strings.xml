@@ -9,4 +9,6 @@
     <string name="text_login">Login</string>
     <string name="cancel">Cancel</string>
     <string name="sure">Sure</string>
+    <string name="error_course_data">find the course data error</string>
+    <string name="error_course_node">有课程的节数大于课表的最大节数</string>
 </resources>

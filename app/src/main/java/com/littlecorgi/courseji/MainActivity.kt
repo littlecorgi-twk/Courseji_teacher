@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.annotation.UiThread
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -95,11 +96,14 @@ class MainActivity : BaseActivity() {
         // 但是数据库的读取属于耗时任务，此时会阻塞后面的View操作，所以会造成UI显示暂停1s左右
         lifecycleScope.launch(Dispatchers.IO) {
             mViewModel.table = mViewModel.getDefaultTable()
+            mViewModel.timeList = mViewModel.getTimeList(mViewModel.table.timeTable)
             // 获得当前周数
             mViewModel.currentWeek =
                 CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst)
             // 设置默认的选中周数
             mViewModel.selectedWeek = mViewModel.currentWeek
+            // 设置列表高度
+            mViewModel.itemHeight = dip(mViewModel.table.itemHeight)
             // 切换到主线程来更新UI
             launch(Dispatchers.Main) {
                 initBottomSheet()
@@ -112,6 +116,14 @@ class MainActivity : BaseActivity() {
                 // 根据当前周数显示周数Text，放在此处是为了确保在加载完ViewPager的监听事件后，再去显示周数Text
                 // 防止监听事件中的对周数Text的显示的修改对我们此处的显示造成干扰
                 showTvWeekText()
+                for (i in 1..7) {
+                    mViewModel.getRawCourseByDay(i, mViewModel.table.id)
+                        .observe(this@MainActivity, Observer { list ->
+                            if (list == null) return@Observer
+                            if (list.isNotEmpty() && list[0].tableId != mViewModel.table.id) return@Observer
+                            mViewModel.allCourseList[i - 1].value = list
+                        })
+                }
             }
         }
     }
