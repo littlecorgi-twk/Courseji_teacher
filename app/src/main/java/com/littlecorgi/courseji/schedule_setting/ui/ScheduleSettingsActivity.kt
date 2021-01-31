@@ -19,7 +19,6 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 import com.littlecorgi.courseji.schedule_setting.logic.SettingsMultipleEntity
 import com.littlecorgi.courseji.schedule_setting.ui.adapter.ScheduleSettingsRecyclerAdapter
 import com.littlecorgi.courseji.schedule_setting.vm.ScheduleSettingsViewModel
-import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -111,9 +110,11 @@ class ScheduleSettingsActivity : AppCompatActivity() {
                         mViewModel.mDay
                     ).show()
                     if (mViewModel.table.sundayFirst) {
-                        Toasty.success(this, "为了周数计算准确，建议选择周日哦", Toast.LENGTH_LONG).show()
+                        // Toasty.success(this, "为了周数计算准确，建议选择周日哦", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "为了周数计算准确，建议选择周日哦", Toast.LENGTH_LONG).show()
                     } else {
-                        Toasty.success(this, "为了周数计算准确，建议选择周一哦", Toast.LENGTH_LONG).show()
+                        // Toasty.success(this, "为了周数计算准确，建议选择周一哦", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "为了周数计算准确，建议选择周一哦", Toast.LENGTH_LONG).show()
                     }
                 }
                 "当前周", "学期周数" -> {

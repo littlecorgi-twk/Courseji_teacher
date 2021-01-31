@@ -23,7 +23,6 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 import com.littlecorgi.courseji.schedule.vm.ScheduleViewModel
 import com.littlecorgi.courseji.utils.CourseUtils
-import es.dmoral.toasty.Toasty
 
 /**
  * 用RecyclerView实现的课程表，但是发现效果还没有addView的好，并且此处并不能用RecyclerView去实现，
@@ -135,22 +134,26 @@ class ScheduleFragmentBackup : Fragment() {
             if (c.step <= 0) {
                 c.step = 1
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
             }
             if (c.startNode <= 0) {
                 c.startNode = 1
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
             }
             if (c.startNode > table.nodes) {
                 c.startNode = table.nodes
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
             }
             if (c.startNode + c.step - 1 > table.nodes) {
                 c.step = table.nodes - c.startNode + 1
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
             }
 
             if (c.color.isEmpty()) {

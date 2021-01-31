@@ -76,7 +76,7 @@ ext {
             "Retrofit-converter-gson": "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",//Retrofit
             "leakcanary"             : 'com.squareup.leakcanary:leakcanary-android:2.4',//LeakCanary
             "AndPermission"          : 'com.yanzhenjie:permission:2.0.3',//AndPermission
-            "toasty"                 : 'com.github.GrenderG:Toasty:1.5.0',//Toasty
+            "toasty"                 : 'com.github.GrenderG:Toasty:1.5.0',//Toasty 由于还不支持Android11，所以暂时移除
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",// BaseRecyclerViewAdapterHelper
             "ARouter"                : "com.alibaba:arouter-api:1.5.1",//ARouter
             "ARouterCompiler"        : "com.alibaba:arouter-compiler:1.5.1",// ARouterCompiler

@@ -7,6 +7,7 @@ import android.os.Looper
 import android.os.Message
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.littlecorgi.commonlib.App
 import com.littlecorgi.commonlib.BaseActivity
@@ -15,7 +16,6 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeDetailBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeTableBean
 import com.littlecorgi.courseji.utils.getPrefer
-import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
@@ -105,10 +105,11 @@ class SplashActivity : BaseActivity() {
                 }
                 MSG_START_INTENT -> {
                     //TODO 这块的错误判断有点逻辑混乱，activity都为null了，那么肯定弹不了Toast，但是一时没想好该怎么改
-                    activity.get()?.start<MainActivity>() ?: Toasty.error(
-                        activity.get()!!,
-                        "获取到的Activity为null"
-                    )
+                    activity.get()?.start<MainActivity>() ?: Toast.makeText(
+                        activity.get(),
+                        "获取到的Activity为null",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     // 销毁此Activity，以便在MainActivity返回时不再会显示此Activity
                     activity.get()?.finish()
                 }

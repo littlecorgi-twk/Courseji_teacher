@@ -26,7 +26,6 @@ import com.littlecorgi.courseji.schedule.vm.ScheduleViewModel
 import com.littlecorgi.courseji.utils.Const
 import com.littlecorgi.courseji.utils.CourseUtils
 import com.littlecorgi.courseji.utils.getPrefer
-import es.dmoral.toasty.Toasty
 
 /**
  * 课程表Fragment
@@ -36,12 +35,15 @@ class ScheduleFragment : Fragment() {
 
     // 当前周数
     private var week = 0
+
     // 当前星期数
     private var weekDay = 1
+
     // 星期数据
     private lateinit var weekDate: List<String>
     private val viewModel by activityViewModels<ScheduleViewModel>()
     private lateinit var ui: ScheduleUI
+
     // 是否已经加载
     private var isLoaded = false
     private lateinit var showCourseNumber: LiveData<Int>
@@ -185,22 +187,27 @@ class ScheduleFragment : Fragment() {
             if (c.step <= 0) {
                 c.step = 1
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG)
+                    .show()
             }
             if (c.startNode <= 0) {
                 c.startNode = 1
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
             }
             if (c.startNode > table.nodes) {
                 c.startNode = table.nodes
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
             }
             if (c.startNode + c.step - 1 > table.nodes) {
                 c.step = table.nodes - c.startNode + 1
                 isError = true
-                Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                // Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
             }
 
             val textView = TipTextView(requireContext())

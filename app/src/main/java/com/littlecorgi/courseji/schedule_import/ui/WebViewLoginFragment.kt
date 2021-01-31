@@ -28,7 +28,6 @@ import com.littlecorgi.courseji.databinding.FragmentWebViewLoginBinding
 import com.littlecorgi.courseji.schedule_import.vm.ImportViewModel
 import com.littlecorgi.courseji.utils.Const
 import com.littlecorgi.courseji.utils.getPrefer
-import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -232,7 +231,8 @@ class WebViewLoginFragment : Fragment() {
         if (URLUtil.isHttpUrl(url) || URLUtil.isHttpsUrl(url)) {
             binding.wvCourse.loadUrl(url)
         } else {
-            Toasty.error(requireContext(), "请输入正确的网址╭(╯^╰)╮").show()
+            // Toasty.error(requireContext(), "请输入正确的网址╭(╯^╰)╮").show()
+            Toast.makeText(requireContext(), "请输入正确的网址╭(╯^╰)╮", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -244,17 +244,17 @@ class WebViewLoginFragment : Fragment() {
                     Log.d("导入的html", "showSource: ")
                     Log.d("导入的html", html)
                     val result = viewModel.importSchedule(html)
-                    Toasty.success(
+                    // Toasty.success(activity!!, "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看").show()
+                    Toast.makeText(
                         activity!!,
-                        "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看"
+                        "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看",
+                        Toast.LENGTH_SHORT
                     ).show()
                     activity!!.setResult(Activity.RESULT_OK)
                     activity!!.finish()
                 } catch (e: Exception) {
-                    Toasty.error(
-                        activity!!,
-                        "导入失败>_<\n${e.message}", Toast.LENGTH_LONG
-                    ).show()
+                    // Toasty.error(activity!!, "导入失败>_<\n${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity!!, "导入失败>_<\n${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
