@@ -1,6 +1,7 @@
 package com.littlecorgi.courseji.schedule_import
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.littlecorgi.courseji.R
@@ -14,6 +15,8 @@ class LoginWebActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_web)
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         val fragment = WebViewLoginFragment.newInstance(
             intent.getStringExtra("url")!!,

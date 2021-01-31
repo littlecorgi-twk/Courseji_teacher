@@ -15,8 +15,7 @@
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- bugly必须的权限，AndroidStudio lint检查时会报错，忽略掉即可 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".AppApp"
@@ -27,9 +26,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Corseji">
-        <activity android:name=".schedule_setting.ui.ScheduleSettingsActivity"></activity>
-        <activity android:name=".schedule_import.LoginWebActivity" />
-        <activity android:name=".schedule_import.SchoolListActivity" />
+        <activity android:name=".schedule_setting.ui.ScheduleSettingsActivity" />
+        <activity
+            android:name=".schedule_import.LoginWebActivity"
+            android:configChanges="keyboardHidden"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,8 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" /> <!-- 友盟 -->
-        <!-- 以下为基本配置信息，需要自行添加至您的AndroidManifest文件中 start -->
+        <activity android:name=".MainActivity" />
+        <!-- 以下为友盟基本配置信息，需要自行添加至您的AndroidManifest文件中 start -->
         <service
             android:name="com.taobao.accs.ChannelService"
             android:exported="true"

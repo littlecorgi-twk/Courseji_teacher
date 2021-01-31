@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.littlecorgi.commonlib.lifecycle.MyFragmentLifecycleCallbacks
 import com.littlecorgi.commonlib.util.ViewUtils
@@ -207,6 +208,7 @@ class ScheduleFragmentBackup : Fragment() {
         val size = viewModel.timeList.size
         Log.d(TAG, "initRecycler: size = $size")
         mRvTable1 = mBinding.rvTable1.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             mRvItemList1 = ArrayList(size)
             repeat(size) {
                 mRvItemList1.add(ScheduleItem("1"))
@@ -218,6 +220,7 @@ class ScheduleFragmentBackup : Fragment() {
             }
         }
         mRvTable2 = mBinding.rvTable2.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             mRvItemList2 = ArrayList(size)
             repeat(size) {
                 mRvItemList2.add(ScheduleItem("1"))
@@ -229,6 +232,7 @@ class ScheduleFragmentBackup : Fragment() {
             }
         }
         mRvTable3 = mBinding.rvTable3.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             mRvItemList3 = ArrayList(size)
             repeat(size) {
                 mRvItemList3.add(ScheduleItem("1"))
@@ -240,6 +244,7 @@ class ScheduleFragmentBackup : Fragment() {
             }
         }
         mRvTable4 = mBinding.rvTable4.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             mRvItemList4 = ArrayList(size)
             repeat(size) {
                 mRvItemList4.add(ScheduleItem("1"))
@@ -251,6 +256,7 @@ class ScheduleFragmentBackup : Fragment() {
             }
         }
         mRvTable5 = mBinding.rvTable5.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             mRvItemList5 = ArrayList(size)
             repeat(size) {
                 mRvItemList5.add(ScheduleItem("1"))

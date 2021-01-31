@@ -2,7 +2,9 @@ package com.littlecorgi.courseji.schedule_import.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.littlecorgi.commonlib.BaseDialogFragment
@@ -37,19 +39,22 @@ class ChooseImportFragment : BaseDialogFragment<FragmentChooseImportBinding>() {
 
         /**
          * 从Excel表格导入
+         * todo 待完成
          */
-        // dataBinding.tvExcel.setOnClickListener {
-        //     showSAFTips {
-        //         requireActivity().startActivityForResult(
-        //             Intent(activity, LoginWebActivity::class.java).apply {
-        //                 putExtra("import_type", "excel")
-        //                 putExtra("tableId", viewModel.table.id)
-        //             },
-        //             Const.REQUEST_CODE_IMPORT
-        //         )
-        //         this.dismiss()
-        //     }
-        // }
+        dataBinding.tvExcel.setOnClickListener {
+            Toast.makeText(requireContext(), "正在努力开发中\n(；′⌒`)", Toast.LENGTH_SHORT).show()
+            Log.d("ChooseImportFragment", "initEvent: 1")
+            // showSAFTips {
+            //     requireActivity().startActivityForResult(
+            //         Intent(activity, LoginWebActivity::class.java).apply {
+            //             putExtra("import_type", "excel")
+            //             putExtra("tableId", viewModel.table.id)
+            //         },
+            //         Const.REQUEST_CODE_IMPORT
+            //     )
+            //     this.dismiss()
+            // }
+        }
 
         /**
          * 从学校教务系统导入

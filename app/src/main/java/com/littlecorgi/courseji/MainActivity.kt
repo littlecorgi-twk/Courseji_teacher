@@ -151,6 +151,7 @@ class MainActivity : BaseActivity() {
         mBinding.vpSchedule.apply {
             this.adapter = mVPAdapter
             this.offscreenPageLimit = 1
+            currentItem = mViewModel.currentWeek
         }
         mVPAdapter.notifyDataSetChanged()
         if (CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst) > 0) {

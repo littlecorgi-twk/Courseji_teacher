@@ -23,6 +23,9 @@ import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * 设置页面的Activity
+ */
 class ScheduleSettingsActivity : AppCompatActivity() {
 
     private val mViewModel by viewModels<ScheduleSettingsViewModel>()

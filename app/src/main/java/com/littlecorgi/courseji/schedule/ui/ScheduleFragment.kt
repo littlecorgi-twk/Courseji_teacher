@@ -34,11 +34,15 @@ import es.dmoral.toasty.Toasty
  */
 class ScheduleFragment : Fragment() {
 
+    // 当前周数
     private var week = 0
+    // 当前星期数
     private var weekDay = 1
+    // 星期数据
     private lateinit var weekDate: List<String>
     private val viewModel by activityViewModels<ScheduleViewModel>()
     private lateinit var ui: ScheduleUI
+    // 是否已经加载
     private var isLoaded = false
     private lateinit var showCourseNumber: LiveData<Int>
 

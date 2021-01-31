@@ -9,7 +9,6 @@ import com.littlecorgi.courseji.R
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeDetailBean
-import com.littlecorgi.courseji.utils.CourseUtils
 
 /**
  * 课程ViewModel
@@ -40,26 +39,12 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     val daysArray = arrayOf("日", "一", "二", "三", "四", "五", "六", "日")
     var currentWeek = 1
 
-    fun getMultiCourse(week: Int, day: Int, startNode: Int): List<CourseBean> {
-        return allCourseList[day - 1].value!!.filter {
-            it.inWeek(week) && it.startNode == startNode
-        }
-    }
-
     suspend fun getDefaultTable(): TableBean {
         return tableDao.getDefaultTable()
     }
 
     suspend fun getTimeList(timeTableId: Int): List<TimeDetailBean> {
         return timeDao.getTimeList(timeTableId)
-    }
-
-    suspend fun addBlankTable(tableName: String) {
-        tableDao.insertTable(TableBean(id = 0, tableName = tableName))
-    }
-
-    suspend fun changeDefaultTable(id: Int) {
-        tableDao.changeDefaultTable(table.id, id)
     }
 
     fun getRawCourseByDay(day: Int, tableId: Int): LiveData<List<CourseBean>> {
@@ -74,11 +59,4 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    suspend fun deleteCourseBean(courseBean: CourseBean) {
-        courseDao.deleteCourseDetail(CourseUtils.courseBean2DetailBean(courseBean))
-    }
-
-    suspend fun deleteCourseBaseBean(id: Int, tableId: Int) {
-        courseDao.deleteCourseBaseBeanOfTable(id, tableId)
-    }
 }

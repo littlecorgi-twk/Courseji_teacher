@@ -18,7 +18,8 @@ import com.littlecorgi.courseji.R
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 
 /**
- * 课程表UI
+ * 课程表UI，原采用RecyclerView，但是效果不好，具体见ScheduleFragmentBackup
+ * @author littlecorgi 2020/10/20
  */
 class ScheduleUI(
     override val ctx: Context,
