@@ -1,9 +1,7 @@
 package com.littlecorgi.courseji.schedule.logic.model.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
-import com.littlecorgi.courseji.schedule.logic.model.bean.TableSelectBean
 
 @Dao
 interface TableDao {
@@ -42,12 +40,6 @@ interface TableDao {
 
     @Query("select * from tablebean where type = 1")
     fun getDefaultTableSync(): TableBean
-
-    @Query("select id, tableName, background, maxWeek, nodes, type from tablebean")
-    fun getTableSelectListLiveData(): LiveData<List<TableSelectBean>>
-
-    @Query("select id, tableName, background, maxWeek, nodes, type from tablebean")
-    suspend fun getTableSelectList(): List<TableSelectBean>
 
     @Query("delete from tablebean where id = :id")
     suspend fun deleteTable(id: Int)

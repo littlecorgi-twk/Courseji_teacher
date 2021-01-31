@@ -23,14 +23,6 @@ class ImportSettingFragment : BaseDialogFragment<FragmentImportSettingBinding>()
             dismiss()
         }
 
-        dataBinding.tvNew.setOnClickListener {
-            launch {
-                viewModel.importId = viewModel.getNewId()
-                viewModel.newFlag = true
-                dismiss()
-            }
-        }
-
         dataBinding.tvCancel.setOnClickListener {
             dismiss()
             requireActivity().finish()

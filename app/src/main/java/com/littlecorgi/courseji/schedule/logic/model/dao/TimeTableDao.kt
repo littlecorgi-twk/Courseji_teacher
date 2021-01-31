@@ -23,25 +23,6 @@ interface TimeTableDao {
                 TimeDetailBean(9, "18:30", "19:20", id),
                 TimeDetailBean(10, "19:30", "20:20", id),
                 TimeDetailBean(11, "20:30", "21:20", id),
-                TimeDetailBean(12, "00:00", "00:00", id),
-                TimeDetailBean(13, "00:00", "00:00", id),
-                TimeDetailBean(14, "00:00", "00:00", id),
-                TimeDetailBean(15, "00:00", "00:00", id),
-                TimeDetailBean(16, "00:00", "00:00", id),
-                TimeDetailBean(17, "00:00", "00:00", id),
-                TimeDetailBean(18, "00:00", "00:00", id),
-                TimeDetailBean(19, "00:00", "00:00", id),
-                TimeDetailBean(20, "00:00", "00:00", id),
-                TimeDetailBean(21, "00:00", "00:00", id),
-                TimeDetailBean(22, "00:00", "00:00", id),
-                TimeDetailBean(23, "00:00", "00:00", id),
-                TimeDetailBean(24, "00:00", "00:00", id),
-                TimeDetailBean(25, "00:00", "00:00", id),
-                TimeDetailBean(26, "00:00", "00:00", id),
-                TimeDetailBean(27, "00:00", "00:00", id),
-                TimeDetailBean(28, "00:00", "00:00", id),
-                TimeDetailBean(29, "00:00", "00:00", id),
-                TimeDetailBean(30, "00:00", "00:00", id)
         )
         insertTimeList(timeList)
     }

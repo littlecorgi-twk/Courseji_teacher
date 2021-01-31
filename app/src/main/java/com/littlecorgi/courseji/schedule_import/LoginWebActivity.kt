@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.littlecorgi.courseji.R
-import com.littlecorgi.courseji.schedule_import.ui.ImportSettingFragment
 import com.littlecorgi.courseji.schedule_import.ui.WebViewLoginFragment
 import com.littlecorgi.courseji.schedule_import.vm.ImportViewModel
 
@@ -25,13 +24,8 @@ class LoginWebActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(android.R.id.content, frag, viewModel.school)
             transaction.commit()
-            showImportSettingDialog()
+            viewModel.importId = this.intent.extras!!.getInt("tableId", -1)
+            viewModel.newFlag = false
         }
-    }
-
-    private fun showImportSettingDialog() {
-        ImportSettingFragment().apply {
-            isCancelable = false
-        }.show(supportFragmentManager, null)
     }
 }

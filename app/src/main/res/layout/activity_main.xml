@@ -85,18 +85,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_add"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:text="\uE6DC"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:fontFamily="@font/iconfont"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_import"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_import"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -105,19 +93,7 @@
                     android:gravity="center"
                     android:includeFontPadding="false"
                     android:fontFamily="@font/iconfont"
-                    app:layout_constraintEnd_toStartOf="@id/tv_share"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_share"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:text="\uE6BA"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:fontFamily="@font/iconfont"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_more"
+                    app:layout_constraintEnd_toStartOf="@id/tv_more"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView

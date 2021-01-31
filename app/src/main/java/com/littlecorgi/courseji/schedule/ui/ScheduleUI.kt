@@ -16,8 +16,6 @@ import com.littlecorgi.commonlib.util.dip
 import com.littlecorgi.commonlib.util.dp
 import com.littlecorgi.courseji.R
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
-import com.littlecorgi.courseji.utils.Const
-import com.littlecorgi.courseji.utils.getPrefer
 
 /**
  * 课程表UI
@@ -147,19 +145,19 @@ class ScheduleUI(
             })
         }
 
-        if (!forWidget && context.getPrefer().getBoolean(Const.KEY_SCHEDULE_BLANK_AREA, true)) {
-            addView(
-                View(context),
-                ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT,
-                    itemHeight * 4
-                ).apply {
-                    topToBottom = R.id.anko_tv_node1 + table.nodes - 1
-                    bottomToBottom = ConstraintSet.PARENT_ID
-                    startToStart = ConstraintSet.PARENT_ID
-                    endToEnd = ConstraintSet.PARENT_ID
-                })
-        }
+        // if (!forWidget && context.getPrefer().getBoolean(Const.KEY_SCHEDULE_BLANK_AREA, true)) {
+        //     addView(
+        //         View(context),
+        //         ConstraintLayout.LayoutParams(
+        //             ConstraintLayout.LayoutParams.MATCH_PARENT,
+        //             itemHeight * 4
+        //         ).apply {
+        //             topToBottom = R.id.anko_tv_node1 + table.nodes - 1
+        //             bottomToBottom = ConstraintSet.PARENT_ID
+        //             startToStart = ConstraintSet.PARENT_ID
+        //             endToEnd = ConstraintSet.PARENT_ID
+        //         })
+        // }
 
         for (i in 0 until col - 1) {
             // 具体的课程表，一天一个FrameLayout
