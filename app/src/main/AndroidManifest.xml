@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.littlecorgi.courseji">
     <!-- 友盟 -->
     <!-- 以下为需要的基本权限，需要自行添加至您的AndroidManifest文件中 start -->
