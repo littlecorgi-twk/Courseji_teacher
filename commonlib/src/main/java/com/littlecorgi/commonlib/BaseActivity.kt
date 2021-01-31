@@ -8,7 +8,7 @@ import com.umeng.message.PushAgent
 import com.yanzhenjie.permission.Action
 import com.yanzhenjie.permission.AndPermission
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity() : AppCompatActivity() {
 
     protected val mTAG: String = "${javaClass.simpleName}.TAG"
 

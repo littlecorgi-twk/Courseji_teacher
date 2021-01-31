@@ -61,7 +61,6 @@ android {
 
 dependencies {
     api rootProject.ext.dependencies["kotlinStdlib"]
-    api rootProject.ext.dependencies["kotlinCoroutinesAndroid"]
     api rootProject.ext.dependencies["coreKtx"]
     api rootProject.ext.dependencies["appcompat"]
     api rootProject.ext.dependencies["material"]

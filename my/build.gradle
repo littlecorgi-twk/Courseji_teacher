@@ -1,4 +1,4 @@
-if (isRunAlone.toBoolean()) {
+ if (isRunAlone.toBoolean()) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
@@ -52,6 +52,8 @@ android {
 
 dependencies {
     implementation project(':commonlib')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // 在下面添加只有APP需要的依赖
     testImplementation rootProject.ext.dependencies["junit"]
@@ -67,4 +69,18 @@ dependencies {
     // apt必须各个模块自行添加
     // Glide-compiler
     annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
+    //第三方wheelView
+    implementation rootProject.ext.dependencies["PickerView"]
+
+    //circleimageview
+    implementation rootProject.ext.dependencies["circleimageview"]
+    implementation rootProject.ext.dependencies["PictureSelector"]
+
+    //Retrofit
+    implementation rootProject.ext.dependencies["Retrofit"]
+    implementation rootProject.ext.dependencies["Retrofit-converter-gson"]
+    //第三方刷新控件
+    implementation rootProject.ext.dependencies["refresh-layout-kernel"]
+    implementation rootProject.ext.dependencies["refresh-header-classics"]
+
 }

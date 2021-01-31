@@ -1,3 +1,5 @@
+include ':middle'
+include ':moddle'
 include ':my'
 include ':commonlib'
 include ':app'
