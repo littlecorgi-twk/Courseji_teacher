@@ -1,6 +1,7 @@
 package com.littlecorgi.courseji
 
 import android.animation.StateListAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -16,6 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.littlecorgi.commonlib.BaseActivity
+import com.littlecorgi.commonlib.context.startActivityForResult
 import com.littlecorgi.commonlib.util.TimeUtil
 import com.littlecorgi.commonlib.util.colorSL
 import com.littlecorgi.commonlib.util.dip
@@ -23,6 +25,8 @@ import com.littlecorgi.courseji.databinding.ActivityMainBinding
 import com.littlecorgi.courseji.schedule.ui.ScheduleViewPagerFragmentStateAdapter
 import com.littlecorgi.courseji.schedule.vm.ScheduleViewModel
 import com.littlecorgi.courseji.schedule_import.ui.ChooseImportFragment
+import com.littlecorgi.courseji.schedule_setting.ui.ScheduleSettingsActivity
+import com.littlecorgi.courseji.utils.Const
 import com.littlecorgi.courseji.utils.CourseUtils
 import com.tencent.bugly.beta.Beta
 import kotlinx.coroutines.Dispatchers
@@ -296,6 +300,13 @@ class MainActivity : BaseActivity() {
             }
         }
 
+        // 修改当前周的按钮，跳转到课表设置Activity
+        mBinding.bottomSheetBtnChangeWeek.setOnClickListener {
+            this.startActivityForResult<ScheduleSettingsActivity>(Const.REQUEST_CODE_SCHEDULE_SETTING) {
+                this.putExtra("tableData", mViewModel.table)
+            }
+        }
+
         // 课程表ViewPager的页面切换事件监听
         mBinding.vpSchedule.registerOnPageChangeCallback(mScheduleViewPagerScrollerListener)
     }
@@ -318,5 +329,12 @@ class MainActivity : BaseActivity() {
         mBinding.vpSchedule.unregisterOnPageChangeCallback(mScheduleViewPagerScrollerListener)
         mWeekToggleGroup.clearOnButtonCheckedListeners()
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            Const.REQUEST_CODE_SCHEDULE_SETTING -> initView()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Corseji">
-        <activity android:name=".schedule_import.LoginWebActivity"></activity>
+        <activity android:name=".schedule_setting.ui.ScheduleSettingsActivity"></activity>
+        <activity android:name=".schedule_import.LoginWebActivity" />
         <activity android:name=".schedule_import.SchoolListActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
