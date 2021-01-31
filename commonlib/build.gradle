@@ -67,6 +67,8 @@ dependencies {
     api rootProject.ext.dependencies["constraintLayout"]
     api rootProject.ext.dependencies["DrawerLayout"]
     api rootProject.ext.dependencies["viewpager2"]
+    api rootProject.ext.dependencies["fragment"]
+    api rootProject.ext.dependencies["fragmentKtx"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
@@ -100,6 +102,10 @@ dependencies {
     // AndPermission
     api rootProject.ext.dependencies["AndPermission"]
 
+    // Retrofit
+    implementation rootProject.ext.dependencies["Retrofit"]
+    implementation rootProject.ext.dependencies["Retrofit-converter-gson"]
+
     // Glide
     api rootProject.ext.dependencies["Glide"]
     // annotationProcessor 代表「注解处理器」，每个模块里面都得写
@@ -125,6 +131,19 @@ dependencies {
 
     // Jsoup
     api rootProject.ext.dependencies["Jsoup"]
+
+    api rootProject.ext.dependencies["PickerView"]
+
+    //下拉刷新
+    api rootProject.ext.dependencies["swiperefreshlayout"]
+    api "androidx.fragment:fragment-ktx:1.2.5"
+
+    //第三方刷新
+    api rootProject.ext.dependencies["refresh-layout-kernel"]
+    api rootProject.ext.dependencies["refresh-header-classics"]
+
+    //图片选择器
+    api rootProject.ext.dependencies["PictureSelector"]
 }
 
 apply from: 'UMeng_Push.gradle'

@@ -55,20 +55,4 @@ dependencies {
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
-
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
-    //下拉刷新
-    implementation rootProject.ext.dependencies["swiperefreshlayout"]
-    implementation "androidx.fragment:fragment:1.2.5"
-    //Retrofit
-    implementation rootProject.ext.dependencies["Retrofit"]
-    implementation rootProject.ext.dependencies["Retrofit-converter-gson"]
-
-    //第三方刷新
-    implementation rootProject.ext.dependencies["refresh-layout-kernel"]
-    implementation rootProject.ext.dependencies["refresh-header-classics"]
-
-    //图片选择器
-    implementation rootProject.ext.dependencies["PictureSelector"]
-
 }

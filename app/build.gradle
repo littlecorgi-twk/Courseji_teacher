@@ -98,6 +98,7 @@ dependencies {
 
     // 每加入一个新的模块，就需要在下面对应的添加一行
     if (!isRunAlone.toBoolean()) {
-        //implementation project(':my')
+        implementation project(':my')
+        implementation project(':middle')
     }
 }
