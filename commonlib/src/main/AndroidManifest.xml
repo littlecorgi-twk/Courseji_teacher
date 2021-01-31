@@ -35,9 +35,10 @@
             tools:node="merge">
 
             <!-- This entry makes ExampleLoggerInitializer discoverable. -->
-            <meta-data
-                android:name="com.littlecorgi.commonlib.ToastyInitializer"
-                android:value="androidx.startup" />
+            <!--因为Toasty不支持Android11，所以暂时停用-->
+            <!--<meta-data-->
+            <!--    android:name="com.littlecorgi.commonlib.ToastyInitializer"-->
+            <!--    android:value="androidx.startup" />-->
             <!-- <meta-data -->
             <!-- android:name="com.littlecorgi.commonlib.UMengInitializer" -->
             <!-- android:value="androidx.startup" /> -->

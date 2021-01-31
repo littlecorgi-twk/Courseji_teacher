@@ -145,16 +145,15 @@ public class adviceActivity extends BaseActivity implements View.OnClickListener
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.my_advice_returnButton:
-                finish();
-                break;
-            case R.id.my_advice_getPicture:
-                showBtw();
-                break;
-            case R.id.my_advice_SureButton:
-                sendAdvice();
-                break;
+        // 此处不能使用switch，因为作为library，他的id并不是常量，所以Android并不建议在switch中直接使用id，
+        // 可以使用view.setOnClickListener替换，或者使用if-else
+        int id = v.getId();
+        if (id == R.id.my_advice_returnButton) {
+            finish();
+        } else if (id == R.id.my_advice_getPicture) {
+            showBtw();
+        } else if (id == R.id.my_advice_SureButton) {
+            sendAdvice();
         }
     }
 

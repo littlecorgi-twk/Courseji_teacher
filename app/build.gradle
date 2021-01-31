@@ -78,9 +78,6 @@ android {
 
 dependencies {
     implementation project(':commonlib')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // 在下面添加只有APP需要的依赖
@@ -95,10 +92,14 @@ dependencies {
     kapt rootProject.ext.dependencies["ARouterCompiler"]
     // RoomCompiler
     kapt rootProject.ext.dependencies["room-compiler"]
+    // ButterKnife
+    kapt rootProject.ext.dependencies["butterknife-compiler"]
 
     // 每加入一个新的模块，就需要在下面对应的添加一行
     if (!isRunAlone.toBoolean()) {
         implementation project(':my')
         implementation project(':middle')
+        implementation project(':leave')
+        implementation project(':attendance')
     }
 }

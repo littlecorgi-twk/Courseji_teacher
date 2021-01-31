@@ -9,7 +9,7 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        if (isRunAlone.toBoolean()){
+        if (isRunAlone.toBoolean()) {
             applicationId "com.example.leave"
         }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
@@ -19,6 +19,12 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -41,29 +47,25 @@ android {
             }
         }
     }
+    buildFeatures {
+        dataBinding  = true
+    }
 }
 
 dependencies {
-
     implementation project(':commonlib')
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.hjq:xxpermissions:6.5'
-
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-
+    // apt必须各个模块自行添加
+    // Glide-compiler
+    annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
+    // ARouterCompiler
+    annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
+    // RoomCompiler
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
+    // ButterKnife
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 }

@@ -5,9 +5,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.leave.databinding.PhotoViewBinding;
 import com.example.leave.student.MyImageAdapter;
+import com.luck.picture.lib.photoview.PhotoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,24 +19,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PhotoViewActivity extends AppCompatActivity {
-    @BindView(R.id.viewPager)
     ViewPager viewpager;
-    @BindView(R.id.mTvImageCount)
     TextView mTvImageCount;
 
     //点击的下标
     private int currentPosition;
     private List<String> urlLists;
 
+    // DataBinding
+    private PhotoViewBinding mBinding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.photo_view);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.photo_view);
+        viewpager = mBinding.viewPager;
+        mTvImageCount = mBinding.mTvImageCount;
         ButterKnife.bind(this);
         initData();
     }
 
-    private void initData(){
+    private void initData() {
         if (null == urlLists) {
             urlLists = new ArrayList<>();
         }
@@ -44,7 +50,7 @@ public class PhotoViewActivity extends AppCompatActivity {
         MyImageAdapter adapter = new MyImageAdapter(this, urlLists);
         viewpager.setAdapter(adapter);
         viewpager.setCurrentItem(currentPosition);
-        mTvImageCount.setText(currentPosition+1+"/"+urlLists.size());
+        mTvImageCount.setText(currentPosition + 1 + "/" + urlLists.size());
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

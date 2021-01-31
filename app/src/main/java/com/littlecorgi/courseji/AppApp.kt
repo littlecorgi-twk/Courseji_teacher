@@ -1,6 +1,9 @@
 package com.littlecorgi.courseji
 
 import android.util.Log
+import com.baidu.mapapi.CoordType
+import com.baidu.mapapi.SDKInitializer
+import com.example.middle.MiddleApp
 import com.littlecorgi.commonlib.App
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
@@ -20,6 +23,13 @@ class AppApp : App() {
     override fun onCreate() {
         super.onCreate()
         initUMengPush()
+
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        SDKInitializer.initialize(this)
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL)
+
         Log.d("UMengInitializer", "onCreate: APP APP初始化了")
     }
 

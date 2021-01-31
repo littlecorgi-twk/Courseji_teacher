@@ -73,6 +73,8 @@ ext {
             // 第三方框架
             "arouter-api"            : 'com.alibaba:arouter-api:1.5.0',//ARouter api
             "arouter-compiler"       : 'com.alibaba:arouter-compiler:1.2.2',//ARouter
+            "butterknife"            : 'com.jakewharton:butterknife:10.2.3',//ButterKnife
+            "butterknife-compiler"   : 'com.jakewharton:butterknife-compiler:10.2.3',//ButterKnife-Compiler
             "Glide"                  : "com.github.bumptech.glide:glide:${android["glideVersion"]}",// Glide
             "Glide-compiler"         : "com.github.bumptech.glide:compiler:${android["glideVersion"]}",// Glide-Compiler
             "Retrofit"               : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",//Retrofit
@@ -93,5 +95,6 @@ ext {
             "PictureSelector"        : 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0',   //PictureSelector
             "refresh-layout-kernel"  : 'com.scwang.smart:refresh-layout-kernel:2.0.1',                  //SmartRefreshLayout
             "refresh-header-classics": 'com.scwang.smart:refresh-header-classics:2.0.1',
+            "MPAndroidChart"         : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
     ]
 }

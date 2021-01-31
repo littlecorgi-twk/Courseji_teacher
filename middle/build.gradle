@@ -19,6 +19,12 @@ android {
         versionName rootProject.ext.android["versionName"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -42,17 +48,25 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        dataBinding  = true
+    }
 }
 
 dependencies {
-
     implementation project(':commonlib')
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation files('libs/BaiduLBS_Android.jar')
 
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
+
+    // apt必须各个模块自行添加
+    // Glide-compiler
+    annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
+    // ARouterCompiler
+    annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
+    // RoomCompiler
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
+    // ButterKnife
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 }

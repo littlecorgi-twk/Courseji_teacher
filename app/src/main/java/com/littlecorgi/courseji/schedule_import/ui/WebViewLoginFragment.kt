@@ -265,7 +265,8 @@ class WebViewLoginFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        binding.wvCourse.webViewClient = null
+        // todo 不知道咋回事，突然开始报错
+        // binding.wvCourse.webViewClient = null
         binding.wvCourse.webChromeClient = null
         binding.wvCourse.clearCache(true)
         binding.wvCourse.clearHistory()

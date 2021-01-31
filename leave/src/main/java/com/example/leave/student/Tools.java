@@ -12,16 +12,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.leave.PhotoViewActivity;
 import com.example.leave.R;
-import com.example.leave.student.GlideEngine;
-import com.example.leave.student.GlideRoundTransform;
-import com.hjq.permissions.OnPermission;
-import com.hjq.permissions.Permission;
-import com.hjq.permissions.XXPermissions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Tools {
@@ -30,23 +29,41 @@ public class Tools {
      * 请求权限
      */
     public static void requestPermissions(final AppCompatActivity activity) {
-        XXPermissions.with(activity)
-                // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
-                //.constantRequest()
-                // 支持请求6.0悬浮窗权限8.0请求安装权限
-                //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES)
-                // 不指定权限则自动获取清单中的危险权限
-                .permission(Permission.Group.STORAGE)
-                .permission(Permission.CAMERA)
-                .request(new OnPermission() {
+        ArrayList<String> permissionList = new ArrayList<>(Arrays.asList(Permission.Group.STORAGE));
+        permissionList.add(Permission.CAMERA);
+        AndPermission.with(activity)
+                .runtime()
+                .permission((String[]) permissionList.toArray())
+                .onGranted(new Action<List<String>>() {
                     @Override
-                    public void hasPermission(List<String> granted, boolean all) {
-                    }
+                    public void onAction(List<String> data) {
 
-                    @Override
-                    public void noPermission(List<String> denied, boolean quick) {
                     }
-                });
+                }) // 权限被允许
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+
+                    }
+                }) // 权限被拒绝
+                .start();
+        // AndPermission.with(activity)
+        //         // 可设置被拒绝后继续申请，直到用户授权或者永久拒绝
+        //         //.constantRequest()
+        //         // 支持请求6.0悬浮窗权限8.0请求安装权限
+        //         //.permission(Permission.SYSTEM_ALERT_WINDOW, Permission.REQUEST_INSTALL_PACKAGES)
+        //         // 不指定权限则自动获取清单中的危险权限
+        //         .permission(Permission.Group.STORAGE)
+        //         .permission(Permission.CAMERA)
+        //         .request(new OnPermission() {
+        //             @Override
+        //             public void hasPermission(List<String> granted, boolean all) {
+        //             }
+        //
+        //             @Override
+        //             public void noPermission(List<String> denied, boolean quick) {
+        //             }
+        //         });
     }
 
     /**
@@ -133,7 +150,7 @@ public class Tools {
     public static void showGlide(Context context, ImageView view, String url) {
         RequestOptions options = new RequestOptions()
                 .error(R.drawable.add_picture)
-                .transform(new GlideRoundTransform(context,5));
+                .transform(new GlideRoundTransform(context, 5));
         Glide.with(context)
                 .load(url)
                 .apply(options)

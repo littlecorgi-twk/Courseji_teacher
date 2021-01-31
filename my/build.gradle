@@ -42,11 +42,15 @@ android {
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
             }
+            jniLibs.srcDir 'libs'
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        dataBinding  = true
     }
 }
 
@@ -65,22 +69,8 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
     // ARouterCompiler
     annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
-
-    // apt必须各个模块自行添加
-    // Glide-compiler
-    annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
-    //第三方wheelView
-    implementation rootProject.ext.dependencies["PickerView"]
-
-    //circleimageview
-    implementation rootProject.ext.dependencies["circleimageview"]
-    implementation rootProject.ext.dependencies["PictureSelector"]
-
-    //Retrofit
-    implementation rootProject.ext.dependencies["Retrofit"]
-    implementation rootProject.ext.dependencies["Retrofit-converter-gson"]
-    //第三方刷新控件
-    implementation rootProject.ext.dependencies["refresh-layout-kernel"]
-    implementation rootProject.ext.dependencies["refresh-header-classics"]
-
+    // RoomCompiler
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
+    // ButterKnife
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 }

@@ -60,6 +60,7 @@ android {
 }
 
 dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
     api rootProject.ext.dependencies["kotlinStdlib"]
     api rootProject.ext.dependencies["coreKtx"]
     api rootProject.ext.dependencies["appcompat"]
@@ -103,8 +104,12 @@ dependencies {
     api rootProject.ext.dependencies["AndPermission"]
 
     // Retrofit
-    implementation rootProject.ext.dependencies["Retrofit"]
-    implementation rootProject.ext.dependencies["Retrofit-converter-gson"]
+    api rootProject.ext.dependencies["Retrofit"]
+    api rootProject.ext.dependencies["Retrofit-converter-gson"]
+
+    //ButterKnife
+    api rootProject.ext.dependencies["butterknife"]
+    kapt rootProject.ext.dependencies["butterknife-compiler"]
 
     // Glide
     api rootProject.ext.dependencies["Glide"]
@@ -144,6 +149,14 @@ dependencies {
 
     //图片选择器
     api rootProject.ext.dependencies["PictureSelector"]
+
+    // CircleImageView
+    api rootProject.ext.dependencies["circleimageview"]
+
+    api rootProject.ext.dependencies["MPAndroidChart"]
+
+    // 百度地图
+    api files('libs/BaiduLBS_Android.jar')
 }
 
 apply from: 'UMeng_Push.gradle'

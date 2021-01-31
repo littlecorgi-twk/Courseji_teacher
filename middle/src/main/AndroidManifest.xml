@@ -19,7 +19,6 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <application
-        android:name=".MiddleApp"
         android:allowBackup="false">
         <activity android:name=".middleMainActivity"
             />
