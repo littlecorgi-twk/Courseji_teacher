@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">课记</string>
+
+    <string name="text_login_web_title">登录教务系统</string>
+    <string name="hint_student_id">学号</string>
+    <string name="hint_password">密码</string>
+    <string name="hint_check_code">验证码</string>
+    <string name="toast_check_code_get_error">获取验证码失败</string>
+    <string name="text_login">登录</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+    <string name="error_course_data">检测到课程数据有误，请仔细核对</string>
+    <string name="error_course_node">有课程的节数大于课表的最大节数</string>
+    <string name="schedule_setting">课表设置</string>
 </resources>

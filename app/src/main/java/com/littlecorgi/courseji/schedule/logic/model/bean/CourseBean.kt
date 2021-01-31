@@ -1,12 +1,8 @@
-package com.littlecorgi.courseji.schedule.logic.model
+package com.littlecorgi.courseji.schedule.logic.model.bean
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
-/**
- *
- * @author littlecorgi 2020/10/21
- */
 @Parcelize
 data class CourseBean(
     // 课程ID
@@ -35,24 +31,24 @@ data class CourseBean(
     var tableId: Int
 ) : Parcelable {
 
-    /**
-     * 返回从第几节到第几节
-     */
     fun getNodeString(): String {
         return "第$startNode - ${startNode + step - 1}节"
     }
 
-    /**
-     * 判断当前课程是否在此周
-     */
     fun inWeek(week: Int): Boolean {
         return when (type) {
             // 每周，并判断是否在此周
-            0 -> (startWeek <= week) && (week <= endWeek)
+            0 -> {
+                (startWeek <= week) && (week <= endWeek)
+            }
             // 单周，并且判断是否在此周，以及此周是否是单周
-            1 -> (startWeek <= week) && (week <= endWeek) && (week % 2 == 1)
+            1 -> {
+                (startWeek <= week) && (week <= endWeek) && (week % 2 == 1)
+            }
             // 双周，并且判断是否在此周，以及此周是否是双周
-            2 -> (startWeek <= week) && (week <= endWeek) && (week % 2 == 0)
+            2 -> {
+                (startWeek <= week) && (week <= endWeek) && (week % 2 == 0)
+            }
             else -> false
         }
     }

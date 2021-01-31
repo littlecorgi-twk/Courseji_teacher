@@ -1,7 +1,6 @@
 package com.littlecorgi.commonlib.context
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 
@@ -20,7 +19,6 @@ inline fun <reified A : Activity> Context.start(configIntent: Intent.() -> Unit 
 /**
  * 通过action去启动intent跳转
  */
-@Throws(ActivityNotFoundException::class)
 inline fun Context.startActivity(action: String, configIntent: Intent.() -> Unit = {}) {
     startActivity(Intent(action).apply(configIntent))
 }
@@ -35,7 +33,27 @@ inline fun <reified A : Activity> Activity.start(configIntent: Intent.() -> Unit
 /**
  * 通过action去启动intent跳转
  */
-@Throws(ActivityNotFoundException::class)
 inline fun Activity.startActivity(action: String, configIntent: Intent.() -> Unit = {}) {
     startActivity(Intent(action).apply(configIntent))
+}
+
+/**
+ * 通过action去启动intent跳转，并获取结果
+ */
+inline fun <reified A : Activity> Activity.startActivityForResult(
+    requestCode: Int,
+    configIntent: Intent.() -> Unit = {}
+) {
+    startActivityForResult(Intent(this, A::class.java).apply(configIntent), requestCode)
+}
+
+/**
+ * 通过action去启动intent跳转，并获取结果
+ */
+inline fun Activity.startActivityForResult(
+    action: String,
+    requestCode: Int,
+    configIntent: Intent.() -> Unit = {}
+) {
+    startActivityForResult(Intent(action).apply(configIntent), requestCode)
 }
