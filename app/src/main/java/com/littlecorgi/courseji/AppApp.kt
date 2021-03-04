@@ -3,7 +3,6 @@ package com.littlecorgi.courseji
 import android.util.Log
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
-import com.example.middle.MiddleApp
 import com.littlecorgi.commonlib.App
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback

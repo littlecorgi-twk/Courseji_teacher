@@ -11,7 +11,7 @@ android {
 
         if (isRunAlone.toBoolean()) {
             // 单独调试时添加 applicationId ，集成调试时移除
-            applicationId "com.example.login"
+            applicationId "com.littlecorgi.middle"
         }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]

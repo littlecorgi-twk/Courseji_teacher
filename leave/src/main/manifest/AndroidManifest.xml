@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.leave">
+    package="com.littlecorgi.leave">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -40,8 +40,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />
 
-        <activity android:name=".student.StudentLeaveActivity">
-        </activity>
+        <activity android:name=".student.StudentLeaveActivity" />
 
         <service
             android:name="com.baidu.location.f"

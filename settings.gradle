@@ -1,7 +1,2 @@
-include ':middle'
-include ':leave'
-include ':attendance'
-include ':my'
-include ':commonlib'
-include ':app'
+include ':app', ':commonlib', ':my', ':attendance', ':leave', ':middle'
 rootProject.name = "Courseji"
