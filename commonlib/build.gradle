@@ -141,7 +141,6 @@ dependencies {
 
     //下拉刷新
     api rootProject.ext.dependencies["swiperefreshlayout"]
-    api "androidx.fragment:fragment-ktx:1.2.5"
 
     //第三方刷新
     api rootProject.ext.dependencies["refresh-layout-kernel"]

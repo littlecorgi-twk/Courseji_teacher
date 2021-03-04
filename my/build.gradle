@@ -1,4 +1,4 @@
- if (isRunAlone.toBoolean()) {
+if (isRunAlone.toBoolean()) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         if (isRunAlone.toBoolean()) {
             // 单独调试时添加 applicationId ，集成调试时移除
-            applicationId "com.littlecorgi.courseji"
+            applicationId "com.littlecorgi.my"
         }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -50,7 +50,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
-        dataBinding  = true
+        dataBinding = true
     }
 }
 

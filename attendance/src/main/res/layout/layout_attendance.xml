@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.example.attendance.weight.TitleView
+    <com.littlecorgi.attendance.weight.TitleView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#08b9fd"
@@ -13,7 +13,7 @@
         app:leftTextVisibility="false"
         app:titleBackground="@android:color/transparent"
         app:titleText="我的记录单">
-    </com.example.attendance.weight.TitleView>
+    </com.littlecorgi.attendance.weight.TitleView>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_flush"
