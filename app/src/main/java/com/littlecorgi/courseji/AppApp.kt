@@ -29,6 +29,9 @@ class AppApp : App() {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL)
 
+        // 初始化穿山甲广告SDK
+        TTAdManagerHolder.init(this)
+
         Log.d("UMengInitializer", "onCreate: APP APP初始化了")
     }
 
