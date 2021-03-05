@@ -17,9 +17,9 @@ jobs:
 #        run: ./gradlew build
       - name: Google Java Format
         uses: axel-op/googlejavaformat-action@v3.4.0
-        # with:
+        with:
           # Arguments for the Google Java Format executable
-          # args: # optional, default is --replace
+          args: "--aosp --skip-sorting-imports" # optional, default is --replace
           # Pattern to match files to be formatted
           # files: # optional, default is **/*.java
           # Set to true to not commit the changes
@@ -32,15 +32,15 @@ jobs:
           # commitMessage: # optional, default is Google Java Format
       - name: Run java checkstyle
         uses: nikitasavinov/checkstyle-action@0.3.1
-        # with:
+        with:
           # GITHUB_TOKEN.
           # github_token: # optional, default is ${{ github.token }}
           # Report level for reviewdog [info,warning,error]
-          # level: # optional, default is info
+          level: error # optional, default is info
           # Reporter of reviewdog command [github-pr-check,github-pr-review]
           # reporter: # optional, default is github-pr-check
           # Filtering for the reviewdog command [added,diff_context,file,nofilter].Default is `added`.
-          # filter_mode: # optional, default is added
+          filter_mode: diff_context # optional, default is added
           # Exit code for reviewdog when errors are found [true,false].Default is `false`.
           # fail_on_error: # optional, default is false
           # Checkstyle config file
