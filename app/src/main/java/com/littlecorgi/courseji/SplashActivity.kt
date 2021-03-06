@@ -17,6 +17,10 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.TimeTableBean
 import com.littlecorgi.courseji.utils.getPrefer
 import kotlinx.coroutines.launch
 
+/**
+ * 闪屏页
+ * @author littlecorgi-twk
+ */
 class SplashActivity : BaseActivity() {
 
     private lateinit var mSplashContainer: FrameLayout
@@ -33,62 +37,8 @@ class SplashActivity : BaseActivity() {
         //step2:创建TTAdNative对象
         mTTAdNative = TTAdManagerHolder.get()!!.createAdNative(this)
 
-        //创建TTAdNative对象，createAdNative(Context context) context需要传入Activity对象
-        val mTTAdNative = TTAdSdk.getAdManager().createAdNative(this)
-        val adSlot = AdSlot.Builder()
-            .setCodeId("887444670")
-            .setImageAcceptedSize(1080, 1920)
-            .build()
-        mTTAdNative.loadSplashAd(adSlot, object : SplashAdListener {
-            //请求广告失败
-            @MainThread
-            override fun onError(code: Int, message: String) {
-                //开发者处理跳转到APP主页面逻辑
-            }
-
-            //请求广告超时
-            @MainThread
-            override fun onTimeout() {
-                //开发者处理跳转到APP主页面逻辑
-            }
-
-            //请求广告成功
-            @MainThread
-            override fun onSplashAdLoad(ad: TTSplashAd) {
-                //获取SplashView
-                val view: View = ad.splashView
-                if (!this@SplashActivity.isFinishing) {
-                    mSplashContainer.removeAllViews()
-                    //把SplashView 添加到ViewGroup中,注意开屏广告view：width =屏幕宽；height >=75%屏幕高
-                    mSplashContainer.addView(view)
-                    //设置不开启开屏广告倒计时功能以及不显示跳过按钮,如果这么设置，您需要自定义倒计时逻辑
-                    //ad.setNotAllowSdkCountdown();
-
-                    ad.setSplashInteractionListener(object : TTSplashAd.AdInteractionListener {
-                        //点击回调
-                        override fun onAdClicked(view: View, type: Int) {}
-
-                        //展示回调
-                        override fun onAdShow(view: View, type: Int) {}
-
-                        //跳过回调
-                        override fun onAdSkip() {
-                            //开发者处理跳转到APP主页面逻辑
-                            startToActivity<MainActivity>()
-                        }
-
-                        //超时倒计时结束
-                        override fun onAdTimeOver() {
-                            //开发者处理跳转到APP主页面逻辑
-                            startToActivity<MainActivity>()
-                        }
-                    })
-                } else {
-                    //开发者处理跳转到APP主页面逻辑
-                    startToActivity<MainActivity>()
-                }
-            }
-        }, 5 * 1000)
+        // step3:加载广告
+        loadSplashAd()
 
         if (!applicationContext.getPrefer().getBoolean("has_adjust", false)) {
             lifecycleScope.launch {
@@ -137,8 +87,7 @@ class SplashActivity : BaseActivity() {
      */
     private fun loadSplashAd() {
         //step3:创建开屏广告请求参数AdSlot,具体参数含义参考文档
-        var adSlot: AdSlot? = null
-        adSlot = if (mIsExpress) {
+        val adSlot = if (mIsExpress) {
             //个性化模板广告需要传入期望广告view的宽、高，单位dp，请传入实际需要的大小，
             //比如：广告下方拼接logo、适配刘海屏等，需要考虑实际广告大小
             //float expressViewWidth = UIUtils.getScreenWidthDp(this);
@@ -173,12 +122,9 @@ class SplashActivity : BaseActivity() {
             @MainThread
             override fun onSplashAdLoad(ad: TTSplashAd) {
                 Log.d(TAG, "开屏广告请求成功")
-                if (ad == null) {
-                    return
-                }
                 //获取SplashView
                 val view = ad.splashView
-                if (view != null && mSplashContainer != null && !this@SplashActivity.isFinishing) {
+                if (!this@SplashActivity.isFinishing) {
                     mSplashContainer.removeAllViews()
                     //把SplashView 添加到ViewGroup中,注意开屏广告view：width >=70%屏幕宽；height >=50%屏幕高
                     mSplashContainer.addView(view)
@@ -197,18 +143,18 @@ class SplashActivity : BaseActivity() {
 
                     override fun onAdShow(view: View, type: Int) {
                         Log.d(TAG, "onAdShow")
-                        showInfoToast(this@SplashActivity, "开屏广告展示")
+                        // showInfoToast(this@SplashActivity, "开屏广告展示")
                     }
 
                     override fun onAdSkip() {
                         Log.d(TAG, "onAdSkip")
-                        showInfoToast(this@SplashActivity, "开屏广告跳过")
+                        // showInfoToast(this@SplashActivity, "开屏广告跳过")
                         startToActivity<MainActivity>()
                     }
 
                     override fun onAdTimeOver() {
                         Log.d(TAG, "onAdTimeOver")
-                        showInfoToast(this@SplashActivity, "开屏广告倒计时结束")
+                        // showInfoToast(this@SplashActivity, "开屏广告倒计时结束")
                         startToActivity<MainActivity>()
                     }
                 })
