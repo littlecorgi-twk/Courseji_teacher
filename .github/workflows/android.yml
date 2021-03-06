@@ -44,7 +44,7 @@ jobs:
           # Exit code for reviewdog when errors are found [true,false].Default is `false`.
           # fail_on_error: # optional, default is false
           # Checkstyle config file
-          checkstyle_config: '../../checkStyle/google_aosp_checks.xml' # default is google_checks.xml
+          checkstyle_config: './checkStyle/google_aosp_checks.xml' # default is google_checks.xml
           # Working directory relative to the root directory.
           # workdir: # optional, default is .
           # Tool name to use for reviewdog reporter
