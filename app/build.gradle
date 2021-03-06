@@ -43,8 +43,8 @@ android {
         config {
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties.containsKey("KEYSTORE_PASS") ? keystoreProperties['KEYSTORE_PASS'] : System.getenv("KEYSTORE_PASS")
-            keyAlias      keystoreProperties.containsKey("ALIAS_NAME")    ? keystoreProperties['ALIAS_NAME']    : System.getenv("ALIAS_NAME")
-            keyPassword   keystoreProperties.containsKey("ALIAS_PASS")    ? keystoreProperties['ALIAS_PASS']    : System.getenv("ALIAS_PASS")
+            keyAlias keystoreProperties.containsKey("ALIAS_NAME") ? keystoreProperties['ALIAS_NAME'] : System.getenv("ALIAS_NAME")
+            keyPassword keystoreProperties.containsKey("ALIAS_PASS") ? keystoreProperties['ALIAS_PASS'] : System.getenv("ALIAS_PASS")
         }
     }
 
@@ -67,7 +67,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        dataBinding  = true
+        dataBinding = true
     }
     sourceSets {
         main {

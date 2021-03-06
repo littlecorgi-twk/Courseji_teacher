@@ -4,202 +4,205 @@ import com.google.gson.annotations.SerializedName;
 import java.io.File;
 import java.util.List;
 
+/**
+ * 这个类即是接收网络请求返回学生数据的类，也是RecyclerView对应的数据类
+ */
 public class ItemData {
-  /*
-  这个类即是接收网络请求返回学生数据的类，也是RecyclerView对应的数据类
-   */
 
-  @SerializedName("allSignData")
-  private List<AllSignData> allSignData;
+    @SerializedName("allSignData")
+    private List<AllSignData> allSignData;
 
-  public List<AllSignData> getAllSignData() {
-    return allSignData;
-  }
-
-  public void setAllSignData(List<AllSignData> allSignData) {
-    this.allSignData = allSignData;
-  }
-
-  public static class AllSignData {
-
-    private String StateTitle; // 文字状态
-    private String LabelTitle;
-    private int LeftColor; // 左边框的颜色
-    private int myLabel; // 应该是myState写错了
-
-    @SerializedName("Theme")
-    private String Theme; // 主题
-
-    @SerializedName("StartTime")
-    private String StartTime; // 开始时间
-
-    @SerializedName("EndTime")
-    private String EndTime; // 结束时间
-
-    @SerializedName("State")
-    private int State; // 签到状态
-
-    @SerializedName("Label")
-    private int Label; // 标签
-
-    @SerializedName("Name")
-    private String Name; // 老师的名字
-
-    @SerializedName("Occupational")
-    private String Occupational; // 老师的职业
-
-    @SerializedName("image")
-    private File image; // 老师的图像
-
-    @SerializedName("Title")
-    private String Title; // 签到的内容
-
-    @SerializedName("FinishTime")
-    private String FinishTime; // 完成签到的时间
-
-    @SerializedName("Lat")
-    private String Lat; // 纬度
-
-    @SerializedName("Ing")
-    private String Ing; // 经度
-
-    @SerializedName("signPhoto")
-    private File signPhoto; // 如果是拍照签到需要返回图片
-
-    public void setTheme(String theme) {
-      Theme = theme;
+    public List<AllSignData> getAllSignData() {
+        return allSignData;
     }
 
-    public void setStartTime(String startTime) {
-      StartTime = startTime;
+    public void setAllSignData(List<AllSignData> allSignData) {
+        this.allSignData = allSignData;
     }
 
-    public void setEndTime(String endTime) {
-      EndTime = endTime;
-    }
+    /**
+     * 登录信息
+     */
+    public static class AllSignData {
 
-    public void setState(int state) {
-      State = state;
-    }
+        private String stateTitle; // 文字状态
+        private String labelTitle;
+        private int leftColor; // 左边框的颜色
+        private int myLabel; // 应该是myState写错了
 
-    public void setLabel(int label) {
-      Label = label;
-    }
+        @SerializedName("Theme")
+        private String theme; // 主题
 
-    public void setName(String name) {
-      Name = name;
-    }
+        @SerializedName("StartTime")
+        private String startTime; // 开始时间
 
-    public void setOccupational(String occupational) {
-      Occupational = occupational;
-    }
+        @SerializedName("EndTime")
+        private String endTime; // 结束时间
 
-    public void setImage(File image) {
-      this.image = image;
-    }
+        @SerializedName("State")
+        private int state; // 签到状态
 
-    public void setTitle(String title) {
-      Title = title;
-    }
+        @SerializedName("Label")
+        private int label; // 标签
 
-    public void setFinishTime(String finishTime) {
-      FinishTime = finishTime;
-    }
+        @SerializedName("Name")
+        private String name; // 老师的名字
 
-    public void setLat(String lat) {
-      Lat = lat;
-    }
+        @SerializedName("Occupational")
+        private String occupational; // 老师的职业
 
-    public void setIng(String ing) {
-      Ing = ing;
-    }
+        @SerializedName("image")
+        private File image; // 老师的图像
 
-    public void setSignPhoto(File signPhoto) {
-      this.signPhoto = signPhoto;
-    }
+        @SerializedName("Title")
+        private String title; // 签到的内容
 
-    public File getSignPhoto() {
-      return signPhoto;
-    }
+        @SerializedName("FinishTime")
+        private String finishTime; // 完成签到的时间
 
-    public String getTheme() {
-      return Theme;
-    }
+        @SerializedName("Lat")
+        private String lat; // 纬度
 
-    public String getStartTime() {
-      return StartTime;
-    }
+        @SerializedName("Ing")
+        private String ing; // 经度
 
-    public String getEndTime() {
-      return EndTime;
-    }
+        @SerializedName("signPhoto")
+        private File signPhoto; // 如果是拍照签到需要返回图片
 
-    public int getState() {
-      return State;
-    }
+        public String getStateTitle() {
+            return stateTitle;
+        }
 
-    public int getLabel() {
-      return Label;
-    }
+        public void setStateTitle(String stateTitle) {
+            this.stateTitle = stateTitle;
+        }
 
-    public String getName() {
-      return Name;
-    }
+        public String getLabelTitle() {
+            return labelTitle;
+        }
 
-    public String getOccupational() {
-      return Occupational;
-    }
+        public void setLabelTitle(String labelTitle) {
+            this.labelTitle = labelTitle;
+        }
 
-    public File getImage() {
-      return image;
-    }
+        public int getLeftColor() {
+            return leftColor;
+        }
 
-    public String getTitle() {
-      return Title;
-    }
+        public void setLeftColor(int leftColor) {
+            this.leftColor = leftColor;
+        }
 
-    public String getFinishTime() {
-      return FinishTime;
-    }
+        public int getMyLabel() {
+            return myLabel;
+        }
 
-    public String getLat() {
-      return Lat;
-    }
+        public void setMyLabel(int myLabel) {
+            this.myLabel = myLabel;
+        }
 
-    public String getIng() {
-      return Ing;
-    }
+        public String getTheme() {
+            return theme;
+        }
 
-    public String getStateTitle() {
-      return StateTitle;
-    }
+        public void setTheme(String theme) {
+            this.theme = theme;
+        }
 
-    public void setStateTitle(String stateTitle) {
-      StateTitle = stateTitle;
-    }
+        public String getStartTime() {
+            return startTime;
+        }
 
-    public int getLeftColor() {
-      return LeftColor;
-    }
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
 
-    public void setLeftColor(int leftColor) {
-      LeftColor = leftColor;
-    }
+        public String getEndTime() {
+            return endTime;
+        }
 
-    public int getMyLabel() {
-      return myLabel;
-    }
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
+        }
 
-    public void setMyLabel(int myLabel) {
-      this.myLabel = myLabel;
-    }
+        public int getState() {
+            return state;
+        }
 
-    public String getLabelTitle() {
-      return LabelTitle;
-    }
+        public void setState(int state) {
+            this.state = state;
+        }
 
-    public void setLabelTitle(String labelTitle) {
-      LabelTitle = labelTitle;
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getOccupational() {
+            return occupational;
+        }
+
+        public void setOccupational(String occupational) {
+            this.occupational = occupational;
+        }
+
+        public File getImage() {
+            return image;
+        }
+
+        public void setImage(File image) {
+            this.image = image;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getFinishTime() {
+            return finishTime;
+        }
+
+        public void setFinishTime(String finishTime) {
+            this.finishTime = finishTime;
+        }
+
+        public String getLat() {
+            return lat;
+        }
+
+        public void setLat(String lat) {
+            this.lat = lat;
+        }
+
+        public String getIng() {
+            return ing;
+        }
+
+        public void setIng(String ing) {
+            this.ing = ing;
+        }
+
+        public File getSignPhoto() {
+            return signPhoto;
+        }
+
+        public void setSignPhoto(File signPhoto) {
+            this.signPhoto = signPhoto;
+        }
     }
-  }
 }

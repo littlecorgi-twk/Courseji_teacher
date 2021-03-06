@@ -69,9 +69,9 @@ class SplashActivity : BaseActivity() {
 
                 }
                 applicationContext.getPrefer().edit()
-                    .putBoolean("has_adjust", true)
-                    .putInt("", 1)
-                    .apply()
+                        .putBoolean("has_adjust", true)
+                        .putInt("", 1)
+                        .apply()
             }
         }
     }
@@ -93,15 +93,15 @@ class SplashActivity : BaseActivity() {
             //float expressViewWidth = UIUtils.getScreenWidthDp(this);
             //float expressViewHeight = UIUtils.getHeight(this);
             AdSlot.Builder()
-                .setCodeId("887444670") //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
-                //view宽高等于图片的宽高
-                .setExpressViewAcceptedSize(1080f, 1920f)
-                .build()
+                    .setCodeId("887444670") //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
+                    //view宽高等于图片的宽高
+                    .setExpressViewAcceptedSize(1080f, 1920f)
+                    .build()
         } else {
             AdSlot.Builder()
-                .setCodeId("887444670")
-                .setImageAcceptedSize(1080, 1920)
-                .build()
+                    .setCodeId("887444670")
+                    .setImageAcceptedSize(1080, 1920)
+                    .build()
         }
 
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
@@ -163,10 +163,10 @@ class SplashActivity : BaseActivity() {
                         var hasShow = false
                         override fun onIdle() {}
                         override fun onDownloadActive(
-                            totalBytes: Long,
-                            currBytes: Long,
-                            fileName: String,
-                            appName: String
+                                totalBytes: Long,
+                                currBytes: Long,
+                                fileName: String,
+                                appName: String
                         ) {
                             if (!hasShow) {
                                 showInfoToast(this@SplashActivity, "下载中...")
@@ -175,27 +175,27 @@ class SplashActivity : BaseActivity() {
                         }
 
                         override fun onDownloadPaused(
-                            totalBytes: Long,
-                            currBytes: Long,
-                            fileName: String,
-                            appName: String
+                                totalBytes: Long,
+                                currBytes: Long,
+                                fileName: String,
+                                appName: String
                         ) {
                             showInfoToast(this@SplashActivity, "下载暂停...")
                         }
 
                         override fun onDownloadFailed(
-                            totalBytes: Long,
-                            currBytes: Long,
-                            fileName: String,
-                            appName: String
+                                totalBytes: Long,
+                                currBytes: Long,
+                                fileName: String,
+                                appName: String
                         ) {
                             showErrorToast(this@SplashActivity, "下载失败...")
                         }
 
                         override fun onDownloadFinished(
-                            totalBytes: Long,
-                            fileName: String,
-                            appName: String
+                                totalBytes: Long,
+                                fileName: String,
+                                appName: String
                         ) {
                             showInfoToast(this@SplashActivity, "下载完成...")
                         }

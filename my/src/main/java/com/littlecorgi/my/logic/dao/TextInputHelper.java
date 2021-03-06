@@ -8,103 +8,116 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextInputHelper implements TextWatcher {
-  private final View mMainView; // 操作按钮的View
-  private List<TextView> mViewSet; // TextView集合，子类也可以（EditText、TextView、Button）
-  private final boolean isAlpha; // 是否设置透明度
 
-  private final TextInputHelperSetting setting;
+    private final View mMainView; // 操作按钮的View
+    private List<TextView> mViewSet; // TextView集合，子类也可以（EditText、TextView、Button）
+    private final boolean isAlpha; // 是否设置透明度
 
-  // 默认设置透明度
-  public TextInputHelper(View view, TextInputHelperSetting set) {
-    this(view, set, true);
-  }
+    private final TextInputHelperSetting setting;
 
-  public TextInputHelper(View view, TextInputHelperSetting set, boolean alpha) {
-    if (view == null) throw new IllegalArgumentException("The view is empty");
-    mMainView = view;
-    isAlpha = alpha;
-    setting = set;
-  }
-
-  /*
-   * 添加EditText或者TextView监听
-   *
-   * @param views     传入单个或者多个EditText或者TextView对象
-   */
-  public void addViews(TextView... views) {
-    if (views == null) return;
-
-    if (mViewSet == null) {
-      mViewSet = new ArrayList<>(views.length - 1);
+    // 默认设置透明度
+    public TextInputHelper(View view, TextInputHelperSetting set) {
+        this(view, set, true);
     }
 
-    for (TextView view : views) {
-      view.addTextChangedListener(this);
-      mViewSet.add(view);
+    public TextInputHelper(View view, TextInputHelperSetting set, boolean alpha) {
+        if (view == null) {
+            throw new IllegalArgumentException("The view is empty");
+        }
+        mMainView = view;
+        isAlpha = alpha;
+        setting = set;
     }
-    afterTextChanged(null);
-  }
 
-  /*
-   * 移除EditText监听，避免内存泄露
-   */
-  public void removeViews() {
-    if (mViewSet == null) return;
+    /*
+     * 添加EditText或者TextView监听
+     *
+     * @param views     传入单个或者多个EditText或者TextView对象
+     */
+    public void addViews(TextView... views) {
+        if (views == null) {
+            return;
+        }
 
-    for (TextView view : mViewSet) {
-      view.removeTextChangedListener(this);
+        if (mViewSet == null) {
+            mViewSet = new ArrayList<>(views.length - 1);
+        }
+
+        for (TextView view : views) {
+            view.addTextChangedListener(this);
+            mViewSet.add(view);
+        }
+        afterTextChanged(null);
     }
-    mViewSet.clear();
-    mViewSet = null;
-  }
+
+    /*
+     * 移除EditText监听，避免内存泄露
+     */
+    public void removeViews() {
+        if (mViewSet == null) {
+            return;
+        }
+
+        for (TextView view : mViewSet) {
+            view.removeTextChangedListener(this);
+        }
+        mViewSet.clear();
+        mViewSet = null;
+    }
 
   /*
      TextWatcher这个类用于监听EditText的输入
   */
 
-  /*
-  beforeTextChanged(CharSequence s, int start, int count, int after)
-  s: 修改之前的文字。
-  start: 字符串中即将发生修改的位置。
-  count: 字符串中即将被修改的文字的长度。如果是新增的话则为0。
-  after: 被修改的文字修改之后的长度。如果是删除的话则为0。
-   */
-  @Override
-  public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-  /*
-  s: 改变后的字符串
-  start: 有变动的字符串的序号
-  before: 被改变的字符串长度，如果是新增则为0。
-  count: 添加的字符串长度，如果是删除则为0。
-   */
-  @Override
-  public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-  /*
-     s: 修改后的文字
-         主要监听这里，判断输入是否改变
-  */
-  @Override
-  public synchronized void afterTextChanged(Editable s) {
-    if (mViewSet == null) return;
-
-    for (TextView view : mViewSet) {
-      if ("".equals(view.getText().toString())) {
-        setEnabled(false);
-        return;
-      }
+    /*
+    beforeTextChanged(CharSequence s, int start, int count, int after)
+    s: 修改之前的文字。
+    start: 字符串中即将发生修改的位置。
+    count: 字符串中即将被修改的文字的长度。如果是新增的话则为0。
+    after: 被修改的文字修改之后的长度。如果是删除的话则为0。
+     */
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
-    setEnabled(true);
-  }
 
-  public void setEnabled(boolean enabled) {
-    if (enabled == mMainView.isEnabled()) return;
+    /*
+    s: 改变后的字符串
+    start: 有变动的字符串的序号
+    before: 被改变的字符串长度，如果是新增则为0。
+    count: 添加的字符串长度，如果是删除则为0。
+     */
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
 
-    if (enabled) {
-      // 启用View的事件
-      mMainView.setEnabled(true);
-      if (isAlpha) {
+    /*
+       s: 修改后的文字
+           主要监听这里，判断输入是否改变
+    */
+    @Override
+    public synchronized void afterTextChanged(Editable s) {
+        if (mViewSet == null) {
+            return;
+        }
+
+        for (TextView view : mViewSet) {
+            if ("".equals(view.getText().toString())) {
+                setEnabled(false);
+                return;
+            }
+        }
+        setEnabled(true);
+    }
+
+    public void setEnabled(boolean enabled) {
+        if (enabled == mMainView.isEnabled()) {
+            return;
+        }
+
+        if (enabled) {
+            // 启用View的事件
+            mMainView.setEnabled(true);
+            if (isAlpha) {
 
         /*
         //设置不透明
@@ -112,18 +125,18 @@ public class TextInputHelper implements TextWatcher {
         mMainView.setAlpha(1f);
         mMainView.setOnClickListener();
          */
-        setting.set(mMainView, false);
-      }
-    } else {
-      // 禁用View的事件
-      mMainView.setEnabled(false);
-      if (isAlpha) {
+                setting.set(mMainView, false);
+            }
+        } else {
+            // 禁用View的事件
+            mMainView.setEnabled(false);
+            if (isAlpha) {
         /*
         //设置半透明
         mMainView.setAlpha(0.5f);
          */
-        setting.set(mMainView, true);
-      }
+                setting.set(mMainView, true);
+            }
+        }
     }
-  }
 }

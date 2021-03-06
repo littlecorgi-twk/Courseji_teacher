@@ -11,16 +11,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MyAdapt extends BaseQuickAdapter<String, BaseViewHolder> {
-  private final Context context;
 
-  public MyAdapt(int layoutResId, @Nullable List<String> data, Context context) {
-    super(layoutResId, data);
-    this.context = context;
-  }
+    private final Context context;
 
-  @Override
-  protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
-    AppCompatImageView imageView = baseViewHolder.itemView.findViewById(R.id.my_im_show_gallery);
-    Glide.with(context).load(s).into(imageView);
-  }
+    public MyAdapt(int layoutResId, @Nullable List<String> data, Context context) {
+        super(layoutResId, data);
+        this.context = context;
+    }
+
+    @Override
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
+        AppCompatImageView imageView = baseViewHolder.itemView
+                .findViewById(R.id.my_im_show_gallery);
+        Glide.with(context).load(s).into(imageView);
+    }
 }

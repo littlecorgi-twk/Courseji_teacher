@@ -41,8 +41,8 @@ inline fun Activity.startActivity(action: String, configIntent: Intent.() -> Uni
  * 通过action去启动intent跳转，并获取结果
  */
 inline fun <reified A : Activity> Activity.startActivityForResult(
-    requestCode: Int,
-    configIntent: Intent.() -> Unit = {}
+        requestCode: Int,
+        configIntent: Intent.() -> Unit = {}
 ) {
     startActivityForResult(Intent(this, A::class.java).apply(configIntent), requestCode)
 }
@@ -51,9 +51,9 @@ inline fun <reified A : Activity> Activity.startActivityForResult(
  * 通过action去启动intent跳转，并获取结果
  */
 inline fun Activity.startActivityForResult(
-    action: String,
-    requestCode: Int,
-    configIntent: Intent.() -> Unit = {}
+        action: String,
+        requestCode: Int,
+        configIntent: Intent.() -> Unit = {}
 ) {
     startActivityForResult(Intent(action).apply(configIntent), requestCode)
 }

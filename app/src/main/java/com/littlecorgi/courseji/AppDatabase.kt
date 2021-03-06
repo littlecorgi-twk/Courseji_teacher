@@ -14,9 +14,9 @@ import com.littlecorgi.courseji.schedule.logic.model.dao.TimeTableDao
  *
  * @author littlecorgi 2021/1/5
  */
-@Database(entities = [CourseBaseBean::class, CourseDetailBean::class,  TimeDetailBean::class,
+@Database(entities = [CourseBaseBean::class, CourseDetailBean::class, TimeDetailBean::class,
     TimeTableBean::class, TableBean::class],
-    version = 1, exportSchema = false)
+        version = 1, exportSchema = false)
 
 
 abstract class AppDatabase : RoomDatabase() {
@@ -29,9 +29,9 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class.java) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(context.applicationContext,
-                            AppDatabase::class.java, "course")
-                            .allowMainThreadQueries()
-                            .build()
+                                AppDatabase::class.java, "course")
+                                .allowMainThreadQueries()
+                                .build()
                     }
                 }
             }

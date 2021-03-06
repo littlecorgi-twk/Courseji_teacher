@@ -15,74 +15,96 @@ import com.baidu.mapapi.map.Stroke;
 import com.baidu.mapapi.model.LatLng;
 import com.littlecorgi.middle.R;
 
+/**
+ * 百度地图Service
+ */
 public class BaiDuMapService {
 
-  private BaiduMap mBaiDuMap = null;
+    private BaiduMap mBaiDuMap = null;
 
-  public BaiDuMapService(BaiduMap baiduMap) {
-
-    if (mBaiDuMap == null) {
-      mBaiDuMap = baiduMap;
-      setLocationEnabled();
+    /**
+     * 构造方法
+     *
+     * @param baiduMap map对象
+     */
+    public BaiDuMapService(BaiduMap baiduMap) {
+        if (mBaiDuMap == null) {
+            mBaiDuMap = baiduMap;
+            setLocationEnabled();
+        }
     }
-  }
 
-  public BaiduMap getBaiDuMap() {
-    return mBaiDuMap;
-  }
+    public BaiduMap getBaiDuMap() {
+        return mBaiDuMap;
+    }
 
-  public void setLocationEnabled() {
-    mBaiDuMap.setMyLocationEnabled(true);
-  }
+    public void setLocationEnabled() {
+        mBaiDuMap.setMyLocationEnabled(true);
+    }
 
-  public void setUNLocationEnabled() {
-    mBaiDuMap.setMyLocationEnabled(false);
-  }
+    public void setUNLocationEnabled() {
+        mBaiDuMap.setMyLocationEnabled(false);
+    }
 
-  // 设置中心点
-  public void setMapStatus(double lat, double ing) {
-    LatLng cenpt = new LatLng(lat, ing); // 设定中心点坐标
-    MapStatus mMapStatus =
-        new MapStatus.Builder() // 定义地图状态
-            .target(cenpt)
-            .zoom(19)
-            .build(); // 定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-    MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-    mBaiDuMap.setMapStatus(mMapStatusUpdate); // 改变地图状态
-  }
+    /**
+     * 设置中心点
+     */
+    public void setMapStatus(double lat, double ing) {
+        LatLng cenpt = new LatLng(lat, ing); // 设定中心点坐标
+        MapStatus mapStatus =
+                new MapStatus.Builder() // 定义地图状态
+                        .target(cenpt)
+                        .zoom(19)
+                        .build(); // 定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+        mBaiDuMap.setMapStatus(mapStatusUpdate); // 改变地图状态
+    }
 
-  public void addMarker(LatLng latLng) {
-    // 构建Marker图标
-    mBaiDuMap.clear();
-    BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_marka);
-    // 构建MarkerOption，用于在地图上添加Marker
-    OverlayOptions option = new MarkerOptions().position(latLng).icon(bitmap);
-    // 在地图上添加Marker，并显示
-    mBaiDuMap.addOverlay(option);
-  }
+    /**
+     * 添加Marker图标
+     *
+     * @param latLng 定位点
+     */
+    public void addMarker(LatLng latLng) {
+        // 构建Marker图标
+        mBaiDuMap.clear();
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_marka);
+        // 构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions().position(latLng).icon(bitmap);
+        // 在地图上添加Marker，并显示
+        mBaiDuMap.addOverlay(option);
+    }
 
-  public void setLocationData(BDLocation location) {
+    /**
+     * 设置定位数据
+     *
+     * @param location 定位信息
+     */
+    public void setLocationData(BDLocation location) {
+        MyLocationData locData =
+                new MyLocationData.Builder()
+                        .accuracy(location.getRadius())
+                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(location.getDirection())
+                        .latitude(location.getLatitude())
+                        .longitude(location.getLongitude())
+                        .build();
+        mBaiDuMap.setMyLocationData(locData);
+    }
 
-    MyLocationData locData =
-        new MyLocationData.Builder()
-            .accuracy(location.getRadius())
-            // 此处设置开发者获取到的方向信息，顺时针0-360
-            .direction(location.getDirection())
-            .latitude(location.getLatitude())
-            .longitude(location.getLongitude())
-            .build();
-    mBaiDuMap.setMyLocationData(locData);
-  }
-
-  public void setCircle(LatLng center) {
-
-    // 构造CircleOptions对象
-    CircleOptions mCircleOptions =
-        new CircleOptions()
-            .center(center)
-            .radius(100)
-            .fillColor(0xAA0000FF) // 填充颜色
-            .stroke(new Stroke(5, 0xAA00ff00)); // 边框宽和边框颜色
-    mBaiDuMap.addOverlay(mCircleOptions);
-  }
+    /**
+     * 设置Circle
+     *
+     * @param center 圆形中心点
+     */
+    public void setCircle(LatLng center) {
+        // 构造CircleOptions对象
+        CircleOptions circleOptions =
+                new CircleOptions()
+                        .center(center)
+                        .radius(100)
+                        .fillColor(0xAA0000FF) // 填充颜色
+                        .stroke(new Stroke(5, 0xAA00ff00)); // 边框宽和边框颜色
+        mBaiDuMap.addOverlay(circleOptions);
+    }
 }

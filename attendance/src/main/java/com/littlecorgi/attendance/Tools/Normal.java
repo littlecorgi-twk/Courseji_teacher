@@ -1,37 +1,38 @@
 package com.littlecorgi.attendance.Tools;
 
 public class Normal {
-  private String lesson;
-  private String teacher;
-  private String time;
 
-  public Normal(String lesson, String teacher, String time) {
-    this.lesson = lesson;
-    this.teacher = teacher;
-    this.time = time;
-  }
+    private String lesson;
+    private String teacher;
+    private String time;
 
-  public String getTime() {
-    return time;
-  }
+    public Normal(String lesson, String teacher, String time) {
+        this.lesson = lesson;
+        this.teacher = teacher;
+        this.time = time;
+    }
 
-  public void setTime(String time) {
-    this.time = time;
-  }
+    public String getTime() {
+        return time;
+    }
 
-  public String getTeacher() {
-    return teacher;
-  }
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-  public void setTeacher(String teacher) {
-    this.teacher = teacher;
-  }
+    public String getTeacher() {
+        return teacher;
+    }
 
-  public String getLesson() {
-    return lesson;
-  }
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
 
-  public void setLesson(String lesson) {
-    this.lesson = lesson;
-  }
+    public String getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(String lesson) {
+        this.lesson = lesson;
+    }
 }

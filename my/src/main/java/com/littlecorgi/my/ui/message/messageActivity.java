@@ -48,299 +48,304 @@ import retrofit2.Response;
 
 public class messageActivity extends BaseActivity {
 
-  private AppCompatTextView returnButton;
-  private AppCompatButton sureButton;
-  private ConstraintLayout pictureLayout;
-  private AppCompatImageView pictureView;
-  private ConstraintLayout nameLayout;
-  private AppCompatTextView nameTitle;
+    private AppCompatTextView returnButton;
+    private AppCompatButton sureButton;
+    private ConstraintLayout pictureLayout;
+    private AppCompatImageView pictureView;
+    private ConstraintLayout nameLayout;
+    private AppCompatTextView nameTitle;
 
-  private ConstraintLayout idLayout;
-  private AppCompatTextView idTitle;
+    private ConstraintLayout idLayout;
+    private AppCompatTextView idTitle;
 
-  private ConstraintLayout genderLayout;
-  private AppCompatTextView genderTitle;
-  private AppCompatEditText professionalTitle;
-  private ConstraintLayout describeLayout;
-  private AppCompatTextView describeTitle;
+    private ConstraintLayout genderLayout;
+    private AppCompatTextView genderTitle;
+    private AppCompatEditText professionalTitle;
+    private ConstraintLayout describeLayout;
+    private AppCompatTextView describeTitle;
 
-  private ConstraintLayout nationalLayout;
-  private AppCompatTextView nationalTitle;
+    private ConstraintLayout nationalLayout;
+    private AppCompatTextView nationalTitle;
 
-  private MyMessage myMessage;
-  private MessageChange messageChange;
+    private MyMessage myMessage;
+    private MessageChange messageChange;
 
-  private Dialog pictureDialog;
-  private Dialog genderDialog;
-  private Dialog nationalDialog;
-  private boolean isChanged = false;
+    private Dialog pictureDialog;
+    private Dialog genderDialog;
+    private Dialog nationalDialog;
+    private boolean isChanged = false;
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == RESULT_OK) {
-      if (requestCode == REQUEST_CODE) {
-        assert data != null;
-        String describeData = data.getStringExtra(REQUEST_DATA);
-        describeTitle.setText(describeData);
-        messageChange.setDescribe(describeData);
-        isChanged = true;
-      }
-      if (requestCode == OPEN_CAMERA || requestCode == OPEN_ALBUM) {
-        String path = getImagePath(data);
-        Glide.with(this).load(path).into(pictureView);
-        messageChange.setMyImagePath(path);
-      }
-    }
-  }
-
-  private String getImagePath(Intent data) {
-
-    List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
-    if (Build.VERSION.SDK_INT >= 29) {
-      return localMedia.get(0).getAndroidQToPath();
-    } else {
-      return localMedia.get(0).getPath();
-    }
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.my_message);
-    // 初始化view
-    initView();
-    // 初始化data
-    initData();
-  }
-
-  private void initView() {
-    initBarColor();
-    initFind();
-    initImageView();
-    initNameView();
-    initIdVIew();
-    initGenderView();
-    initDescribeView();
-    initNationalView();
-    initClick();
-  }
-
-  private void initBarColor() {
-    setWindowStatusBarColor(this, R.color.blue);
-  }
-
-  private void initClick() {
-    returnButton.setOnClickListener(v -> finish());
-    sureButton.setOnClickListener(v -> saveMessage());
-  }
-
-  private void saveMessage() {
-    if (!Objects.requireNonNull(professionalTitle.getText())
-        .toString()
-        .equals(myMessage.getProfessional())) isChanged = true;
-    if (isChanged) {
-      messageChange.setProfessional(professionalTitle.getText().toString());
-      Map<String, Object> map = new HashMap<>();
-      map.put("image", messageChange.getMyImagePath());
-      map.put("gender", messageChange.getGender());
-      map.put("professional", messageChange.getProfessional());
-      map.put("describe", messageChange.getDescribe());
-      map.put("national", messageChange.getNational());
-      Call<ResponseBody> call = messageRetrofit(map);
-      call.enqueue(
-          new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(
-                @NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-
-              Toast.makeText(messageActivity.this, "保存成功", Toast.LENGTH_LONG).show();
-              isChanged = false;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE) {
+                assert data != null;
+                String describeData = data.getStringExtra(REQUEST_DATA);
+                describeTitle.setText(describeData);
+                messageChange.setDescribe(describeData);
+                isChanged = true;
             }
-
-            @Override
-            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-
-              Toast.makeText(messageActivity.this, "保存失败，过会在试吧", Toast.LENGTH_LONG).show();
+            if (requestCode == OPEN_CAMERA || requestCode == OPEN_ALBUM) {
+                String path = getImagePath(data);
+                Glide.with(this).load(path).into(pictureView);
+                messageChange.setMyImagePath(path);
             }
-          });
+        }
     }
-  }
 
-  private void initNationalView() {
+    private String getImagePath(Intent data) {
 
-    View nationalBtw = View.inflate(this, R.layout.my_national_btw, null);
-    WheelView wheelView = nationalBtw.findViewById(R.id.national_blw_wheelView);
-    List<String> list = getNationalList();
-    wheelView.setAdapter(new ArrayWheelAdapter<>(list));
-    wheelView.setCurrentItem(0);
-    nationalLayout.setOnClickListener(
-        v -> {
-          if (nationalDialog != null) {
-            nationalDialog.show();
-          } else {
-            nationalDialog = dialogBtw(nationalBtw, this);
-          }
-        });
-    AppCompatButton cancel = nationalBtw.findViewById(R.id.national_blw_cancelButton);
-    AppCompatButton sure = nationalBtw.findViewById(R.id.national_blw_sureButton);
-    cancel.setOnClickListener(v -> nationalDialog.dismiss());
-    sure.setOnClickListener(
-        v -> {
-          nationalTitle.setText(list.get(wheelView.getCurrentItem()));
-          messageChange.setNational(list.get(wheelView.getCurrentItem()));
-          isChanged = true;
-          nationalDialog.dismiss();
-        });
-  }
+        List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
+        if (Build.VERSION.SDK_INT >= 29) {
+            return localMedia.get(0).getAndroidQToPath();
+        } else {
+            return localMedia.get(0).getPath();
+        }
+    }
 
-  private void initDescribeView() {
-    describeLayout.setOnClickListener(v -> StartDescribeActivity(this));
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_message);
+        // 初始化view
+        initView();
+        // 初始化data
+        initData();
+    }
 
-  private void initFind() {
-    returnButton = findViewById(R.id.my_message_returnButton);
-    sureButton = findViewById(R.id.my_message_SureButton);
+    private void initView() {
+        initBarColor();
+        initFind();
+        initImageView();
+        initNameView();
+        initIdVIew();
+        initGenderView();
+        initDescribeView();
+        initNationalView();
+        initClick();
+    }
 
-    pictureLayout = findViewById(R.id.my_message_picture);
-    pictureView = findViewById(R.id.my_message_ImageView);
+    private void initBarColor() {
+        setWindowStatusBarColor(this, R.color.blue);
+    }
 
-    nameLayout = findViewById(R.id.my_message_name);
-    nameTitle = findViewById(R.id.my_message_nameTitle);
+    private void initClick() {
+        returnButton.setOnClickListener(v -> finish());
+        sureButton.setOnClickListener(v -> saveMessage());
+    }
 
-    idLayout = findViewById(R.id.my_message_id);
-    idTitle = findViewById(R.id.my_message_idTitle);
+    private void saveMessage() {
+        if (!Objects.requireNonNull(professionalTitle.getText())
+                .toString()
+                .equals(myMessage.getProfessional())) {
+            isChanged = true;
+        }
+        if (isChanged) {
+            messageChange.setProfessional(professionalTitle.getText().toString());
+            Map<String, Object> map = new HashMap<>();
+            map.put("image", messageChange.getMyImagePath());
+            map.put("gender", messageChange.getGender());
+            map.put("professional", messageChange.getProfessional());
+            map.put("describe", messageChange.getDescribe());
+            map.put("national", messageChange.getNational());
+            Call<ResponseBody> call = messageRetrofit(map);
+            call.enqueue(
+                    new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(
+                                @NotNull Call<ResponseBody> call,
+                                @NotNull Response<ResponseBody> response) {
 
-    genderLayout = findViewById(R.id.my_message_gender);
-    genderTitle = findViewById(R.id.my_message_genderTitle);
+                            Toast.makeText(messageActivity.this, "保存成功", Toast.LENGTH_LONG).show();
+                            isChanged = false;
+                        }
 
-    professionalTitle = findViewById(R.id.my_message_professionalTitle);
+                        @Override
+                        public void onFailure(@NotNull Call<ResponseBody> call,
+                                @NotNull Throwable t) {
 
-    describeLayout = findViewById(R.id.my_message_Describe);
-    describeTitle = findViewById(R.id.my_message_DescribeTitle);
+                            Toast.makeText(messageActivity.this, "保存失败，过会在试吧", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+        }
+    }
 
-    nationalLayout = findViewById(R.id.my_message_national);
-    nationalTitle = findViewById(R.id.my_message_nationalTitle);
-  }
+    private void initNationalView() {
 
-  private void initGenderView() {
+        View nationalBtw = View.inflate(this, R.layout.my_national_btw, null);
+        WheelView wheelView = nationalBtw.findViewById(R.id.national_blw_wheelView);
+        List<String> list = getNationalList();
+        wheelView.setAdapter(new ArrayWheelAdapter<>(list));
+        wheelView.setCurrentItem(0);
+        nationalLayout.setOnClickListener(
+                v -> {
+                    if (nationalDialog != null) {
+                        nationalDialog.show();
+                    } else {
+                        nationalDialog = dialogBtw(nationalBtw, this);
+                    }
+                });
+        AppCompatButton cancel = nationalBtw.findViewById(R.id.national_blw_cancelButton);
+        AppCompatButton sure = nationalBtw.findViewById(R.id.national_blw_sureButton);
+        cancel.setOnClickListener(v -> nationalDialog.dismiss());
+        sure.setOnClickListener(
+                v -> {
+                    nationalTitle.setText(list.get(wheelView.getCurrentItem()));
+                    messageChange.setNational(list.get(wheelView.getCurrentItem()));
+                    isChanged = true;
+                    nationalDialog.dismiss();
+                });
+    }
 
-    View genderBtw = View.inflate(this, R.layout.my_gender_btw, null);
-    genderLayout.setOnClickListener(
-        v -> {
-          if (genderDialog != null) {
-            genderDialog.show();
-          } else {
-            genderDialog = dialogBtw(genderBtw, this);
-          }
-        });
-    AppCompatTextView man = genderBtw.findViewById(R.id.gender_btw_man);
-    AppCompatTextView woman = genderBtw.findViewById(R.id.gender_btw_woman);
-    AppCompatTextView cancel = genderBtw.findViewById(R.id.gender_btw_cancel);
-    man.setOnClickListener(
-        v -> {
-          genderTitle.setText("男");
-          messageChange.setGender("男");
-          isChanged = true;
-          genderDialog.dismiss();
-        });
-    woman.setOnClickListener(
-        v -> {
-          genderTitle.setText("女");
-          messageChange.setGender("女");
-          isChanged = true;
-          genderDialog.dismiss();
-        });
-    cancel.setOnClickListener(v -> genderDialog.dismiss());
-  }
+    private void initDescribeView() {
+        describeLayout.setOnClickListener(v -> StartDescribeActivity(this));
+    }
 
-  private void initIdVIew() {
-    idLayout.setOnClickListener(
-        v -> Toast.makeText(messageActivity.this, "不可修改", Toast.LENGTH_LONG).show());
-  }
+    private void initFind() {
+        returnButton = findViewById(R.id.my_message_returnButton);
+        sureButton = findViewById(R.id.my_message_SureButton);
 
-  private void initNameView() {
-    nameLayout.setOnClickListener(
-        v -> Toast.makeText(messageActivity.this, "不可修改", Toast.LENGTH_LONG).show());
-  }
+        pictureLayout = findViewById(R.id.my_message_picture);
+        pictureView = findViewById(R.id.my_message_ImageView);
 
-  private void initImageView() {
+        nameLayout = findViewById(R.id.my_message_name);
+        nameTitle = findViewById(R.id.my_message_nameTitle);
 
-    View imageBtw = View.inflate(this, R.layout.my_picture_btw, null);
+        idLayout = findViewById(R.id.my_message_id);
+        idTitle = findViewById(R.id.my_message_idTitle);
 
-    AppCompatTextView photo = imageBtw.findViewById(R.id.picture_btw_photo);
-    AppCompatTextView album = imageBtw.findViewById(R.id.picture_btw_album);
-    AppCompatTextView original = imageBtw.findViewById(R.id.picture_btw_original);
-    AppCompatTextView cancel = imageBtw.findViewById(R.id.picture_btw_cancel);
-    photo.setOnClickListener(v1 -> photoHelp());
-    album.setOnClickListener(v1 -> albumHelp());
-    original.setOnClickListener(v1 -> originalHelp());
-    cancel.setOnClickListener(v1 -> pictureDialog.dismiss());
+        genderLayout = findViewById(R.id.my_message_gender);
+        genderTitle = findViewById(R.id.my_message_genderTitle);
 
-    pictureLayout.setOnClickListener(
-        v -> {
-          if (pictureDialog != null) {
-            pictureDialog.show();
-          } else {
-            pictureDialog = dialogBtw(imageBtw, this);
-          }
-        });
-  }
+        professionalTitle = findViewById(R.id.my_message_professionalTitle);
 
-  private void albumHelp() {
+        describeLayout = findViewById(R.id.my_message_Describe);
+        describeTitle = findViewById(R.id.my_message_DescribeTitle);
+
+        nationalLayout = findViewById(R.id.my_message_national);
+        nationalTitle = findViewById(R.id.my_message_nationalTitle);
+    }
+
+    private void initGenderView() {
+
+        View genderBtw = View.inflate(this, R.layout.my_gender_btw, null);
+        genderLayout.setOnClickListener(
+                v -> {
+                    if (genderDialog != null) {
+                        genderDialog.show();
+                    } else {
+                        genderDialog = dialogBtw(genderBtw, this);
+                    }
+                });
+        AppCompatTextView man = genderBtw.findViewById(R.id.gender_btw_man);
+        AppCompatTextView woman = genderBtw.findViewById(R.id.gender_btw_woman);
+        AppCompatTextView cancel = genderBtw.findViewById(R.id.gender_btw_cancel);
+        man.setOnClickListener(
+                v -> {
+                    genderTitle.setText("男");
+                    messageChange.setGender("男");
+                    isChanged = true;
+                    genderDialog.dismiss();
+                });
+        woman.setOnClickListener(
+                v -> {
+                    genderTitle.setText("女");
+                    messageChange.setGender("女");
+                    isChanged = true;
+                    genderDialog.dismiss();
+                });
+        cancel.setOnClickListener(v -> genderDialog.dismiss());
+    }
+
+    private void initIdVIew() {
+        idLayout.setOnClickListener(
+                v -> Toast.makeText(messageActivity.this, "不可修改", Toast.LENGTH_LONG).show());
+    }
+
+    private void initNameView() {
+        nameLayout.setOnClickListener(
+                v -> Toast.makeText(messageActivity.this, "不可修改", Toast.LENGTH_LONG).show());
+    }
+
+    private void initImageView() {
+
+        View imageBtw = View.inflate(this, R.layout.my_picture_btw, null);
+
+        AppCompatTextView photo = imageBtw.findViewById(R.id.picture_btw_photo);
+        AppCompatTextView album = imageBtw.findViewById(R.id.picture_btw_album);
+        AppCompatTextView original = imageBtw.findViewById(R.id.picture_btw_original);
+        AppCompatTextView cancel = imageBtw.findViewById(R.id.picture_btw_cancel);
+        photo.setOnClickListener(v1 -> photoHelp());
+        album.setOnClickListener(v1 -> albumHelp());
+        original.setOnClickListener(v1 -> originalHelp());
+        cancel.setOnClickListener(v1 -> pictureDialog.dismiss());
+
+        pictureLayout.setOnClickListener(
+                v -> {
+                    if (pictureDialog != null) {
+                        pictureDialog.show();
+                    } else {
+                        pictureDialog = dialogBtw(imageBtw, this);
+                    }
+                });
+    }
+
+    private void albumHelp() {
     /*
     打开相册
      */
-    openAlbum(this, OPEN_ALBUM);
-    pictureDialog.dismiss();
-  }
+        openAlbum(this, OPEN_ALBUM);
+        pictureDialog.dismiss();
+    }
 
-  private void photoHelp() {
+    private void photoHelp() {
     /*
     拍照
      */
-    openCamera(this, OPEN_CAMERA);
-    pictureDialog.dismiss();
-  }
+        openCamera(this, OPEN_CAMERA);
+        pictureDialog.dismiss();
+    }
 
-  private void originalHelp() {
+    private void originalHelp() {
     /*
     查看大图
      */
-    if (messageChange.getMyImagePath() == null) {
-      StartOriginalActivity(this, myMessage.getImagePath());
-    } else {
-      StartOriginalActivity(this, messageChange.getMyImagePath());
+        if (messageChange.getMyImagePath() == null) {
+            StartOriginalActivity(this, myMessage.getImagePath());
+        } else {
+            StartOriginalActivity(this, messageChange.getMyImagePath());
+        }
+
+        pictureDialog.dismiss();
     }
 
-    pictureDialog.dismiss();
-  }
+    private void initData() {
+        Intent intent = getIntent();
+        myMessage = (MyMessage) intent.getSerializableExtra("myMessage");
+        assert myMessage != null;
+        // pictureView.setImageResource(myMessage.getMyImage());
+        Glide.with(this).load(myMessage.getImagePath()).into(pictureView);
+        nameTitle.setText(myMessage.getName());
+        idTitle.setText(myMessage.getId());
+        genderTitle.setText(myMessage.getGender());
+        professionalTitle.setText(myMessage.getProfessional());
+        describeTitle.setText(myMessage.getDescribe());
+        nationalTitle.setText(myMessage.getNational());
+        messageChange = new MessageChange();
+    }
 
-  private void initData() {
-    Intent intent = getIntent();
-    myMessage = (MyMessage) intent.getSerializableExtra("myMessage");
-    assert myMessage != null;
-    // pictureView.setImageResource(myMessage.getMyImage());
-    Glide.with(this).load(myMessage.getImagePath()).into(pictureView);
-    nameTitle.setText(myMessage.getName());
-    idTitle.setText(myMessage.getId());
-    genderTitle.setText(myMessage.getGender());
-    professionalTitle.setText(myMessage.getProfessional());
-    describeTitle.setText(myMessage.getDescribe());
-    nationalTitle.setText(myMessage.getNational());
-    messageChange = new MessageChange();
-  }
+    public static void StartMessageActivity(Context context, MyMessage myMessage) {
+        Intent intent = new Intent(context, messageActivity.class);
+        intent.putExtra("myMessage", myMessage);
+        context.startActivity(intent);
+    }
 
-  public static void StartMessageActivity(Context context, MyMessage myMessage) {
-    Intent intent = new Intent(context, messageActivity.class);
-    intent.putExtra("myMessage", myMessage);
-    context.startActivity(intent);
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    // 清除所有缓存 例如：压缩、裁剪、视频、音频所生成的临时文件
-    PictureFileUtils.deleteAllCacheDirFile(this);
-  }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 清除所有缓存 例如：压缩、裁剪、视频、音频所生成的临时文件
+        PictureFileUtils.deleteAllCacheDirFile(this);
+    }
 }

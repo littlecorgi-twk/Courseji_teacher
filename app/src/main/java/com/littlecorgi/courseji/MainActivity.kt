@@ -103,7 +103,7 @@ class MainActivity : BaseActivity() {
             mViewModel.timeList = mViewModel.getTimeList(mViewModel.table.timeTable)
             // 获得当前周数
             mViewModel.currentWeek =
-                CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst)
+                    CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst)
             // 设置默认的选中周数
             mViewModel.selectedWeek = mViewModel.currentWeek
             // 设置列表高度
@@ -122,11 +122,11 @@ class MainActivity : BaseActivity() {
                 showTvWeekText()
                 for (i in 1..7) {
                     mViewModel.getRawCourseByDay(i, mViewModel.table.id)
-                        .observe(this@MainActivity, Observer { list ->
-                            if (list == null) return@Observer
-                            if (list.isNotEmpty() && list[0].tableId != mViewModel.table.id) return@Observer
-                            mViewModel.allCourseList[i - 1].value = list
-                        })
+                            .observe(this@MainActivity, Observer { list ->
+                                if (list == null) return@Observer
+                                if (list.isNotEmpty() && list[0].tableId != mViewModel.table.id) return@Observer
+                                mViewModel.allCourseList[i - 1].value = list
+                            })
                 }
             }
         }
@@ -147,7 +147,7 @@ class MainActivity : BaseActivity() {
      */
     private fun initScheduleViewPager() {
         mVPAdapter =
-            ScheduleViewPagerFragmentStateAdapter(this@MainActivity, mViewModel.table.maxWeek)
+                ScheduleViewPagerFragmentStateAdapter(this@MainActivity, mViewModel.table.maxWeek)
         mBinding.vpSchedule.apply {
             this.adapter = mVPAdapter
             this.offscreenPageLimit = 1
@@ -156,7 +156,7 @@ class MainActivity : BaseActivity() {
         mVPAdapter.notifyDataSetChanged()
         if (CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst) > 0) {
             mBinding.vpSchedule.currentItem =
-                CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst) - 1
+                    CourseUtils.countWeek(mViewModel.table.startDate, mViewModel.table.sundayFirst) - 1
         } else {
             mBinding.vpSchedule.currentItem = 0
         }
@@ -184,23 +184,23 @@ class MainActivity : BaseActivity() {
         // 根据周数，总共有几个周就添加几个Button进去
         for (i in 1..mViewModel.table.maxWeek) {
             mWeekToggleGroup.addView(
-                MaterialButton(this@MainActivity).apply {
-                    setTextColor(colorSL(R.color.mtrl_text_btn_text_color_selector))
-                    val space = dip(8)
-                    setPadding(space, 0, space, 0)
-                    backgroundTintList = colorSL(R.color.mtrl_btn_text_btn_bg_color_selector)
-                    rippleColor = colorSL(R.color.mtrl_btn_text_btn_ripple_color)
-                    elevation = 0f
-                    stateListAnimator = StateListAnimator()
-                }.apply {
-                    strokeColor = colorSL(R.color.mtrl_btn_stroke_color_selector)
-                    strokeWidth = dip(1)
-                }.apply {
-                    id = i
-                    text = i.toString()
-                    textSize = 12f
-                },
-                dip(48), dip(48)
+                    MaterialButton(this@MainActivity).apply {
+                        setTextColor(colorSL(R.color.mtrl_text_btn_text_color_selector))
+                        val space = dip(8)
+                        setPadding(space, 0, space, 0)
+                        backgroundTintList = colorSL(R.color.mtrl_btn_text_btn_bg_color_selector)
+                        rippleColor = colorSL(R.color.mtrl_btn_text_btn_ripple_color)
+                        elevation = 0f
+                        stateListAnimator = StateListAnimator()
+                    }.apply {
+                        strokeColor = colorSL(R.color.mtrl_btn_stroke_color_selector)
+                        strokeWidth = dip(1)
+                    }.apply {
+                        id = i
+                        text = i.toString()
+                        textSize = 12f
+                    },
+                    dip(48), dip(48)
             )
         }
     }
@@ -228,8 +228,8 @@ class MainActivity : BaseActivity() {
      */
     private fun switchWeekToggleGroupAndAnimation() {
         mBinding.bottomSheetSvWeek.smoothScrollTo(
-            if (mViewModel.selectedWeek > 4) (mViewModel.selectedWeek - 4) * dip(56) else 0,
-            0
+                if (mViewModel.selectedWeek > 4) (mViewModel.selectedWeek - 4) * dip(56) else 0,
+                0
         )
         if (mWeekToggleGroup.checkedButtonId != mViewModel.selectedWeek) {
             mWeekToggleGroup.check(mViewModel.selectedWeek)
@@ -247,8 +247,8 @@ class MainActivity : BaseActivity() {
      */
     private fun initHeadImage() {
         Glide.with(this)
-            .load(mViewModel.mHeaderImageUrl)
-            .into(mBinding.nv.getHeaderView(0).findViewById(R.id.iv_header))
+                .load(mViewModel.mHeaderImageUrl)
+                .into(mBinding.nv.getHeaderView(0).findViewById(R.id.iv_header))
     }
 
     /**
@@ -256,8 +256,8 @@ class MainActivity : BaseActivity() {
      */
     private fun initBg() {
         Glide.with(this)
-            .load(mViewModel.mBgImageUrl)
-            .into(mBinding.ivBg)
+                .load(mViewModel.mBgImageUrl)
+                .into(mBinding.ivBg)
     }
 
     private fun initWhatDay() {
@@ -316,11 +316,11 @@ class MainActivity : BaseActivity() {
         when {
             // 当左侧侧滑栏展开时，按下返回建自动隐藏
             mBinding.drawerLayout.isDrawerOpen(GravityCompat.START) -> mBinding.drawerLayout.closeDrawer(
-                GravityCompat.START
+                    GravityCompat.START
             )
             // 当BottomSheet展开时，按下返回建自动隐藏
             mBottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED -> mBottomSheetBehavior.state =
-                BottomSheetBehavior.STATE_HIDDEN
+                    BottomSheetBehavior.STATE_HIDDEN
             // 除去上述结果，按默认返回逻辑返回
             else -> super.onBackPressed()
         }

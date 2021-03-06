@@ -10,15 +10,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class LocationAdapt extends BaseQuickAdapter<LocationShow, BaseViewHolder> {
 
-  public LocationAdapt(int layoutResId, @Nullable List<LocationShow> data) {
-    super(layoutResId, data);
-  }
+    public LocationAdapt(int layoutResId, @Nullable List<LocationShow> data) {
+        super(layoutResId, data);
+    }
 
-  @Override
-  protected void convert(@NotNull BaseViewHolder baseViewHolder, LocationShow locationShow) {
-    baseViewHolder
-        .setText(R.id.location_item_placeName, locationShow.getPlaceName())
-        .setText(R.id.location_item_distance, locationShow.getDistance() + "米");
-    baseViewHolder.setGone(R.id.location_item_right, locationShow.isGone());
-  }
+    @Override
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, LocationShow locationShow) {
+        baseViewHolder
+                .setText(R.id.location_item_placeName, locationShow.getPlaceName())
+                .setText(R.id.location_item_distance, locationShow.getDistance() + "米");
+        baseViewHolder.setGone(R.id.location_item_right, locationShow.isGone());
+    }
 }

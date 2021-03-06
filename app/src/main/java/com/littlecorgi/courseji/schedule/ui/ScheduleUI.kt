@@ -22,10 +22,10 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
  * @author littlecorgi 2020/10/20
  */
 class ScheduleUI(
-    override val ctx: Context,
-    table: TableBean,
-    day: Int,
-    forWidget: Boolean = false
+        override val ctx: Context,
+        table: TableBean,
+        day: Int,
+        forWidget: Boolean = false
 ) : Ui {
 
     private var col = 6
@@ -78,49 +78,49 @@ class ScheduleUI(
                 if (showTimeDetail) {
                     // 开始时间 eg.08:00
                     addView(
-                        AppCompatTextView(context).apply {
-                            id = R.id.tv_start
-                            setTextColor(textColor)
-                            //gravity = Gravity.CENTER
-                            //textAlignment = View.TEXT_ALIGNMENT_CENTER
-                            setSingleLine()
-                            setTextSize(TypedValue.COMPLEX_UNIT_DIP, timeSize)
-                        },
-                        FrameLayout.LayoutParams(
-                            FrameLayout.LayoutParams.WRAP_CONTENT,
-                            FrameLayout.LayoutParams.WRAP_CONTENT
-                        ).apply {
-                            gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
-                        })
+                            AppCompatTextView(context).apply {
+                                id = R.id.tv_start
+                                setTextColor(textColor)
+                                //gravity = Gravity.CENTER
+                                //textAlignment = View.TEXT_ALIGNMENT_CENTER
+                                setSingleLine()
+                                setTextSize(TypedValue.COMPLEX_UNIT_DIP, timeSize)
+                            },
+                            FrameLayout.LayoutParams(
+                                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                                    FrameLayout.LayoutParams.WRAP_CONTENT
+                            ).apply {
+                                gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
+                            })
                     // 结束时间 eg.09:00
                     addView(
-                        AppCompatTextView(context).apply {
-                            id = R.id.tv_end
-                            setTextColor(textColor)
-                            setSingleLine()
-                            setTextSize(TypedValue.COMPLEX_UNIT_DIP, timeSize)
-                        },
-                        FrameLayout.LayoutParams(
-                            FrameLayout.LayoutParams.WRAP_CONTENT,
-                            FrameLayout.LayoutParams.WRAP_CONTENT
-                        ).apply {
-                            gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
-                        })
+                            AppCompatTextView(context).apply {
+                                id = R.id.tv_end
+                                setTextColor(textColor)
+                                setSingleLine()
+                                setTextSize(TypedValue.COMPLEX_UNIT_DIP, timeSize)
+                            },
+                            FrameLayout.LayoutParams(
+                                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                                    FrameLayout.LayoutParams.WRAP_CONTENT
+                            ).apply {
+                                gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
+                            })
                 }
                 // 节数 eg.1
                 addView(
-                    AppCompatTextView(context).apply {
-                        setTextColor(textColor)
-                        text = i.toString()
-                        textSize = 12f
-                        setSingleLine()
-                    },
-                    FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                        FrameLayout.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        gravity = Gravity.CENTER
-                    })
+                        AppCompatTextView(context).apply {
+                            setTextColor(textColor)
+                            text = i.toString()
+                            textSize = 12f
+                            setSingleLine()
+                        },
+                        FrameLayout.LayoutParams(
+                                FrameLayout.LayoutParams.WRAP_CONTENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            gravity = Gravity.CENTER
+                        })
             }, ConstraintLayout.LayoutParams(0, itemHeight).apply {
                 topMargin = dip(2)
                 endToStart = R.id.anko_ll_week_panel_0
@@ -163,35 +163,35 @@ class ScheduleUI(
         for (i in 0 until col - 1) {
             // 具体的课程表，一天一个FrameLayout
             addView(FrameLayout(context).apply { id = R.id.anko_ll_week_panel_0 + i },
-                ConstraintLayout.LayoutParams(
-                    0,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    marginStart = dip(1)
-                    marginEnd = dip(1)
-                    horizontalWeight = 1f
-                    when (i) {
-                        0 -> {
-                            startToEnd = R.id.anko_tv_node1
-                            endToStart = R.id.anko_ll_week_panel_0 + i + 1
-                        }
-                        col - 2 -> {
-                            startToEnd = R.id.anko_ll_week_panel_0 + i - 1
-                            endToEnd = ConstraintSet.PARENT_ID
-                            if (!forWidget) {
-                                marginEnd = if (col < 8) {
-                                    dip(8)
-                                } else {
-                                    dip(4)
+                    ConstraintLayout.LayoutParams(
+                            0,
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        marginStart = dip(1)
+                        marginEnd = dip(1)
+                        horizontalWeight = 1f
+                        when (i) {
+                            0 -> {
+                                startToEnd = R.id.anko_tv_node1
+                                endToStart = R.id.anko_ll_week_panel_0 + i + 1
+                            }
+                            col - 2 -> {
+                                startToEnd = R.id.anko_ll_week_panel_0 + i - 1
+                                endToEnd = ConstraintSet.PARENT_ID
+                                if (!forWidget) {
+                                    marginEnd = if (col < 8) {
+                                        dip(8)
+                                    } else {
+                                        dip(4)
+                                    }
                                 }
                             }
+                            else -> {
+                                startToEnd = R.id.anko_ll_week_panel_0 + i - 1
+                                endToStart = R.id.anko_ll_week_panel_0 + i + 1
+                            }
                         }
-                        else -> {
-                            startToEnd = R.id.anko_ll_week_panel_0 + i - 1
-                            endToStart = R.id.anko_ll_week_panel_0 + i + 1
-                        }
-                    }
-                })
+                    })
         }
     }
 
@@ -204,7 +204,7 @@ class ScheduleUI(
 
     override val root = ConstraintLayout(ctx).apply {
         val textAlphaColor =
-            ColorUtils.setAlphaComponent(textColor, (0.32 * (textColor shr 24 and 0xff)).toInt())
+                ColorUtils.setAlphaComponent(textColor, (0.32 * (textColor shr 24 and 0xff)).toInt())
         for (i in 0 until col) {
             addView(AppCompatTextView(context).apply {
                 id = R.id.anko_tv_title0 + i
@@ -250,8 +250,8 @@ class ScheduleUI(
         }
 
         addView(scrollView, ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
-            ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
+                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
         ).apply {
             bottomToBottom = ConstraintSet.PARENT_ID
             topToBottom = R.id.anko_tv_title0

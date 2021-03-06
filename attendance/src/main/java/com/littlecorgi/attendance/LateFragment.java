@@ -18,41 +18,41 @@ import java.util.List;
 
 public class LateFragment extends Fragment {
 
-  private List<Late> lateList = new ArrayList<>();
-  private Button returnButton;
+    private List<Late> lateList = new ArrayList<>();
+    private Button returnButton;
 
-  @Nullable
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater,
-      @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.layout_late, container, false);
-    initData();
-    RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.late_recycler);
-    LateFragmentAdapter adapter = new LateFragmentAdapter(lateList);
-    LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-    recyclerView.setLayoutManager(manager);
-    recyclerView.setAdapter(adapter);
+    @Nullable
+    @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.layout_late, container, false);
+        initData();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.late_recycler);
+        LateFragmentAdapter adapter = new LateFragmentAdapter(lateList);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
 
-    returnButton = view.findViewById(R.id.btn_return);
-    returnButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            FragmentManager manager = getActivity().getSupportFragmentManager();
-            manager.popBackStack();
-          }
-        });
-    return view;
-  }
+        returnButton = view.findViewById(R.id.btn_return);
+        returnButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentManager manager = getActivity().getSupportFragmentManager();
+                        manager.popBackStack();
+                    }
+                });
+        return view;
+    }
 
-  private void initData() {
-    Late late1 = new Late("英语", "李明", "12.21-12.22");
-    lateList.add(late1);
-    Late late2 = new Late("英语", "李明", "12.21-12.22");
-    lateList.add(late2);
-    Late late3 = new Late("英语", "李明", "12.21-12.22");
-    lateList.add(late3);
-  }
+    private void initData() {
+        Late late1 = new Late("英语", "李明", "12.21-12.22");
+        lateList.add(late1);
+        Late late2 = new Late("英语", "李明", "12.21-12.22");
+        lateList.add(late2);
+        Late late3 = new Late("英语", "李明", "12.21-12.22");
+        lateList.add(late3);
+    }
 }

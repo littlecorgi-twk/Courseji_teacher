@@ -37,8 +37,8 @@ class AppApp : App() {
 
     private fun initUMengPush() {
         UMConfigure.init(
-            this, "5f9a8e3e1c520d30739bfe55", "Umeng",
-            UMConfigure.DEVICE_TYPE_PHONE, "7f70e2dc06073c2988d4d26f6eeee1b5"
+                this, "5f9a8e3e1c520d30739bfe55", "Umeng",
+                UMConfigure.DEVICE_TYPE_PHONE, "7f70e2dc06073c2988d4d26f6eeee1b5"
         )
         // 获取消息推送代理示例
         val mPushAgent = PushAgent.getInstance(this)

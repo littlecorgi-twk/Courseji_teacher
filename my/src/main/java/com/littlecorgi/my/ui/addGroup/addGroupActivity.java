@@ -8,18 +8,18 @@ import com.littlecorgi.my.R;
 
 public class addGroupActivity extends BaseActivity {
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.my_group);
-    initView();
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_group);
+        initView();
+    }
 
-  private void initView() {
-    initBarColor();
-  }
+    private void initView() {
+        initBarColor();
+    }
 
-  private void initBarColor() {
-    setWindowStatusBarColor(this, R.color.blue);
-  }
+    private void initBarColor() {
+        setWindowStatusBarColor(this, R.color.blue);
+    }
 }
