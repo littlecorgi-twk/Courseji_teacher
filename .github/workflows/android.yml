@@ -30,8 +30,8 @@ jobs:
 #          # githubToken: # optional
 #          # Commit message
 #          # commitMessage: # optional, default is Google Java Format
-      - name: Run java checkstyle
-        uses: nikitasavinov/checkstyle-action@0.3.1
+      - name: runner/checkstyle
+        uses: dbelyaev/action-checkstyle@master
         with:
           # GITHUB_TOKEN.
           # github_token: # optional, default is ${{ github.token }}
