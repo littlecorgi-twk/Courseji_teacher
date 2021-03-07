@@ -13,5 +13,4 @@ object Const {
 
     const val KEY_SCHOOL_URL = "school_url"
     const val KEY_SCHEDULE_DETAIL_TIME = "schedule_detail_time"
-
 }

@@ -23,10 +23,10 @@ class AppApp : App() {
         super.onCreate()
         initUMengPush()
 
-        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        // 在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this)
-        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
-        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        // 自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        // 包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL)
 
         // 初始化穿山甲广告SDK
@@ -37,8 +37,8 @@ class AppApp : App() {
 
     private fun initUMengPush() {
         UMConfigure.init(
-                this, "5f9a8e3e1c520d30739bfe55", "Umeng",
-                UMConfigure.DEVICE_TYPE_PHONE, "7f70e2dc06073c2988d4d26f6eeee1b5"
+            this, "5f9a8e3e1c520d30739bfe55", "Umeng",
+            UMConfigure.DEVICE_TYPE_PHONE, "7f70e2dc06073c2988d4d26f6eeee1b5"
         )
         // 获取消息推送代理示例
         val mPushAgent = PushAgent.getInstance(this)
@@ -76,15 +76,15 @@ class AppApp : App() {
         /**
          * 初始化厂商通道
          */
-        //小米通道
-        MiPushRegistar.register(this, "2882303761518784162", "5681878493162");
-        //华为通道，注意华为通道的初始化参数在manifest中配置
-        HuaWeiRegister.register(this);
-        //魅族通道
+        // 小米通道
+        MiPushRegistar.register(this, "2882303761518784162", "5681878493162")
+        // 华为通道，注意华为通道的初始化参数在manifest中配置
+        HuaWeiRegister.register(this)
+        // 魅族通道
         // MeizuRegister.register(this, "填写您在魅族后台APP对应的app id", "填写您在魅族后台APP对应的app key");
-        //OPPO通道
+        // OPPO通道
         // OppoRegister.register(this, "填写您在OPPO后台APP对应的app key", "填写您在魅族后台APP对应的app secret");
-        //VIVO 通道，注意VIVO通道的初始化参数在minifest中配置
+        // VIVO 通道，注意VIVO通道的初始化参数在minifest中配置
         // VivoRegister.register(this);
     }
 }

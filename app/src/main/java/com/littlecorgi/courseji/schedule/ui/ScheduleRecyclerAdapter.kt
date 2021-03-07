@@ -30,11 +30,11 @@ import com.littlecorgi.courseji.R
 // }
 
 class ScheduleRecyclerAdapter(val context: Context, val detail: ArrayList<ScheduleItem>) :
-        RecyclerView.Adapter<ScheduleRecyclerAdapter.MyViewHolder>() {
+    RecyclerView.Adapter<ScheduleRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =
-                LayoutInflater.from(context).inflate(R.layout.item_schedule_recycler, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_schedule_recycler, parent, false)
         return MyViewHolder(view)
     }
 

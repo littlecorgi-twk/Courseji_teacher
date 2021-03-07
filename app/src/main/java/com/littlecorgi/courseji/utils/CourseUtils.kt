@@ -16,7 +16,7 @@ import java.util.*
  * @author littlecorgi 2020/10/21
  */
 object CourseUtils {
-    fun getDayStr(weekDay: Int): String {
+    private fun getDayStr(weekDay: Int): String {
         return when (weekDay) {
             1 -> "周一"
             2 -> "周二"
@@ -31,51 +31,52 @@ object CourseUtils {
 
     fun courseBean2DetailBean(c: CourseBean): CourseDetailBean {
         return CourseDetailBean(
-                id = c.id, room = c.room, day = c.day, teacher = c.teacher,
-                startNode = c.startNode, step = c.step, startWeek = c.startWeek,
-                endWeek = c.endWeek, tableId = c.tableId, type = c.type
+            id = c.id, room = c.room, day = c.day, teacher = c.teacher,
+            startNode = c.startNode, step = c.step, startWeek = c.startWeek,
+            endWeek = c.endWeek, tableId = c.tableId, type = c.type
         )
     }
 
     fun editBean2DetailBeanList(editBean: CourseEditBean): MutableList<CourseDetailBean> {
         val result = mutableListOf<CourseDetailBean>()
         Common.weekIntList2WeekBeanList(editBean.weekList.value!!).forEach {
-            result.add(CourseDetailBean(
+            result.add(
+                CourseDetailBean(
                     id = editBean.id, room = editBean.room, teacher = editBean.teacher,
                     day = editBean.time.value!!.day, startNode = editBean.time.value!!.startNode,
                     step = editBean.time.value!!.endNode - editBean.time.value!!.startNode + 1,
                     startWeek = it.start, endWeek = it.end, type = it.type,
                     tableId = editBean.tableId
-            ))
-
+                )
+            )
         }
         return result
     }
 
     fun detailBean2EditBean(c: CourseDetailBean): CourseEditBean {
         return CourseEditBean(
-                id = c.id,
-                time = MutableLiveData<TimeBean>().apply {
-                    this.value = TimeBean(day = c.day, startNode = c.startNode, endNode = c.startNode + c.step - 1)
-                },
-                room = c.room, teacher = c.teacher,
-                weekList = MutableLiveData<ArrayList<Int>>().apply {
-                    this.value = ArrayList<Int>().apply {
-                        when (c.type) {
-                            0 -> {
-                                for (i in c.startWeek..c.endWeek) {
-                                    this.add(i)
-                                }
+            id = c.id,
+            time = MutableLiveData<TimeBean>().apply {
+                this.value = TimeBean(day = c.day, startNode = c.startNode, endNode = c.startNode + c.step - 1)
+            },
+            room = c.room, teacher = c.teacher,
+            weekList = MutableLiveData<ArrayList<Int>>().apply {
+                this.value = ArrayList<Int>().apply {
+                    when (c.type) {
+                        0 -> {
+                            for (i in c.startWeek..c.endWeek) {
+                                this.add(i)
                             }
-                            else -> {
-                                for (i in c.startWeek..c.endWeek step 2) {
-                                    this.add(i)
-                                }
+                        }
+                        else -> {
+                            for (i in c.startWeek..c.endWeek step 2) {
+                                this.add(i)
                             }
                         }
                     }
-                },
-                tableId = c.tableId
+                }
+            },
+            tableId = c.tableId
         )
     }
 
@@ -83,11 +84,12 @@ object CourseUtils {
         var flag = true
         for (i in 0 until list.size - 1) {
             for (j in i + 1 until list.size) {
-                if (list[i].day == list[j].day
-                        && list[i].startNode == list[j].startNode
-                        && list[i].startWeek == list[j].startWeek
-                        && list[i].type == list[j].type
-                        && list[i].tableId == list[j].tableId) {
+                if (list[i].day == list[j].day &&
+                    list[i].startNode == list[j].startNode &&
+                    list[i].startWeek == list[j].startWeek &&
+                    list[i].type == list[j].type &&
+                    list[i].tableId == list[j].tableId
+                ) {
                     flag = false
                     return flag
                 }
@@ -178,9 +180,10 @@ object CourseUtils {
         if (pInfo != null) {
             for (i in pInfo.indices) {
                 val pn = pInfo[i].packageName
-                if (pn.equals("com.tencent.qqlite", ignoreCase = true)
-                        || pn.equals("com.tencent.mobileqq", ignoreCase = true)
-                        || pn.equals("com.tencent.tim", ignoreCase = true)) {
+                if (pn.equals("com.tencent.qqlite", ignoreCase = true) ||
+                    pn.equals("com.tencent.mobileqq", ignoreCase = true) ||
+                    pn.equals("com.tencent.tim", ignoreCase = true)
+                ) {
                     return true
                 }
             }

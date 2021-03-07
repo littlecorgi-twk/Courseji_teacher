@@ -61,8 +61,8 @@ class ZFParse(source: String) : Parser(source) {
                                 if (result != null) {
                                     val nodeInfo = result.value
                                     val nodes = nodeInfo.substring(1, nodeInfo.length - 1)
-                                            .split("-".toRegex())
-                                            .dropLastWhile { it.isEmpty() }
+                                        .split("-".toRegex())
+                                        .dropLastWhile { it.isEmpty() }
 
                                     if (nodes.isNotEmpty()) {
                                         node = nodes[0].toInt()
@@ -76,7 +76,6 @@ class ZFParse(source: String) : Parser(source) {
                                 weekList.addAll(nodeRegex.replace(timeStr, "").split(','))
                             }
                         }
-
                     }
 
                     weekList.forEach {
@@ -105,13 +104,13 @@ class ZFParse(source: String) : Parser(source) {
                         }
 
                         courseList.add(
-                                Course(
-                                        name = courseName, room = room,
-                                        teacher = teacher, day = day,
-                                        startNode = node, endNode = node + step - 1,
-                                        startWeek = startWeek, endWeek = endWeek,
-                                        type = type
-                                )
+                            Course(
+                                name = courseName, room = room,
+                                teacher = teacher, day = day,
+                                startNode = node, endNode = node + step - 1,
+                                startWeek = startWeek, endWeek = endWeek,
+                                type = type
+                            )
                         )
                     }
                 }

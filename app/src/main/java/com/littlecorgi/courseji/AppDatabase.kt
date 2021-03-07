@@ -14,10 +14,13 @@ import com.littlecorgi.courseji.schedule.logic.model.dao.TimeTableDao
  *
  * @author littlecorgi 2021/1/5
  */
-@Database(entities = [CourseBaseBean::class, CourseDetailBean::class, TimeDetailBean::class,
-    TimeTableBean::class, TableBean::class],
-        version = 1, exportSchema = false)
-
+@Database(
+    entities = [
+        CourseBaseBean::class, CourseDetailBean::class, TimeDetailBean::class,
+        TimeTableBean::class, TableBean::class
+    ],
+    version = 1, exportSchema = false
+)
 
 abstract class AppDatabase : RoomDatabase() {
 
@@ -28,10 +31,12 @@ abstract class AppDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(context.applicationContext,
-                                AppDatabase::class.java, "course")
-                                .allowMainThreadQueries()
-                                .build()
+                        INSTANCE = Room.databaseBuilder(
+                            context.applicationContext,
+                            AppDatabase::class.java, "course"
+                        )
+                            .allowMainThreadQueries()
+                            .build()
                     }
                 }
             }

@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager
  * @author littlecorgi 2020/10/20
  */
 class MyFragmentLifecycleCallbacks(private val TAG: String) :
-        FragmentManager.FragmentLifecycleCallbacks() {
+    FragmentManager.FragmentLifecycleCallbacks() {
     override fun onFragmentPreAttached(fm: FragmentManager, f: Fragment, context: Context) {
         super.onFragmentPreAttached(fm, f, context)
         Log.d(TAG, "onFragmentPreAttached: ")
@@ -25,9 +25,9 @@ class MyFragmentLifecycleCallbacks(private val TAG: String) :
     }
 
     override fun onFragmentPreCreated(
-            fm: FragmentManager,
-            f: Fragment,
-            savedInstanceState: Bundle?
+        fm: FragmentManager,
+        f: Fragment,
+        savedInstanceState: Bundle?
     ) {
         super.onFragmentPreCreated(fm, f, savedInstanceState)
         Log.d(TAG, "onFragmentPreCreated: ")
@@ -39,19 +39,19 @@ class MyFragmentLifecycleCallbacks(private val TAG: String) :
     }
 
     override fun onFragmentActivityCreated(
-            fm: FragmentManager,
-            f: Fragment,
-            savedInstanceState: Bundle?
+        fm: FragmentManager,
+        f: Fragment,
+        savedInstanceState: Bundle?
     ) {
         super.onFragmentActivityCreated(fm, f, savedInstanceState)
         Log.d(TAG, "onFragmentActivityCreated: ")
     }
 
     override fun onFragmentViewCreated(
-            fm: FragmentManager,
-            f: Fragment,
-            v: View,
-            savedInstanceState: Bundle?
+        fm: FragmentManager,
+        f: Fragment,
+        v: View,
+        savedInstanceState: Bundle?
     ) {
         super.onFragmentViewCreated(fm, f, v, savedInstanceState)
         Log.d(TAG, "onFragmentViewCreated: ")

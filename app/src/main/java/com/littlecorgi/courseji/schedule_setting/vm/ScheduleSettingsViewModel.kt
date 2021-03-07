@@ -39,7 +39,6 @@ class ScheduleSettingsViewModel(application: Application) : AndroidViewModel(app
         mYear = cal.get(Calendar.YEAR)
         mMonth = cal.get(Calendar.MONTH) + 1
         mDay = cal.get(Calendar.DATE)
-        table.startDate = "${mYear}-${mMonth}-${mDay}"
+        table.startDate = "$mYear-$mMonth-$mDay"
     }
-
 }

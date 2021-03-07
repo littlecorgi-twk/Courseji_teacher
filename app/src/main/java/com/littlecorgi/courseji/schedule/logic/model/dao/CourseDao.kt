@@ -109,5 +109,4 @@ interface CourseDao {
 
     @Update
     suspend fun updateCourseBaseBean(course: CourseBaseBean)
-
 }

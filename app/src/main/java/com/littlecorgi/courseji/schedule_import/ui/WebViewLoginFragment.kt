@@ -47,11 +47,12 @@ class WebViewLoginFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_web_view_login, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_web_view_login, container, false)
         return binding.root
     }
 
@@ -78,11 +79,11 @@ class WebViewLoginFragment : Fragment() {
         binding.wvCourse.addJavascriptInterface(InJavaScriptLocalObj(), "local_obj")
         binding.wvCourse.webViewClient = object : WebViewClient() {
             override fun onReceivedSslError(
-                    view: WebView,
-                    handler: SslErrorHandler,
-                    error: SslError
+                view: WebView,
+                handler: SslErrorHandler,
+                error: SslError
             ) {
-                handler.proceed() //接受所有网站的证书
+                handler.proceed() // 接受所有网站的证书
             }
         }
         binding.wvCourse.webChromeClient = object : WebChromeClient() {
@@ -99,12 +100,12 @@ class WebViewLoginFragment : Fragment() {
             }
         }
         // 设置自适应屏幕，两者合用
-        binding.wvCourse.settings.useWideViewPort = true //将图片调整到适合WebView的大小
+        binding.wvCourse.settings.useWideViewPort = true // 将图片调整到适合WebView的大小
         binding.wvCourse.settings.loadWithOverviewMode = true // 缩放至屏幕的大小
         // 缩放操作
-        binding.wvCourse.settings.setSupportZoom(true) //支持缩放，默认为true。是下面那个的前提。
-        binding.wvCourse.settings.builtInZoomControls = true //设置内置的缩放控件。若为false，则该WebView不可缩放
-        binding.wvCourse.settings.displayZoomControls = false //隐藏原生的缩放控件wvCourse.settings
+        binding.wvCourse.settings.setSupportZoom(true) // 支持缩放，默认为true。是下面那个的前提。
+        binding.wvCourse.settings.builtInZoomControls = true // 设置内置的缩放控件。若为false，则该WebView不可缩放
+        binding.wvCourse.settings.displayZoomControls = false // 隐藏原生的缩放控件wvCourse.settings
         binding.wvCourse.settings.javaScriptCanOpenWindowsAutomatically = true
         binding.wvCourse.settings.domStorageEnabled = true
         // binding.wvCourse.settings.userAgentString =
@@ -119,23 +120,23 @@ class WebViewLoginFragment : Fragment() {
         binding.chipMode.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.wvCourse.settings.userAgentString =
-                        binding.wvCourse.settings.userAgentString.replace("Mobile", "eliboM")
-                                .replace("Android", "diordnA")
+                    binding.wvCourse.settings.userAgentString.replace("Mobile", "eliboM")
+                        .replace("Android", "diordnA")
             } else {
                 binding.wvCourse.settings.userAgentString =
-                        binding.wvCourse.settings.userAgentString.replace("eliboM", "Mobile")
-                                .replace("diordnA", "Android")
+                    binding.wvCourse.settings.userAgentString.replace("eliboM", "Mobile")
+                        .replace("diordnA", "Android")
             }
             binding.wvCourse.reload()
         }
 
         binding.chipZoom.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(requireActivity())
-                    .setTitle("设置缩放")
-                    .setView(R.layout.dialog_edit_text)
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.sure, null)
-                    .create()
+                .setTitle("设置缩放")
+                .setView(R.layout.dialog_edit_text)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.sure, null)
+                .create()
             dialog.show()
             val inputLayout = dialog.findViewById<TextInputLayout>(R.id.text_input_layout)
             val editText = dialog.findViewById<TextInputEditText>(R.id.edit_text)
@@ -198,16 +199,16 @@ class WebViewLoginFragment : Fragment() {
         }
 
         val js = "javascript:var ifrs=document.getElementsByTagName(\"iframe\");" +
-                "var iframeContent=\"\";" +
-                "for(var i=0;i<ifrs.length;i++){" +
-                "iframeContent=iframeContent+ifrs[i].contentDocument.body.parentElement.outerHTML;" +
-                "}\n" +
-                "var frs=document.getElementsByTagName(\"frame\");" +
-                "var frameContent=\"\";" +
-                "for(var i=0;i<frs.length;i++){" +
-                "frameContent=frameContent+frs[i].contentDocument.body.parentElement.outerHTML;" +
-                "}\n" +
-                "window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML + iframeContent + frameContent);"
+            "var iframeContent=\"\";" +
+            "for(var i=0;i<ifrs.length;i++){" +
+            "iframeContent=iframeContent+ifrs[i].contentDocument.body.parentElement.outerHTML;" +
+            "}\n" +
+            "var frs=document.getElementsByTagName(\"frame\");" +
+            "var frameContent=\"\";" +
+            "for(var i=0;i<frs.length;i++){" +
+            "frameContent=frameContent+frs[i].contentDocument.body.parentElement.outerHTML;" +
+            "}\n" +
+            "window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML + iframeContent + frameContent);"
 
         binding.fabImport.setOnClickListener {
             binding.wvCourse.loadUrl(js)
@@ -224,10 +225,10 @@ class WebViewLoginFragment : Fragment() {
         binding.wvCourse.visibility = View.VISIBLE
         binding.llError.visibility = View.GONE
         val url =
-                if (binding.etUrl.text.toString().startsWith("http://") || binding.etUrl.text.toString()
-                                .startsWith("https://")
-                )
-                    binding.etUrl.text.toString() else "http://" + binding.etUrl.text.toString()
+            if (binding.etUrl.text.toString().startsWith("http://") || binding.etUrl.text.toString()
+                .startsWith("https://")
+            )
+                binding.etUrl.text.toString() else "http://" + binding.etUrl.text.toString()
         if (URLUtil.isHttpUrl(url) || URLUtil.isHttpsUrl(url)) {
             binding.wvCourse.loadUrl(url)
         } else {
@@ -246,9 +247,9 @@ class WebViewLoginFragment : Fragment() {
                     val result = viewModel.importSchedule(html)
                     // Toasty.success(activity!!, "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看").show()
                     Toast.makeText(
-                            activity!!,
-                            "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看",
-                            Toast.LENGTH_SHORT
+                        activity!!,
+                        "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看",
+                        Toast.LENGTH_SHORT
                     ).show()
                     activity!!.setResult(Activity.RESULT_OK)
                     activity!!.finish()
@@ -278,11 +279,11 @@ class WebViewLoginFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(url: String = "", importType: String = "") =
-                WebViewLoginFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("url", url)
-                        putString("importType", importType)
-                    }
+            WebViewLoginFragment().apply {
+                arguments = Bundle().apply {
+                    putString("url", url)
+                    putString("importType", importType)
                 }
+            }
     }
 }

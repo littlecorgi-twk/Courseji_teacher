@@ -11,7 +11,7 @@ import android.util.Log
  * @author littlecorgi 2020/10/20
  */
 class MyActivityLifecycleCallbacks(private val TAG: String) :
-        Application.ActivityLifecycleCallbacks {
+    Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         Log.d(TAG, "onActivityCreated: ")
     }

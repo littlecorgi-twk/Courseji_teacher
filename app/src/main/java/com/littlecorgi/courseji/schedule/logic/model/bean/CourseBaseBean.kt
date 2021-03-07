@@ -7,18 +7,24 @@ import androidx.room.Index
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(foreignKeys = [(
-        ForeignKey(entity = TableBean::class,
+@Entity(
+    foreignKeys = [
+        (
+            ForeignKey(
+                entity = TableBean::class,
                 parentColumns = ["id"],
                 childColumns = ["tableId"],
                 onUpdate = ForeignKey.CASCADE,
                 onDelete = ForeignKey.CASCADE
-        ))],
-        primaryKeys = ["id", "tableId"],
-        indices = [Index(value = ["tableId"], unique = false)])
+            )
+            )
+    ],
+    primaryKeys = ["id", "tableId"],
+    indices = [Index(value = ["tableId"], unique = false)]
+)
 data class CourseBaseBean(
-        var id: Int,
-        var courseName: String,
-        var color: String,
-        var tableId: Int
+    var id: Int,
+    var courseName: String,
+    var color: String,
+    var tableId: Int
 ) : Parcelable
