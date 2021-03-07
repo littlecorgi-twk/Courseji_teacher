@@ -1,6 +1,8 @@
 package com.littlecorgi.middle.logic.model;
 
-
+/**
+ * 定位展示数据类
+ */
 public class LocationShow {
 
     private String placeName; // address

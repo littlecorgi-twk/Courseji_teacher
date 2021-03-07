@@ -1,6 +1,8 @@
 package com.littlecorgi.leave.student;
 
-
+/**
+ * 历史数据类
+ */
 public class History {
 
     private String leaveTypeText;
@@ -9,6 +11,9 @@ public class History {
     private String leaveReasonText;
     private String leaveBackText;
 
+    /**
+     * 构造方法
+     */
     public History(
             String leaveTypeText,
             String leavePeopleText,

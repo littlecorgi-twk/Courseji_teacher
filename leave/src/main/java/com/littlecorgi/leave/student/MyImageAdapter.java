@@ -8,20 +8,23 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.luck.picture.lib.photoview.PhotoView;
 import java.util.List;
 
+/**
+ * 图片加载Adapter
+ */
 public class MyImageAdapter extends PagerAdapter {
 
-    private List<String> imageUrls;
-    private Activity mContext;
+    private final List<String> mImageUrls;
+    private final Activity mContext;
 
     public MyImageAdapter(Activity context, List<String> imageUrls) {
-        this.imageUrls = imageUrls;
+        this.mImageUrls = imageUrls;
         this.mContext = context;
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        String url = imageUrls.get(position);
+        String url = mImageUrls.get(position);
         PhotoView photoView = new PhotoView(mContext);
         Tools.showGlide(mContext, photoView, url);
         container.addView(photoView);
@@ -31,7 +34,7 @@ public class MyImageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return imageUrls != null ? imageUrls.size() : 0;
+        return mImageUrls != null ? mImageUrls.size() : 0;
     }
 
     @Override

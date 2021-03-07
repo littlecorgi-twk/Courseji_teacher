@@ -9,9 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.littlecorgi.middle.R;
 
+/**
+ * 登录Fragment
+ */
 public class MiddleSignFragment extends Fragment {
 
-    View view;
+    View mView;
 
     @Nullable
     @Override
@@ -19,7 +22,7 @@ public class MiddleSignFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.middle_sign, container, false);
-        return view;
+        mView = inflater.inflate(R.layout.middle_sign, container, false);
+        return mView;
     }
 }

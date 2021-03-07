@@ -31,7 +31,7 @@ public class PassedDataHelp {
      */
     public interface PassedLocation {
 
-        void passed(String placeName, String Lat, String Ing);
+        void passed(String placeName, String lat, String ing);
     }
 
     /**

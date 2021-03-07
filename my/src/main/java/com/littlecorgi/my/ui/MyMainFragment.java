@@ -3,8 +3,8 @@ package com.littlecorgi.my.ui;
 import static android.content.Context.MODE_PRIVATE;
 import static com.littlecorgi.my.logic.dao.WindowHelp.setWindowStatusBarColor;
 import static com.littlecorgi.my.logic.network.RetrofitHelp.getMyMessage;
-import static com.littlecorgi.my.ui.about.aboutActivity.StartAboutActivity;
-import static com.littlecorgi.my.ui.message.messageActivity.StartMessageActivity;
+import static com.littlecorgi.my.ui.about.AboutActivity.startAboutActivity;
+import static com.littlecorgi.my.ui.message.MessageActivity.startMessageActivity;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -29,14 +29,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class myMainFragment extends Fragment {
+/**
+ * My 主页
+ */
+public class MyMainFragment extends Fragment {
 
     /*
       未完成的：在这里要完成学生个人信息的获取吧信息填充到myMessage中
     */
-    private View view;
-    private MyMessage myMessage;
-    public static final String sharedPreferencesFile = "myMessageData";
+    private View mView;
+    private MyMessage mMyMessage;
+    public static final String SHARED_PREFERENCES_FILE = "myMessageData";
 
     @Nullable
     @Override
@@ -44,13 +47,13 @@ public class myMainFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.my_fragment, container, false);
-        return view;
+        mView = inflater.inflate(R.layout.my_fragment, container, false);
+        return mView;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
         initClick();
@@ -58,13 +61,12 @@ public class myMainFragment extends Fragment {
 
     private void initView() {
         initBarColor();
-        RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
-        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
-        refreshLayout.setOnRefreshListener(
-                refreshlayout -> {
-                    boolean refreshData = getData();
-                    refreshlayout.finishRefresh(refreshData);
-                });
+        RefreshLayout refreshLayout = mView.findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(requireContext()));
+        refreshLayout.setOnRefreshListener(layout -> {
+            boolean refreshData = getData();
+            layout.finishRefresh(refreshData);
+        });
         initImage();
     }
 
@@ -73,35 +75,35 @@ public class myMainFragment extends Fragment {
     }
 
     private void initImage() {
-    /*
-    设置背景？
-     */
-        AppCompatImageView myAboutBg = view.findViewById(R.id.my_about_bg);
+        /*
+        设置背景？
+         */
+        AppCompatImageView myAboutBg = mView.findViewById(R.id.my_about_bg);
     }
 
     private void initClick() {
-        ConstraintLayout messageLayout = view.findViewById(R.id.my_message);
-        ConstraintLayout aboutLayout = view.findViewById(R.id.my_about);
-        messageLayout.setOnClickListener(v -> StartMessageActivity(getContext(), myMessage));
-        aboutLayout.setOnClickListener(v -> StartAboutActivity(getContext(), myMessage));
+        ConstraintLayout messageLayout = mView.findViewById(R.id.my_message);
+        ConstraintLayout aboutLayout = mView.findViewById(R.id.my_about);
+        messageLayout.setOnClickListener(v -> startMessageActivity(getContext(), mMyMessage));
+        aboutLayout.setOnClickListener(v -> startAboutActivity(getContext(), mMyMessage));
     }
 
     private void initData() {
-        myMessage = new MyMessage();
+        mMyMessage = new MyMessage();
         // 先从本地获取本地没有从服务器获取
         getLocalData();
         if (!getLocalData()) {
             getData();
         }
         // 图像
-        AppCompatImageView imageView = view.findViewById(R.id.my_picture);
-        imageView.setImageResource(myMessage.getMyImage());
+        AppCompatImageView imageView = mView.findViewById(R.id.my_picture);
+        imageView.setImageResource(mMyMessage.getMyImage());
         // 名字
-        AppCompatTextView name = view.findViewById(R.id.my_name);
-        name.setText(myMessage.getName());
+        AppCompatTextView name = mView.findViewById(R.id.my_name);
+        name.setText(mMyMessage.getName());
         // 专业
-        AppCompatTextView professional = view.findViewById(R.id.my_professional);
-        professional.setText(myMessage.getProfessional());
+        AppCompatTextView professional = mView.findViewById(R.id.my_professional);
+        professional.setText(mMyMessage.getProfessional());
     }
 
     private boolean getData() {
@@ -113,14 +115,13 @@ public class myMainFragment extends Fragment {
                     public void onResponse(
                             @NotNull Call<MyMessage> call, @NotNull Response<MyMessage> response) {
                         // 在这设置数据吧得到的数据先用SharedPreferences数据库保存
-                        SharedPreferences sharedPreferences =
-                                getActivity()
-                                        .getSharedPreferences(sharedPreferencesFile, MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = requireActivity()
+                                .getSharedPreferences(SHARED_PREFERENCES_FILE, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-            /*
-            //设置数据
-            editor.putInt("image",response.body().getMyImage());
-             */
+
+                        // //设置数据
+                        // editor.putInt("image", response.body().getMyImage());
+
                         editor.apply();
                         getLocalData();
                         isSuccess[0] = true;
@@ -134,30 +135,28 @@ public class myMainFragment extends Fragment {
         return isSuccess[0];
     }
 
-    private boolean getLocalData() {
-    /*
-    从本地获取数据
-    SharedPreferences保存路径
-    /data/data/com.littlecorgi.courseji/shared_prefs/myMessageData.xml
+    /**
+     * 从本地获取数据 SharedPreferences保存路径 /data/data/com.littlecorgi.courseji/shared_prefs/myMessageData.xml
      */
+    private boolean getLocalData() {
         @SuppressLint("SdCardPath")
         String sharedPreferencesPath =
-                "/data/data/com.littlecorgi.courseji/shared_prefs/" + sharedPreferencesFile
+                "/data/data/com.littlecorgi.courseji/shared_prefs/" + SHARED_PREFERENCES_FILE
                         + ".xml";
-        File File = new File(sharedPreferencesPath);
-        if (File.exists()) {
+        File file = new File(sharedPreferencesPath);
+        if (file.exists()) {
             String emptyData = "";
             int emptyImage = 0;
             SharedPreferences sharedPreferences =
-                    getActivity().getSharedPreferences(sharedPreferencesFile, MODE_PRIVATE);
-            myMessage.setMyImage(sharedPreferences.getInt("image", emptyImage));
-            myMessage.setName(sharedPreferences.getString("name", emptyData));
-            myMessage.setId(sharedPreferences.getString("id", emptyData));
-            myMessage.setGender(sharedPreferences.getString("gender", emptyData));
-            myMessage.setProfessional(sharedPreferences.getString("professional", emptyData));
-            myMessage.setDescribe(sharedPreferences.getString("describe", emptyData));
-            myMessage.setVersion(sharedPreferences.getString("version", emptyData));
-            myMessage.setUpdate(sharedPreferences.getString("update", emptyData));
+                    requireActivity().getSharedPreferences(SHARED_PREFERENCES_FILE, MODE_PRIVATE);
+            mMyMessage.setMyImage(sharedPreferences.getInt("image", emptyImage));
+            mMyMessage.setName(sharedPreferences.getString("name", emptyData));
+            mMyMessage.setId(sharedPreferences.getString("id", emptyData));
+            mMyMessage.setGender(sharedPreferences.getString("gender", emptyData));
+            mMyMessage.setProfessional(sharedPreferences.getString("professional", emptyData));
+            mMyMessage.setDescribe(sharedPreferences.getString("describe", emptyData));
+            mMyMessage.setVersion(sharedPreferences.getString("version", emptyData));
+            mMyMessage.setUpdate(sharedPreferences.getString("update", emptyData));
             return true;
         } else {
             return false;

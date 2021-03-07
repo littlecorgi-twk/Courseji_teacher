@@ -4,6 +4,9 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.littlecorgi.commonlib.App;
 
+/**
+ * Middle组件的APP，用来初始化百度SDK
+ */
 public class MiddleApp extends App {
 
     @Override

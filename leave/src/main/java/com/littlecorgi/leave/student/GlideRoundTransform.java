@@ -11,10 +11,14 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils;
 import java.security.MessageDigest;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * 圆角Glide
+ */
 public class GlideRoundTransform extends BitmapTransformation {
 
-    private static float radius = 0f;
+    private static float mRadius = 0f;
 
     public GlideRoundTransform(Context context) {
         this(context, 4);
@@ -23,15 +27,15 @@ public class GlideRoundTransform extends BitmapTransformation {
     /**
      * 圆角大小
      *
-     * @param context
-     * @param dp
+     * @param context 上下文
+     * @param dp      圆角大小
      */
     public GlideRoundTransform(Context context, int dp) {
-        this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
+        mRadius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
 
     @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+    protected Bitmap transform(@NotNull BitmapPool pool, @NotNull Bitmap toTransform, int outWidth, int outHeight) {
         Bitmap bitmap = TransformationUtils.centerCrop(pool, toTransform, outWidth, outHeight);
         return roundCrop(pool, bitmap);
     }
@@ -42,26 +46,21 @@ public class GlideRoundTransform extends BitmapTransformation {
         }
 
         Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap
-                    .createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
-        }
-
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
         paint.setShader(
                 new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
         RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
-        canvas.drawRoundRect(rectF, radius, radius, paint);
+        canvas.drawRoundRect(rectF, mRadius, mRadius, paint);
         return result;
     }
 
     public String getId() {
-        return getClass().getName() + Math.round(radius);
+        return getClass().getName() + Math.round(mRadius);
     }
 
     @Override
-    public void updateDiskCacheKey(MessageDigest messageDigest) {
+    public void updateDiskCacheKey(@NotNull MessageDigest messageDigest) {
     }
 }

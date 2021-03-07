@@ -12,35 +12,43 @@ import com.google.android.material.tabs.TabLayout;
 import com.littlecorgi.leave.R;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * 教师端请假页面
+ */
 public class TeacherLeaveActivity extends AppCompatActivity {
 
-    public TabLayout tabLayout;
-    List<Fragment> fragments = new ArrayList<>();
+    public TabLayout mTabLayout;
+    List<Fragment> mFragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_leave);
+        mTabLayout = findViewById(R.id.tab_layout);
+
+        mFragments.add(new AskLeaveFragment());
+        mFragments.add(new HistoryFragment());
+
         ViewPager viewPager = findViewById(R.id.leave_viewpager);
-        tabLayout = findViewById(R.id.tab_layout);
-        String[] titles = new String[]{"批准请假", "请假历史"};
-
-        fragments.add(new AskLeaveFragment());
-        fragments.add(new HistoryFragment());
-
-        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragments);
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+        mTabLayout.setupWithViewPager(viewPager);
 
+        String[] titles = new String[]{"批准请假", "请假历史"};
         for (int i = 0; i < titles.length; i++) {
-            tabLayout.getTabAt(i).setText(titles[i]);
+            Objects.requireNonNull(mTabLayout.getTabAt(i)).setText(titles[i]);
         }
     }
 
-    public class PagerAdapter extends FragmentPagerAdapter {
+    /**
+     * ViewPager的Adapter
+     */
+    public static class PagerAdapter extends FragmentPagerAdapter {
 
-        List<Fragment> fragments = new ArrayList<>();
+        List<Fragment> fragments;
 
         public PagerAdapter(FragmentManager fm, List<Fragment> fragments) {
             super(fm);
@@ -48,6 +56,7 @@ public class TeacherLeaveActivity extends AppCompatActivity {
         }
 
         // 根据Item的位置返回对应位置的Fragment，绑定item和Fragment
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -72,7 +81,7 @@ public class TeacherLeaveActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getItemPosition(Object object) {
+        public int getItemPosition(@NotNull Object object) {
             if (mChildCount > 0) {
                 mChildCount--;
                 return POSITION_NONE;
@@ -88,8 +97,8 @@ public class TeacherLeaveActivity extends AppCompatActivity {
         getSupportFragmentManager().getFragments();
         if (getSupportFragmentManager().getFragments().size() > 0) {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            for (Fragment mFragment : fragments) {
-                mFragment.onActivityResult(requestCode, resultCode, data);
+            for (Fragment f : fragments) {
+                f.onActivityResult(requestCode, resultCode, data);
             }
         }
     }

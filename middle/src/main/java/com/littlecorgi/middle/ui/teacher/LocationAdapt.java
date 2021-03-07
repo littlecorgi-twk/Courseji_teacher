@@ -8,6 +8,9 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * 定位Adapt
+ */
 public class LocationAdapt extends BaseQuickAdapter<LocationShow, BaseViewHolder> {
 
     public LocationAdapt(int layoutResId, @Nullable List<LocationShow> data) {

@@ -7,6 +7,9 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * 开始时间RecyclerView的Adapter
+ */
 public class StartTimeAdapt extends BaseQuickAdapter<String, BaseViewHolder> {
 
     public StartTimeAdapt(int layoutResId, @Nullable List<String> data) {

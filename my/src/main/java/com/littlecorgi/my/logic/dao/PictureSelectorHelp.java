@@ -6,15 +6,22 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 
+/**
+ * 图片选择工具类
+ *
+ * <p>gitHub地址： https://github.com/LuckSiege/PictureSelector/blob/master/README_CN.md#%E5%8D%95%E7%8B%AC%E6%8B%8D%E7%85%A7
+ */
 public class PictureSelectorHelp {
 
-    /*
-    gitHub地址：
-    https://github.com/LuckSiege/PictureSelector/blob/master/README_CN.md#%E5%8D%95%E7%8B%AC%E6%8B%8D%E7%85%A7
-     */
     public static final int OPEN_CAMERA = 10;
     public static final int OPEN_ALBUM = 20;
 
+    /**
+     * 选择图片
+     *
+     * @param activity Activity
+     * @param result   回调onActivityResult Code
+     */
     public static void choicePhoto(Activity activity, int result) {
         // 相册选择多张图片
         PictureSelector.create(activity)
@@ -33,6 +40,12 @@ public class PictureSelectorHelp {
                 .forResult(result); // 结果回调onActivityResult code
     }
 
+    /**
+     * 选择视频
+     *
+     * @param activity Activity
+     * @param result   回调onActivityResult Code
+     */
     public static void choiceVideo(Activity activity, int result) {
         // 相册选择多个视频
         PictureSelector.create(activity)
@@ -48,6 +61,12 @@ public class PictureSelectorHelp {
                 .forResult(result); // 结果回调onActivityResult code
     }
 
+    /**
+     * 打开相机
+     *
+     * @param activity Activity
+     * @param result   回调onActivityResult Code
+     */
     public static void openCamera(Activity activity, int result) {
         PictureSelector.create(activity)
                 .openCamera(PictureMimeType.ofImage())
@@ -68,6 +87,12 @@ public class PictureSelectorHelp {
                 .forResult(result);
     }
 
+    /**
+     * 打开相册
+     *
+     * @param activity Activity
+     * @param result   回调onActivityResult Code
+     */
     public static void openAlbum(Activity activity, int result) {
         // 相册选择一张图片
         PictureSelector.create(activity)
@@ -92,14 +117,16 @@ public class PictureSelectorHelp {
                 .forResult(result); // 结果回调onActivityResult code
     }
 
-    /*
-    方法说明
-    */
+    /**
+     * 打开相册
+     *
+     * @param activity Activity
+     * @param maxSize  最大图片选择数量
+     */
     public static void openGallery(AppCompatActivity activity, int maxSize) {
         PictureSelector.create(activity)
                 .openGallery(
-                        PictureMimeType
-                                .ofImage()) // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        PictureMimeType.ofImage()) // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 // .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
                 .maxSelectNum(maxSize) // 最大图片选择数量 int
                 .minSelectNum(1) // 最小选择数量 int

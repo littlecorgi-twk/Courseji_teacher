@@ -16,25 +16,23 @@ public class RetrofitHelp {
      * 建议： 需要修改路径
      */
     public static Call<ResponseBody> adviceRetrofit(Map<String, Object> map) {
-        Retrofit retrofit =
-                new Retrofit.Builder()
-                        .baseUrl("https://api.uomg.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-        GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
-        return request.SendAdviceData(map);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.uomg.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetRequestInterface request = retrofit.create(GetRequestInterface.class);
+        return request.sendAdviceData(map);
     }
 
     /**
      * 获取个人信息： 需要修改路径
      */
     public static Call<MyMessage> getMyMessage() {
-        Retrofit retrofit =
-                new Retrofit.Builder()
-                        .baseUrl("https://api.uomg.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-        GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.uomg.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetRequestInterface request = retrofit.create(GetRequestInterface.class);
         return request.getMyDate();
     }
 
@@ -42,12 +40,11 @@ public class RetrofitHelp {
      * 上传个人信息： 需要修改路径
      */
     public static Call<ResponseBody> messageRetrofit(Map<String, Object> map) {
-        Retrofit retrofit =
-                new Retrofit.Builder()
-                        .baseUrl("https://api.uomg.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-        GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
-        return request.SendAdviceData(map);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.uomg.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetRequestInterface request = retrofit.create(GetRequestInterface.class);
+        return request.sendAdviceData(map);
     }
 }

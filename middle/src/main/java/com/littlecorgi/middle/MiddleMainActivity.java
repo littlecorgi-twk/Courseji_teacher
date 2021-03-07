@@ -7,12 +7,15 @@ import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.middle.ui.student.MiddleStudentFragment;
 import com.littlecorgi.middle.ui.teacher.MiddleTeacherFragment;
 
-public class middleMainActivity extends BaseActivity {
+/**
+ * 签到页主页
+ */
+public class MiddleMainActivity extends BaseActivity {
 
     /*
        true为学生端，false为教师端
     */
-    public final boolean ISStudent = true;
+    public final boolean mISStudent = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,7 @@ public class middleMainActivity extends BaseActivity {
         MiddleTeacherFragment teacherFragment = new MiddleTeacherFragment();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        if (ISStudent) {
+        if (mISStudent) {
             fragmentTransaction.replace(R.id.middle_fragment, studentFragment, "student");
         } else {
             fragmentTransaction.replace(R.id.middle_fragment, teacherFragment, "teacher");

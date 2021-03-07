@@ -12,24 +12,23 @@ import com.littlecorgi.leave.student.MyImageAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 查看图片页面
+ */
 public class PhotoViewActivity extends AppCompatActivity {
 
-    ViewPager viewpager;
+    ViewPager mViewpager;
     TextView mTvImageCount;
 
-    // 点击的下标
-    private int currentPosition;
     private List<String> urlLists;
-
-    // DataBinding
-    private PhotoViewBinding mBinding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.photo_view);
-        viewpager = mBinding.viewPager;
-        mTvImageCount = mBinding.mTvImageCount;
+        // DataBinding
+        PhotoViewBinding binding = DataBindingUtil.setContentView(this, R.layout.photo_view);
+        mViewpager = binding.viewPager;
+        mTvImageCount = binding.mTvImageCount;
         ButterKnife.bind(this);
         initData();
     }
@@ -39,28 +38,30 @@ public class PhotoViewActivity extends AppCompatActivity {
             urlLists = new ArrayList<>();
         }
         // 获得点击的位置
-        currentPosition = getIntent().getIntExtra("position", 0);
+        // 点击的下标
+        int currentPosition = getIntent().getIntExtra("position", 0);
         // 图片集合
         urlLists = getIntent().getStringArrayListExtra("list");
         MyImageAdapter adapter = new MyImageAdapter(this, urlLists);
-        viewpager.setAdapter(adapter);
-        viewpager.setCurrentItem(currentPosition);
-        mTvImageCount.setText(currentPosition + 1 + "/" + urlLists.size());
-        viewpager.addOnPageChangeListener(
-                new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(
-                            int position, float positionOffset, int positionOffsetPixels) {
-                    }
+        mViewpager.setAdapter(adapter);
+        mViewpager.setCurrentItem(currentPosition);
+        String text = currentPosition + 1 + "/" + urlLists.size();
+        mTvImageCount.setText(text);
+        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(
+                    int position, float positionOffset, int positionOffsetPixels) {
+            }
 
-                    @Override
-                    public void onPageSelected(int position) {
-                        mTvImageCount.setText(position + 1 + "/" + urlLists.size());
-                    }
+            @Override
+            public void onPageSelected(int position) {
+                String text = position + 1 + "/" + urlLists.size();
+                mTvImageCount.setText(text);
+            }
 
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-                    }
-                });
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 }

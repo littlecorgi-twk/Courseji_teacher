@@ -6,7 +6,10 @@ import android.os.Bundle;
 import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.my.R;
 
-public class addGroupActivity extends BaseActivity {
+/**
+ *
+ */
+public class AddGroupActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

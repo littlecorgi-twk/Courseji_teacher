@@ -12,7 +12,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.littlecorgi.leave.R;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * 学生请假页面
+ */
 public class StudentLeaveActivity extends AppCompatActivity {
 
     public TabLayout tabLayout;
@@ -22,25 +26,28 @@ public class StudentLeaveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave);
-        ViewPager viewPager = findViewById(R.id.leave_viewpager);
         tabLayout = findViewById(R.id.tab_layout);
-        String[] titles = new String[]{"提交请假", "请假记录"};
 
         fragments.add(new AskLeaveFragment());
-        fragments.add(new HistroyFragment());
+        fragments.add(new HistoryFragment());
 
+        ViewPager viewPager = findViewById(R.id.leave_viewpager);
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        String[] titles = new String[]{"提交请假", "请假记录"};
         for (int i = 0; i < titles.length; i++) {
             tabLayout.getTabAt(i).setText(titles[i]);
         }
     }
 
-    public class PagerAdapter extends FragmentPagerAdapter {
+    /**
+     * ViewPager的Adapter
+     */
+    public static class PagerAdapter extends FragmentPagerAdapter {
 
-        List<Fragment> fragments = new ArrayList<>();
+        List<Fragment> fragments;
 
         public PagerAdapter(FragmentManager fm, List<Fragment> fragments) {
             super(fm);
@@ -48,6 +55,7 @@ public class StudentLeaveActivity extends AppCompatActivity {
         }
 
         // 根据Item的位置返回对应位置的Fragment，绑定item和Fragment
+        @NotNull
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -72,7 +80,7 @@ public class StudentLeaveActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getItemPosition(Object object) {
+        public int getItemPosition(@NotNull Object object) {
             if (mChildCount > 0) {
                 mChildCount--;
                 return POSITION_NONE;
@@ -88,8 +96,8 @@ public class StudentLeaveActivity extends AppCompatActivity {
         getSupportFragmentManager().getFragments();
         if (getSupportFragmentManager().getFragments().size() > 0) {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            for (Fragment mFragment : fragments) {
-                mFragment.onActivityResult(requestCode, resultCode, data);
+            for (Fragment f : fragments) {
+                f.onActivityResult(requestCode, resultCode, data);
             }
         }
     }

@@ -47,7 +47,7 @@
         <activity android:name=".ui.teacher.SetTitleActivity" />
         <activity android:name=".ui.student.MiddleDetailsActivity" />
         <activity android:name=".ui.student.MiddleSignActivity" />
-        <activity android:name=".middleMainActivity">
+        <activity android:name=".MiddleMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

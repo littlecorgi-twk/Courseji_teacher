@@ -16,12 +16,12 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.Courseji"
       tools:replace="android:allowBackup">
-        <activity android:name=".ui.addGroup.addGroupActivity" />
-        <activity android:name=".ui.message.originalActivity" />
-        <activity android:name=".ui.message.describeActivity" />
-        <activity android:name=".ui.about.adviceActivity" />
-        <activity android:name=".ui.about.aboutActivity" />
-        <activity android:name=".ui.message.messageActivity" />
+        <activity android:name=".ui.addGroup.AddGroupActivity" />
+        <activity android:name=".ui.message.OriginalActivity" />
+        <activity android:name=".ui.message.DescribeActivity" />
+        <activity android:name=".ui.about.AdviceActivity" />
+        <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.message.MessageActivity" />
         <activity android:name=".MyMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

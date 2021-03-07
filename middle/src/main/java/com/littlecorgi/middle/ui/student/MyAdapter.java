@@ -8,6 +8,9 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * 签到信息RecyclerView的Adapter
+ */
 public class MyAdapter extends BaseQuickAdapter<ItemData.AllSignData, BaseViewHolder> {
 
     public MyAdapter(int layoutResId, @Nullable List<ItemData.AllSignData> data) {

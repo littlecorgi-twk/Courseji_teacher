@@ -1,5 +1,8 @@
 package com.littlecorgi.leave.teacher;
 
+/**
+ * 请求Recycler的Item
+ */
 public class RecyclerItem {
 
     private String type;
@@ -8,6 +11,9 @@ public class RecyclerItem {
     private String time;
     private String reason;
 
+    /**
+     * 构造方法
+     */
     public RecyclerItem(String type, String pass, String time, String reason, String student) {
         this.type = type;
         this.pass = pass;

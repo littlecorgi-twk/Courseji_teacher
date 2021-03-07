@@ -18,12 +18,16 @@ import com.littlecorgi.leave.R;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public class HistroyFragment extends Fragment {
+/**
+ * 历史Fragment
+ */
+public class HistoryFragment extends Fragment {
 
-    private boolean isGetData = false;
-    private List<History> historyList = new ArrayList<>();
-    LeaveHistoryAdapter adapter1;
+    private final boolean mIsGetData = false;
+    private final List<History> mHistoryList = new ArrayList<>();
+    LeaveHistoryAdapter mAdapter;
 
     @Nullable
     @Override
@@ -38,14 +42,14 @@ public class HistroyFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_leave);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
-            adapter1 = new LeaveHistoryAdapter(historyList);
-            recyclerView.setAdapter(adapter1);
+            mAdapter = new LeaveHistoryAdapter(mHistoryList);
+            recyclerView.setAdapter(mAdapter);
         }
         return view;
     }
 
     private void initHistories() {
-        SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences pref = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
         String name = pref.getString("name", "");
         String type1 = pref.getString("type1", "");
         String startTime = pref.getString("startTime", "");
@@ -53,30 +57,30 @@ public class HistroyFragment extends Fragment {
         String leaveSituation = pref.getString("leaveSituation", "");
         History history = new History(type1, name, startTime + "至" + endTime, leaveSituation,
                 "未销假");
-        historyList.add(history);
+        mHistoryList.add(history);
     }
 
     class LeaveHistoryAdapter extends RecyclerView.Adapter<LeaveHistoryAdapter.ViewHolder> {
 
-        private List<History> mHistoryList;
+        private final List<History> mHistoryList;
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView leaveTypeText;
-            TextView leavePeopleText;
-            TextView leaveTimeText;
-            TextView leaveReasonText;
-            TextView leaveBackText;
-            View historyView;
+            TextView mLeaveTypeText;
+            TextView mLeavePeopleText;
+            TextView mLeaveTimeText;
+            TextView mLeaveReasonText;
+            TextView mLeaveBackText;
+            View mHistoryView;
 
             public ViewHolder(View view) {
                 super(view);
-                historyView = view;
-                leaveTypeText = (TextView) view.findViewById(R.id.leaveTypeText);
-                leavePeopleText = (TextView) view.findViewById(R.id.leavePeopleText);
-                leaveTimeText = (TextView) view.findViewById(R.id.leaveTimeText);
-                leaveReasonText = (TextView) view.findViewById(R.id.leaveReasonText);
-                leaveBackText = (TextView) view.findViewById(R.id.leaveBackText);
+                mHistoryView = view;
+                mLeaveTypeText = (TextView) view.findViewById(R.id.leaveTypeText);
+                mLeavePeopleText = (TextView) view.findViewById(R.id.leavePeopleText);
+                mLeaveTimeText = (TextView) view.findViewById(R.id.leaveTimeText);
+                mLeaveReasonText = (TextView) view.findViewById(R.id.leaveReasonText);
+                mLeaveBackText = (TextView) view.findViewById(R.id.leaveBackText);
             }
         }
 
@@ -84,36 +88,31 @@ public class HistroyFragment extends Fragment {
             mHistoryList = historyList;
         }
 
+        @NotNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view =
-                    LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.layout_history_leave_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_history_leave_item, parent, false);
             final ViewHolder holder = new ViewHolder(view);
-            holder.historyView.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PeopleHistoryFragment peopleHistoryFragment = new PeopleHistoryFragment();
-                            FragmentManager manager = getActivity().getSupportFragmentManager();
-                            FragmentTransaction transaction = manager.beginTransaction();
-                            transaction.replace(R.id.student_leave, peopleHistoryFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                        }
-                    });
-
+            holder.mHistoryView.setOnClickListener(v -> {
+                PeopleHistoryFragment peopleHistoryFragment = new PeopleHistoryFragment();
+                FragmentManager manager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.student_leave, peopleHistoryFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            });
             return holder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull LeaveHistoryAdapter.ViewHolder holder, int position) {
             History history = mHistoryList.get(position);
-            holder.leaveTypeText.setText(history.getLeaveTypeText());
-            holder.leavePeopleText.setText(history.getLeavePeopleText());
-            holder.leaveTimeText.setText(history.getLeaveTimeText());
-            holder.leaveReasonText.setText(history.getLeaveReasonText());
-            holder.leaveBackText.setText(history.getLeaveBackText());
+            holder.mLeaveTypeText.setText(history.getLeaveTypeText());
+            holder.mLeavePeopleText.setText(history.getLeavePeopleText());
+            holder.mLeaveTimeText.setText(history.getLeaveTimeText());
+            holder.mLeaveReasonText.setText(history.getLeaveReasonText());
+            holder.mLeaveBackText.setText(history.getLeaveBackText());
         }
 
         @Override
