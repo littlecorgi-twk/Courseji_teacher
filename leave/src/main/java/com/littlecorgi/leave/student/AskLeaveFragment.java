@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 请假页面Fragment
+ * 学生请假页面Fragment
  */
 public class AskLeaveFragment extends Fragment {
 
@@ -223,8 +223,8 @@ public class AskLeaveFragment extends Fragment {
                         .imageEngine(GlideEngine.createGlideEngine()) // 选择器展示不出图片则添加
                         .openExternalPreview(position, mSelectList);
 
-                // ②:自定义布局预览
-                // Tools.startPhotoViewActivity(MainActivity.this, categoryLists, position);
+                        /*// ②:自定义布局预览
+                        // Tools.startPhotoViewActivity(MainActivity.this, categoryLists, position);*/
             }
         });
     }

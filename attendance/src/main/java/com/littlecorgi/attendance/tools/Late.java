@@ -1,27 +1,21 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
-public class Leave {
+/**
+ * 迟到的数据类
+ */
+public class Late {
 
     private String lesson;
     private String teacher;
     private String time;
-    private String reason;
-    private String type;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Leave(String lesson, String teacher, String time, String reason, String type) {
+    /**
+     * 构造方法
+     */
+    public Late(String lesson, String teacher, String time) {
         this.lesson = lesson;
         this.teacher = teacher;
         this.time = time;
-        this.reason = reason;
-        this.type = type;
     }
 
     public String getTime() {
@@ -46,13 +40,5 @@ public class Leave {
 
     public void setLesson(String lesson) {
         this.lesson = lesson;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 }

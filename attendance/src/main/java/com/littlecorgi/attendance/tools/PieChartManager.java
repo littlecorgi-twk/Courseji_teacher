@@ -1,4 +1,4 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,6 +10,9 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import java.util.List;
 
+/**
+ * 饼状图
+ */
 public class PieChartManager {
 
     public PieChart pieChart;
@@ -61,38 +64,42 @@ public class PieChartManager {
         legend.setTextSize(13); // 图例文字的大小
     }
 
+    /**
+     * 显示饼图
+     *
+     * @param pieEntryList 饼图的list
+     * @param colors       饼图的颜色
+     */
     public void showSolidPieChart(List<PieEntry> pieEntryList, List<Integer> colors) {
-        PieDataSet dataset = new PieDataSet(pieEntryList, "");
+        PieDataSet dataSet = new PieDataSet(pieEntryList, "");
         // 填充每个区域的颜色
-        dataset.setColors(colors);
+        dataSet.setColors(colors);
         // 是否在图上显示数值
-        dataset.setDrawValues(true);
+        dataSet.setDrawValues(true);
         //        文字的大小
-        dataset.setValueTextSize(10);
+        dataSet.setValueTextSize(10);
         //        文字的颜色
-        dataset.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextColor(Color.BLACK);
         //        文字的样式
-        dataset.setValueTypeface(Typeface.DEFAULT_BOLD);
-
+        dataSet.setValueTypeface(Typeface.DEFAULT_BOLD);
         //      当值位置为外边线时，表示线的前半段长度。
-        dataset.setValueLinePart1Length(0.4f);
+        dataSet.setValueLinePart1Length(0.4f);
         //      当值位置为外边线时，表示线的后半段长度。
-        dataset.setValueLinePart2Length(0.4f);
-        //      当ValuePosits为OutsiDice时，指示偏移为切片大小的百分比
-        dataset.setValueLinePart1OffsetPercentage(80f);
+        dataSet.setValueLinePart2Length(0.4f);
+        //      当ValuePosits为OutsideDice时，指示偏移为切片大小的百分比
+        dataSet.setValueLinePart1OffsetPercentage(80f);
         // 当值位置为外边线时，表示线的颜色。
-        dataset.setValueLineColor(Color.parseColor("#a1a1a1"));
+        dataSet.setValueLineColor(Color.parseColor("#a1a1a1"));
         //        设置Y值的位置是在圆内还是圆外
-        dataset.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         //        设置Y轴描述线和填充区域的颜色一致
-        //         dataset.setUsingSliceColorAsValueLineColor(false);
+        //         dataSet.setUsingSliceColorAsValueLineColor(false);
         //        设置每条之前的间隙
-        dataset.setSliceSpace(1);
-
+        dataSet.setSliceSpace(1);
         // 设置饼状Item被选中时变化的距离
-        dataset.setSelectionShift(5f);
+        dataSet.setSelectionShift(5f);
         // 填充数据
-        PieData pieData = new PieData(dataset);
+        PieData pieData = new PieData(dataSet);
         //        格式化显示的数据为%百分比
         pieData.setValueFormatter(new PercentFormatter());
         //        显示试图

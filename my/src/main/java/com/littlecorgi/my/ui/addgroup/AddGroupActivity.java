@@ -1,4 +1,4 @@
-package com.littlecorgi.my.ui.addGroup;
+package com.littlecorgi.my.ui.addgroup;
 
 import static com.littlecorgi.my.logic.dao.WindowHelp.setWindowStatusBarColor;
 

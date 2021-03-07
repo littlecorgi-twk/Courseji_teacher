@@ -1,11 +1,17 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
+/**
+ * 时间数据类
+ */
 public class Time {
 
     private String time;
     private String proportion;
     private String class1;
 
+    /**
+     * 构造方法
+     */
     public Time(String time, String class1, String proportion) {
         this.time = time;
         this.proportion = proportion;

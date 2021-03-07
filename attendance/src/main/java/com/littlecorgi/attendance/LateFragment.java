@@ -11,15 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.littlecorgi.attendance.Tools.Late;
-import com.littlecorgi.attendance.Tools.LateFragmentAdapter;
+import com.littlecorgi.attendance.tools.Late;
+import com.littlecorgi.attendance.tools.LateFragmentAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 迟到的Fragment
+ */
 public class LateFragment extends Fragment {
 
-    private List<Late> lateList = new ArrayList<>();
-    private Button returnButton;
+    private final List<Late> mLateList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -29,30 +31,26 @@ public class LateFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_late, container, false);
         initData();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.late_recycler);
-        LateFragmentAdapter adapter = new LateFragmentAdapter(lateList);
+        RecyclerView recyclerView = view.findViewById(R.id.late_recycler);
+        LateFragmentAdapter adapter = new LateFragmentAdapter(mLateList);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
-        returnButton = view.findViewById(R.id.btn_return);
-        returnButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentManager manager = getActivity().getSupportFragmentManager();
-                        manager.popBackStack();
-                    }
-                });
+        Button returnButton = view.findViewById(R.id.btn_return);
+        returnButton.setOnClickListener(v -> {
+            FragmentManager manager1 = requireActivity().getSupportFragmentManager();
+            manager1.popBackStack();
+        });
         return view;
     }
 
     private void initData() {
         Late late1 = new Late("英语", "李明", "12.21-12.22");
-        lateList.add(late1);
+        mLateList.add(late1);
         Late late2 = new Late("英语", "李明", "12.21-12.22");
-        lateList.add(late2);
+        mLateList.add(late2);
         Late late3 = new Late("英语", "李明", "12.21-12.22");
-        lateList.add(late3);
+        mLateList.add(late3);
     }
 }

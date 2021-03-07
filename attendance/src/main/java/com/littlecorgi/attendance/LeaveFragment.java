@@ -11,15 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.littlecorgi.attendance.Tools.Leave;
-import com.littlecorgi.attendance.Tools.LeaveFragmentAdapter;
+import com.littlecorgi.attendance.tools.Leave;
+import com.littlecorgi.attendance.tools.LeaveFragmentAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 缺勤的Fragment
+ */
 public class LeaveFragment extends Fragment {
 
-    private List<Leave> mLeaveList = new ArrayList<>();
-    private Button returnButton;
+    private final List<Leave> mLeaveList = new ArrayList<>();
+    private Button mReturnButton;
 
     @Nullable
     @Override
@@ -35,15 +38,11 @@ public class LeaveFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
-        returnButton = view.findViewById(R.id.btn_return);
-        returnButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentManager manager = getActivity().getSupportFragmentManager();
-                        manager.popBackStack();
-                    }
-                });
+        mReturnButton = view.findViewById(R.id.btn_return);
+        mReturnButton.setOnClickListener(v -> {
+            FragmentManager manager1 = requireActivity().getSupportFragmentManager();
+            manager1.popBackStack();
+        });
 
         return view;
     }
@@ -51,18 +50,14 @@ public class LeaveFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        returnButton = getActivity().findViewById(R.id.btn_return);
-        returnButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentManager manager = getActivity().getSupportFragmentManager();
-                        manager.popBackStack();
-                    }
-                });
+        mReturnButton = requireActivity().findViewById(R.id.btn_return);
+        mReturnButton.setOnClickListener(v -> {
+            FragmentManager manager = requireActivity().getSupportFragmentManager();
+            manager.popBackStack();
+        });
     }
 
-    public void initData() {
+    private void initData() {
         Leave leave1 = new Leave("英语", "李明", "2020-12-20-10:00", "因发烧感冒而请假", "病假");
         mLeaveList.add(leave1);
         Leave leave2 = new Leave("数学", "李明", "2020-12-20-10:00", "因肚子疼而请假", "事假");

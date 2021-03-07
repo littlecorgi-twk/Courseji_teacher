@@ -16,7 +16,7 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.Courseji"
       tools:replace="android:allowBackup">
-        <activity android:name=".ui.addGroup.AddGroupActivity" />
+        <activity android:name=".ui.addgroup.AddGroupActivity" />
         <activity android:name=".ui.message.OriginalActivity" />
         <activity android:name=".ui.message.DescribeActivity" />
         <activity android:name=".ui.about.AdviceActivity" />

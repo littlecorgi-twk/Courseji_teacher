@@ -1,5 +1,8 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
+/**
+ * 学生数据类
+ */
 public class Student {
 
     private String name;

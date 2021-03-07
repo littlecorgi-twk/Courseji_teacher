@@ -1,4 +1,4 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
 import java.util.List;
 
+/**
+ * 缺勤页面的RecyclerView的Adapter
+ */
 public class AbsenceFragmentAdapter
         extends RecyclerView.Adapter<AbsenceFragmentAdapter.ViewHolder> {
 
-    private List<Absence> mAbsenceList;
+    private final List<Absence> mAbsenceList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -35,11 +38,9 @@ public class AbsenceFragmentAdapter
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =
-                LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_absence_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.layout_absence_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override

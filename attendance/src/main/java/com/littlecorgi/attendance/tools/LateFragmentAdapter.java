@@ -1,4 +1,4 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
 import java.util.List;
 
+/**
+ * 迟到页面的RecyclerView的Adapter
+ */
 public class LateFragmentAdapter extends RecyclerView.Adapter<LateFragmentAdapter.ViewHolder> {
 
-    private List<Late> mLateList;
+    private final List<Late> mLateList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

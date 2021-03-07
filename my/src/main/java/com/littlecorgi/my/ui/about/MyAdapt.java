@@ -10,6 +10,9 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * RecyclerView的Adapter
+ */
 public class MyAdapt extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private final Context context;

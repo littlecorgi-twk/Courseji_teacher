@@ -1,4 +1,4 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
 import java.util.List;
 
+/**
+ * 缺勤的RecyclerView的Adapter
+ */
 public class LeaveFragmentAdapter extends RecyclerView.Adapter<LeaveFragmentAdapter.ViewHolder> {
 
-    private List<Leave> mLeaveList;
+    private final List<Leave> mLeaveList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

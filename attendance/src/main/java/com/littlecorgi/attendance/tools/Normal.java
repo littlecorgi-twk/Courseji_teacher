@@ -1,12 +1,18 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
-public class Late {
+/**
+ * 。。。的数据类
+ */
+public class Normal {
 
     private String lesson;
     private String teacher;
     private String time;
 
-    public Late(String lesson, String teacher, String time) {
+    /**
+     * 构造方法
+     */
+    public Normal(String lesson, String teacher, String time) {
         this.lesson = lesson;
         this.teacher = teacher;
         this.time = time;

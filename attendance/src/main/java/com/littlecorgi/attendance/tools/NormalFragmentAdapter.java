@@ -1,4 +1,4 @@
-package com.littlecorgi.attendance.Tools;
+package com.littlecorgi.attendance.tools;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
 import java.util.List;
 
+/**
+ * ...页面的RecyclerView的Adapter
+ */
 public class NormalFragmentAdapter extends RecyclerView.Adapter<NormalFragmentAdapter.ViewHolder> {
 
-    private List<Normal> mNormalList;
+    private final List<Normal> mNormalList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
