@@ -32,7 +32,7 @@ jobs:
         uses: ScaCap/action-ktlint@1.3
         with:
           # GITHUB_TOKEN
-          # github_token:
+          github_token: d45167cff079f048707263ce525268f43f05a796
           # Report level for reviewdog [info,warning,error]
           level: error # optional, default is error
           # Reporter of reviewdog command [github-pr-check,github-pr-review].Default is github-pr-check.
