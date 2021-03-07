@@ -9,8 +9,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
  * @author littlecorgi 2020/10/20
  */
 class ScheduleViewPagerFragmentStateAdapter(
-    fa: FragmentActivity,
-    private var maxWeek: Int
+        fa: FragmentActivity,
+        private var maxWeek: Int
 ) : FragmentStateAdapter(fa) {
 
     override fun getItemCount(): Int = maxWeek

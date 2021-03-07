@@ -19,8 +19,8 @@ class LoginWebActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         val fragment = WebViewLoginFragment.newInstance(
-            intent.getStringExtra("url")!!,
-            intent.getStringExtra("importType")!!
+                intent.getStringExtra("url")!!,
+                intent.getStringExtra("importType")!!
         )
 
         fragment.let { frag ->

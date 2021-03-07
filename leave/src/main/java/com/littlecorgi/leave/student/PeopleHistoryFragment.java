@@ -30,200 +30,200 @@ import com.littlecorgi.leave.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class PeopleHistoryFragment extends Fragment {
-  private Button buttonReturn;
-  private Button textViewReturn;
 
-  private TextView nameText;
-  private TextView numberText;
-  private TextView startTimeText;
-  private TextView endTimeText;
-  private TextView type1Text;
-  private TextView type2Text;
-  private TextView placeText;
-  private TextView myPhoneText;
-  private TextView otherPhoneText;
-  private TextView reasonText;
+    private Button mButtonReturn;
+    private Button mTextViewReturn;
 
-  private String name;
-  private String number;
-  private String startTime;
-  private String endTime;
-  private String type1;
-  private String type2;
-  private String place;
-  private String myPhone;
-  private String otherPhone;
-  private String reason;
-  private ImageView locationImage;
+    private TextView mNameText;
+    private TextView mStartTimeText;
+    private TextView mEndTimeText;
+    private TextView mType1Text;
+    private TextView mType2Text;
+    private TextView mPlaceText;
+    private TextView mMyPhoneText;
+    private TextView mOtherPhoneText;
+    private TextView mReasonText;
 
-  private Button xiaojiaButton;
+    private String mName;
+    private String mNumber;
+    private String mStartTime;
+    private String mEndTime;
+    private String mType1;
+    private String mType2;
+    private String mPlace;
+    private String mMyPhone;
+    private String mOtherPhone;
+    private String mReason;
+    private ImageView mLocationImage;
 
-  private TextView positionText;
-  public LocationClient mLocationClient;
+    // 销假按钮
+    private Button mResumptionButton;
 
-  @Nullable
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater,
-      @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    mLocationClient = new LocationClient(getActivity().getApplicationContext());
-    mLocationClient.registerLocationListener(new MyLocationListener());
-    View view = inflater.inflate(R.layout.leave_situation, container, false);
-    positionText = (TextView) view.findViewById(R.id.location_text);
-    List<String> permissionList = new ArrayList<>();
-    if (ContextCompat.checkSelfPermission(
-            getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED) {
-      permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
-    }
-    if (ContextCompat.checkSelfPermission(
-            getActivity(), android.Manifest.permission.READ_PHONE_STATE)
-        != PackageManager.PERMISSION_GRANTED) {
-      permissionList.add(android.Manifest.permission.READ_PHONE_STATE);
-    }
-    if (ContextCompat.checkSelfPermission(
-            getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        != PackageManager.PERMISSION_GRANTED) {
-      permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-    if (!permissionList.isEmpty()) {
-      String[] permission = permissionList.toArray(new String[permissionList.size()]);
-      ActivityCompat.requestPermissions(getActivity(), permission, 1);
-    }
+    private TextView mPositionText;
+    public LocationClient mLocationClient;
 
-    buttonReturn = (Button) view.findViewById(R.id.btn_return);
-    textViewReturn = (Button) view.findViewById(R.id.tv_return);
-    buttonReturn.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.popBackStack();
-          }
-        });
-    textViewReturn.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.popBackStack();
-          }
-        });
-    return view;
-  }
-
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-    nameText = (TextView) getActivity().findViewById(R.id.name_text);
-    numberText = (TextView) getActivity().findViewById(R.id.number);
-    startTimeText = (TextView) getActivity().findViewById(R.id.start_name_text);
-    endTimeText = (TextView) getActivity().findViewById(R.id.end_time_text);
-    type1Text = (TextView) getActivity().findViewById(R.id.type1_text);
-    type2Text = (TextView) getActivity().findViewById(R.id.type2_text);
-    placeText = (TextView) getActivity().findViewById(R.id.place_text);
-    myPhoneText = (TextView) getActivity().findViewById(R.id.my_phone_text);
-    otherPhoneText = (TextView) getActivity().findViewById(R.id.other_phone_text);
-    reasonText = (TextView) getActivity().findViewById(R.id.reason_text);
-    xiaojiaButton = (Button) getActivity().findViewById(R.id.xiaojia);
-    locationImage = (ImageView) getActivity().findViewById(R.id.location_image);
-    locationImage.setVisibility(View.GONE);
-
-    SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-    name = pref.getString("name", "");
-    type1 = pref.getString("type1", "");
-    type2 = pref.getString("type2", "");
-    startTime = pref.getString("startTime", "");
-    endTime = pref.getString("endTime", "");
-    place = pref.getString("place", "");
-    myPhone = pref.getString("myPhone", "");
-    otherPhone = pref.getString("otherPhone", "");
-    reason = pref.getString("leaveSituation", "");
-
-    nameText.setText(name);
-    type1Text.setText(type1);
-    type2Text.setText(type2);
-    startTimeText.setText(startTime);
-    endTimeText.setText(endTime);
-    placeText.setText(place);
-    myPhoneText.setText(myPhone);
-    otherPhoneText.setText(otherPhone);
-    reasonText.setText(reason);
-
-    xiaojiaButton.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            xiaojiaButton.setText("已销假");
-            xiaojiaButton.setBackgroundResource(R.drawable.button_shape2);
-            Vibrator mVibrator = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
-            mVibrator.vibrate(500);
-            locationImage.setVisibility(View.VISIBLE);
-            requestLocation();
-            Toast.makeText(getActivity(), "销假成功", Toast.LENGTH_SHORT).show();
-          }
-        });
-  }
-
-  private void requestLocation() {
-    initLocation();
-    mLocationClient.start();
-  }
-
-  private void initLocation() {
-    LocationClientOption option = new LocationClientOption();
-    option.setScanSpan(5000);
-    option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
-    option.setIsNeedAddress(true);
-    mLocationClient.setLocOption(option);
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    mLocationClient.stop();
-  }
-
-  @Override
-  public void onRequestPermissionsResult(
-      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    switch (requestCode) {
-      case 1:
-        if (grantResults.length > 0) {
-          for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED) {
-              Toast.makeText(getActivity(), "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT).show();
-              return;
-            }
-          }
-          requestLocation();
-        } else {
-          Toast.makeText(getActivity(), "发生未知错误", Toast.LENGTH_SHORT).show();
-        }
-        break;
-      default:
-    }
-  }
-
-  public class MyLocationListener implements BDLocationListener {
+    @Nullable
     @Override
-    public void onReceiveLocation(final BDLocation location) {
-      getActivity()
-          .runOnUiThread(
-              new Runnable() {
-                @Override
-                public void run() {
-                  StringBuilder currentPosition = new StringBuilder();
-                  currentPosition.append(location.getCountry()).append(" ");
-                  currentPosition.append(location.getProvince()).append(" ");
-                  currentPosition.append(location.getCity()).append(" ");
-                  currentPosition.append(location.getDistrict()).append("\n");
-                  Log.d("location", currentPosition.toString());
-                  positionText.setText("定位的地点");
-                }
-              });
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        mLocationClient = new LocationClient(requireActivity().getApplicationContext());
+        mLocationClient.registerLocationListener(new MyLocationListener());
+        View view = inflater.inflate(R.layout.leave_situation, container, false);
+        mPositionText = view.findViewById(R.id.location_text);
+        List<String> permissionList = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(), android.Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(android.Manifest.permission.READ_PHONE_STATE);
+        }
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!permissionList.isEmpty()) {
+            String[] permission = permissionList.toArray(new String[0]);
+            ActivityCompat.requestPermissions(requireActivity(), permission, 1);
+        }
+        return view;
     }
-  }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        findView(view);
+        getData();
+        showData();
+        setEvent();
+    }
+
+    private void findView(View view) {
+        mButtonReturn = view.findViewById(R.id.btn_return);
+        mTextViewReturn = view.findViewById(R.id.tv_return);
+        mNameText = view.findViewById(R.id.name_text);
+        mStartTimeText = view.findViewById(R.id.start_name_text);
+        mEndTimeText = view.findViewById(R.id.end_time_text);
+        mType1Text = view.findViewById(R.id.type1_text);
+        mType2Text = view.findViewById(R.id.type2_text);
+        mPlaceText = view.findViewById(R.id.place_text);
+        mMyPhoneText = view.findViewById(R.id.my_phone_text);
+        mOtherPhoneText = view.findViewById(R.id.other_phone_text);
+        mReasonText = view.findViewById(R.id.reason_text);
+        mResumptionButton = view.findViewById(R.id.xiaojia);
+        mLocationImage = view.findViewById(R.id.location_image);
+        mLocationImage.setVisibility(View.GONE);
+    }
+
+    private void getData() {
+        SharedPreferences pref = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        mName = pref.getString("name", "");
+        mType1 = pref.getString("type1", "");
+        mType2 = pref.getString("type2", "");
+        mStartTime = pref.getString("startTime", "");
+        mEndTime = pref.getString("endTime", "");
+        mPlace = pref.getString("place", "");
+        mMyPhone = pref.getString("myPhone", "");
+        mOtherPhone = pref.getString("otherPhone", "");
+        mReason = pref.getString("leaveSituation", "");
+    }
+
+    private void showData() {
+        mNameText.setText(mName);
+        mType1Text.setText(mType1);
+        mType2Text.setText(mType2);
+        mStartTimeText.setText(mStartTime);
+        mEndTimeText.setText(mEndTime);
+        mPlaceText.setText(mPlace);
+        mMyPhoneText.setText(mMyPhone);
+        mOtherPhoneText.setText(mOtherPhone);
+        mReasonText.setText(mReason);
+    }
+
+    private void setEvent() {
+        mResumptionButton.setOnClickListener(v -> {
+                    mResumptionButton.setText("已销假");
+                    mResumptionButton.setBackgroundResource(R.drawable.button_shape2);
+                    Vibrator vibrator = (Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE);
+                    vibrator.vibrate(500);
+                    mLocationImage.setVisibility(View.VISIBLE);
+                    requestLocation();
+                    Toast.makeText(requireActivity(), "销假成功", Toast.LENGTH_SHORT).show();
+                }
+        );
+        mButtonReturn.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            fragmentManager.popBackStack();
+        });
+        mTextViewReturn.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            fragmentManager.popBackStack();
+        });
+    }
+
+    private void requestLocation() {
+        initLocation();
+        mLocationClient.start();
+    }
+
+    private void initLocation() {
+        LocationClientOption option = new LocationClientOption();
+        option.setScanSpan(5000);
+        option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
+        option.setIsNeedAddress(true);
+        mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLocationClient.stop();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults.length > 0) {
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(requireActivity(), "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT)
+                                .show();
+                        return;
+                    }
+                }
+                requestLocation();
+            } else {
+                Toast.makeText(requireActivity(), "发生未知错误", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * 定位接口
+     */
+    public class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(final BDLocation location) {
+            requireActivity().runOnUiThread(() -> {
+                String currentPosition = location.getCountry() + " "
+                        + location.getProvince() + " "
+                        + location.getCity() + " "
+                        + location.getDistrict() + "\n";
+                Log.d("location", currentPosition);
+                mPositionText.setText("定位的地点");
+            });
+        }
+    }
 }

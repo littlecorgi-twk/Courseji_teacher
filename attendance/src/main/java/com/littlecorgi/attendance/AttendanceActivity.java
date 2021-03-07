@@ -3,103 +3,85 @@ package com.littlecorgi.attendance;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieEntry;
-import com.littlecorgi.attendance.Tools.PieChartManager;
+import com.littlecorgi.attendance.tools.PieChartManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 考勤统计Activity
+ */
 public class AttendanceActivity extends AppCompatActivity {
 
-  private View absence;
-  private View late;
-  private View leave;
-  private View normal;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_attendance);
 
-  private PieChart pie;
+        // 设置饼状图
+        initPieChartView();
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_attendance);
-
-    // 设置饼状图
-    initPieChartView();
-
-    // 设置点击事件
-
-    absence = (View) findViewById(R.id.rl_absence);
-    absence.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+        // 设置点击事件
+        RelativeLayout absence = findViewById(R.id.rl_absence);
+        absence.setOnClickListener(v -> {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.layout_attendance, new AbsenceFragment());
             transaction.addToBackStack(null);
             transaction.commit();
-          }
         });
 
-    late = (View) findViewById(R.id.rl_late);
-    late.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+        View late = findViewById(R.id.rl_late);
+        late.setOnClickListener(v -> {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.layout_attendance, new LateFragment());
             transaction.addToBackStack(null);
             transaction.commit();
-          }
         });
 
-    leave = (View) findViewById(R.id.rl_leave);
-    leave.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+        View leave = findViewById(R.id.rl_leave);
+        leave.setOnClickListener(v -> {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.layout_attendance, new LeaveFragment());
             transaction.addToBackStack(null);
             transaction.commit();
-          }
         });
 
-    normal = (View) findViewById(R.id.rl_normal);
-    normal.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+        View normal = findViewById(R.id.rl_normal);
+        normal.setOnClickListener(v -> {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.layout_attendance, new NormalFragment());
             transaction.addToBackStack(null);
             transaction.commit();
-          }
         });
-  }
+    }
 
-  public void initPieChartView() {
-    pie = (PieChart) findViewById(R.id.pie_chart);
+    /**
+     * 加载饼图View
+     */
+    public void initPieChartView() {
+        List<PieEntry> pieList = new ArrayList<>();
+        pieList.add(new PieEntry(2.0f, "缺勤"));
+        pieList.add(new PieEntry(1.0f, "请假"));
+        pieList.add(new PieEntry(3.0f, "迟到"));
+        pieList.add(new PieEntry(7.0f, "正常"));
 
-    List<PieEntry> pieList = new ArrayList<>();
-    pieList.add(new PieEntry(2.0f, "缺勤"));
-    pieList.add(new PieEntry(1.0f, "请假"));
-    pieList.add(new PieEntry(3.0f, "迟到"));
-    pieList.add(new PieEntry(7.0f, "正常"));
+        List<Integer> colors = new ArrayList<>();
+        colors.add(Color.parseColor("#6785f2"));
+        colors.add(Color.parseColor("#675cf2"));
+        colors.add(Color.parseColor("#496cef"));
+        colors.add(Color.parseColor("#aa63fa"));
 
-    List<Integer> colors = new ArrayList<>();
-    colors.add(Color.parseColor("#6785f2"));
-    colors.add(Color.parseColor("#675cf2"));
-    colors.add(Color.parseColor("#496cef"));
-    colors.add(Color.parseColor("#aa63fa"));
-
-    PieChartManager pieChartManager = new PieChartManager(pie);
-    pieChartManager.showSolidPieChart(pieList, colors);
-  }
+        PieChart pie = findViewById(R.id.pie_chart);
+        PieChartManager pieChartManager = new PieChartManager(pie);
+        pieChartManager.showSolidPieChart(pieList, colors);
+    }
 }

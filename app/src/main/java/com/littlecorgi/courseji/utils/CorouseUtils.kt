@@ -2,11 +2,11 @@ package com.littlecorgi.courseji.utils
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.littlecorgi.courseji.schedule_import.Common
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseDetailBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseEditBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeBean
+import com.littlecorgi.courseji.schedule_import.Common
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,9 +31,9 @@ object CourseUtils {
 
     fun courseBean2DetailBean(c: CourseBean): CourseDetailBean {
         return CourseDetailBean(
-            id = c.id, room = c.room, day = c.day, teacher = c.teacher,
-            startNode = c.startNode, step = c.step, startWeek = c.startWeek,
-            endWeek = c.endWeek, tableId = c.tableId, type = c.type
+                id = c.id, room = c.room, day = c.day, teacher = c.teacher,
+                startNode = c.startNode, step = c.step, startWeek = c.startWeek,
+                endWeek = c.endWeek, tableId = c.tableId, type = c.type
         )
     }
 
@@ -41,11 +41,11 @@ object CourseUtils {
         val result = mutableListOf<CourseDetailBean>()
         Common.weekIntList2WeekBeanList(editBean.weekList.value!!).forEach {
             result.add(CourseDetailBean(
-                id = editBean.id, room = editBean.room, teacher = editBean.teacher,
-                day = editBean.time.value!!.day, startNode = editBean.time.value!!.startNode,
-                step = editBean.time.value!!.endNode - editBean.time.value!!.startNode + 1,
-                startWeek = it.start, endWeek = it.end, type = it.type,
-                tableId = editBean.tableId
+                    id = editBean.id, room = editBean.room, teacher = editBean.teacher,
+                    day = editBean.time.value!!.day, startNode = editBean.time.value!!.startNode,
+                    step = editBean.time.value!!.endNode - editBean.time.value!!.startNode + 1,
+                    startWeek = it.start, endWeek = it.end, type = it.type,
+                    tableId = editBean.tableId
             ))
 
         }
@@ -54,28 +54,28 @@ object CourseUtils {
 
     fun detailBean2EditBean(c: CourseDetailBean): CourseEditBean {
         return CourseEditBean(
-            id = c.id,
-            time = MutableLiveData<TimeBean>().apply {
-                this.value = TimeBean(day = c.day, startNode = c.startNode, endNode = c.startNode + c.step - 1)
-            },
-            room = c.room, teacher = c.teacher,
-            weekList = MutableLiveData<ArrayList<Int>>().apply {
-                this.value = ArrayList<Int>().apply {
-                    when (c.type) {
-                        0 -> {
-                            for (i in c.startWeek..c.endWeek) {
-                                this.add(i)
+                id = c.id,
+                time = MutableLiveData<TimeBean>().apply {
+                    this.value = TimeBean(day = c.day, startNode = c.startNode, endNode = c.startNode + c.step - 1)
+                },
+                room = c.room, teacher = c.teacher,
+                weekList = MutableLiveData<ArrayList<Int>>().apply {
+                    this.value = ArrayList<Int>().apply {
+                        when (c.type) {
+                            0 -> {
+                                for (i in c.startWeek..c.endWeek) {
+                                    this.add(i)
+                                }
                             }
-                        }
-                        else -> {
-                            for (i in c.startWeek..c.endWeek step 2) {
-                                this.add(i)
+                            else -> {
+                                for (i in c.startWeek..c.endWeek step 2) {
+                                    this.add(i)
+                                }
                             }
                         }
                     }
-                }
-            },
-            tableId = c.tableId
+                },
+                tableId = c.tableId
         )
     }
 
@@ -84,10 +84,10 @@ object CourseUtils {
         for (i in 0 until list.size - 1) {
             for (j in i + 1 until list.size) {
                 if (list[i].day == list[j].day
-                    && list[i].startNode == list[j].startNode
-                    && list[i].startWeek == list[j].startWeek
-                    && list[i].type == list[j].type
-                    && list[i].tableId == list[j].tableId) {
+                        && list[i].startNode == list[j].startNode
+                        && list[i].startWeek == list[j].startWeek
+                        && list[i].type == list[j].type
+                        && list[i].tableId == list[j].tableId) {
                     flag = false
                     return flag
                 }
@@ -179,8 +179,8 @@ object CourseUtils {
             for (i in pInfo.indices) {
                 val pn = pInfo[i].packageName
                 if (pn.equals("com.tencent.qqlite", ignoreCase = true)
-                    || pn.equals("com.tencent.mobileqq", ignoreCase = true)
-                    || pn.equals("com.tencent.tim", ignoreCase = true)) {
+                        || pn.equals("com.tencent.mobileqq", ignoreCase = true)
+                        || pn.equals("com.tencent.tim", ignoreCase = true)) {
                     return true
                 }
             }

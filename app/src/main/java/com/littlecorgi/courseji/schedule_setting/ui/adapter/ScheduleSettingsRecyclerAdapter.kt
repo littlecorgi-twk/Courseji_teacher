@@ -12,7 +12,7 @@ import com.littlecorgi.courseji.schedule_setting.logic.SettingsMultipleEntity
  * @author littlecorgi 2021/1/31
  */
 class ScheduleSettingsRecyclerAdapter(data: MutableList<SettingsMultipleEntity>) :
-    BaseMultiItemQuickAdapter<SettingsMultipleEntity, BaseViewHolder>(data) {
+        BaseMultiItemQuickAdapter<SettingsMultipleEntity, BaseViewHolder>(data) {
 
     init {
         // 添加View类型

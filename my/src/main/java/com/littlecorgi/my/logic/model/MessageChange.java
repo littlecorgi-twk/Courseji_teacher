@@ -1,54 +1,57 @@
 package com.littlecorgi.my.logic.model;
 
+/**
+ * 修改信息的数据Bean
+ */
 public class MessageChange {
 
-  private String MyImagePath; // 图像
+    private String myImagePath; // 图像
 
-  private String Gender; // 性别
+    private String gender; // 性别
 
-  private String Professional; // 专业
+    private String professional; // 专业
 
-  private String Describe; // 描述
+    private String describe; // 描述
 
-  private String national; // 民族
+    private String national; // 民族
 
-  public String getMyImagePath() {
-    return MyImagePath;
-  }
+    public String getMyImagePath() {
+        return myImagePath;
+    }
 
-  public void setMyImagePath(String myImagePath) {
-    MyImagePath = myImagePath;
-  }
+    public void setMyImagePath(String myImagePath) {
+        this.myImagePath = myImagePath;
+    }
 
-  public String getGender() {
-    return Gender;
-  }
+    public String getGender() {
+        return gender;
+    }
 
-  public void setGender(String gender) {
-    Gender = gender;
-  }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-  public String getProfessional() {
-    return Professional;
-  }
+    public String getProfessional() {
+        return professional;
+    }
 
-  public void setProfessional(String professional) {
-    Professional = professional;
-  }
+    public void setProfessional(String professional) {
+        this.professional = professional;
+    }
 
-  public String getDescribe() {
-    return Describe;
-  }
+    public String getDescribe() {
+        return describe;
+    }
 
-  public void setDescribe(String describe) {
-    Describe = describe;
-  }
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
 
-  public String getNational() {
-    return national;
-  }
+    public String getNational() {
+        return national;
+    }
 
-  public void setNational(String national) {
-    this.national = national;
-  }
+    public void setNational(String national) {
+        this.national = national;
+    }
 }

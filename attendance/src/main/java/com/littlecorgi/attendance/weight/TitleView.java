@@ -11,210 +11,275 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import com.littlecorgi.attendance.R;
 
+/**
+ * 标题View
+ */
 public class TitleView extends RelativeLayout {
 
-  private LinearLayout layoutLeft, layoutRight;
-  private TextView tvTitle;
+    private LinearLayout mLayoutLeft;
+    private LinearLayout mLayoutRight;
+    private TextView mTvTitle;
 
-  private LeftClickListener leftClickListener;
-  private RightClickListener rightClickListener;
+    private LeftClickListener mLeftClickListener;
+    private RightClickListener mRightClickListener;
 
-  private LinearLayout rlViewGroup;
-  private Button btnReturn, btnReturnText, btnMenuText, btnMenu;
+    private LinearLayout mRlViewGroup;
+    private Button mBtnReturn;
+    private Button mBtnReturnText;
+    private Button mBtnMenuText;
+    private Button mBtnMenu;
 
-  private View viewLine;
+    private View mViewLine;
 
-  public TitleView(Context context) {
-    super(context, null);
-  }
-
-  public TitleView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-    LayoutInflater.from(context).inflate(R.layout.layout_titleview, this);
-    initView();
-    initAttrs(context, attrs);
-    onButtonClick();
-  }
-
-  public TitleView(Context context, AttributeSet attrs, int defStyleAttr) {
-    this(context, attrs);
-  }
-
-  public void setLeftClickListener(LeftClickListener leftClickListener) {
-    this.leftClickListener = leftClickListener;
-  }
-
-  public void setLeftClickListener(RightClickListener rightClickListener) {
-    this.rightClickListener = rightClickListener;
-  }
-
-  public void setTitleText(String title) {
-    tvTitle.setText(title);
-  }
-
-  public void setRightTextSize(float size) {
-    if (btnMenuText != null) {
-      btnMenuText.setTextSize(size);
+    /**
+     * 构造方法
+     */
+    public TitleView(Context context) {
+        super(context, null);
     }
-  }
 
-  private void onButtonClick() {
-    layoutLeft.setOnClickListener(
-        new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            if (leftClickListener != null) {
-              leftClickListener.OnLeftButtonClick();
+    /**
+     * 构造方法
+     */
+    public TitleView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        LayoutInflater.from(context).inflate(R.layout.layout_titleview, this);
+        initView();
+        initAttrs(context, attrs);
+        onButtonClick();
+    }
+
+    /**
+     * 构造方法
+     */
+    public TitleView(Context context, AttributeSet attrs, int defStyleAttr) {
+        this(context, attrs);
+    }
+
+    /**
+     * 设置左部布局点击接口
+     *
+     * @param leftClickListener 左部布局点击接口
+     */
+    public void setLeftClickListener(LeftClickListener leftClickListener) {
+        this.mLeftClickListener = leftClickListener;
+    }
+
+    /**
+     * 设置右部布局点击接口
+     *
+     * @param rightClickListener 右部布局点击接口
+     */
+    public void setRightClickListener(RightClickListener rightClickListener) {
+        this.mRightClickListener = rightClickListener;
+    }
+
+    /**
+     * 设置标题文字
+     *
+     * @param title 标题文字
+     */
+    public void setTitleText(String title) {
+        mTvTitle.setText(title);
+    }
+
+    /**
+     * 设置右部菜单字体大小
+     *
+     * @param size 字体大小
+     */
+    public void setRightTextSize(float size) {
+        if (mBtnMenuText != null) {
+            mBtnMenuText.setTextSize(size);
+        }
+    }
+
+    private void onButtonClick() {
+        mLayoutLeft.setOnClickListener(v -> {
+            if (mLeftClickListener != null) {
+                mLeftClickListener.onLeftButtonClick();
             }
-          }
         });
 
-    layoutRight.setOnClickListener(
-        new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            if (rightClickListener != null) {
-              rightClickListener.OnRightButtonClick();
+        mLayoutRight.setOnClickListener(v -> {
+            if (mRightClickListener != null) {
+                mRightClickListener.onRightButtonClick();
             }
-          }
         });
-  }
-
-  private void initView() {
-    rlViewGroup = findViewById(R.id.rl_viewGroup);
-    layoutLeft = findViewById(R.id.ll_left);
-    layoutRight = findViewById(R.id.ll_right);
-    btnMenuText = findViewById(R.id.tv_menu);
-    btnReturnText = findViewById(R.id.tv_return);
-    tvTitle = findViewById(R.id.tv_title);
-    btnMenu = findViewById(R.id.btn_menu);
-    btnReturn = findViewById(R.id.btn_return);
-    viewLine = findViewById(R.id.view_up_line);
-  }
-
-  private void initAttrs(Context context, AttributeSet attrs) {
-    TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
-
-    Drawable viewGroupDrawable = typedArray.getDrawable(R.styleable.TitleView_titleBackground);
-    if (viewGroupDrawable == null) {
-      viewGroupDrawable = getResources().getDrawable(R.drawable.shape_gradient_title);
     }
-    rlViewGroup.setBackground(viewGroupDrawable);
 
-    float titleSize = typedArray.getDimension(R.styleable.TitleView_titleTextSize, 22);
-    int titleColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.WHITE);
-    String titleText = typedArray.getString(R.styleable.TitleView_titleText);
-    tvTitle.setText(titleText);
-    tvTitle.setTextSize(titleSize);
-    tvTitle.setTextColor(titleColor);
+    private void initView() {
+        mRlViewGroup = findViewById(R.id.rl_viewGroup);
+        mLayoutLeft = findViewById(R.id.ll_left);
+        mLayoutRight = findViewById(R.id.ll_right);
+        mBtnMenuText = findViewById(R.id.tv_menu);
+        mBtnReturnText = findViewById(R.id.tv_return);
+        mTvTitle = findViewById(R.id.tv_title);
+        mBtnMenu = findViewById(R.id.btn_menu);
+        mBtnReturn = findViewById(R.id.btn_return);
+        mViewLine = findViewById(R.id.view_up_line);
+    }
 
-    Drawable leftIcon = typedArray.getDrawable(R.styleable.TitleView_leftIcon);
-    if (leftIcon == null) {
-      leftIcon = getResources().getDrawable(R.mipmap.title_return);
-    }
-    String leftText = typedArray.getString(R.styleable.TitleView_leftText);
-    if (leftText == null || leftText.equals("")) {
-      leftText = "返回";
-    }
-    float leftTextSize = typedArray.getDimension(R.styleable.TitleView_leftTextSize, 20);
-    int leftTextColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.WHITE);
-    boolean leftIconVisibility =
-        typedArray.getBoolean(R.styleable.TitleView_leftIconVisibility, true);
-    boolean leftTextVisibility =
-        typedArray.getBoolean(R.styleable.TitleView_leftTextVisibility, true);
-    btnReturn.setBackground(leftIcon);
-    if (leftIconVisibility) {
-      btnReturn.setVisibility(View.VISIBLE);
-    } else {
-      btnReturn.setVisibility(View.GONE);
-    }
-    if (leftTextVisibility) {
-      btnReturnText.setVisibility(View.VISIBLE);
-    } else {
-      btnReturnText.setVisibility(View.GONE);
-    }
-    btnReturnText.setText(leftText);
-    btnReturnText.setTextColor(leftTextColor);
-    btnReturnText.setTextSize(leftTextSize);
+    private void initAttrs(Context context, AttributeSet attrs) {
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
 
-    Drawable rightIcon = typedArray.getDrawable(R.styleable.TitleView_rightIcon);
-    if (rightIcon == null) {
-      rightIcon = getResources().getDrawable(R.mipmap.title_menu);
-    }
-    String rightText = typedArray.getString(R.styleable.TitleView_rightText);
-    if (rightText == null || leftText.equals("")) {
-      rightText = "菜单";
-    }
-    float rightTextSize = typedArray.getDimension(R.styleable.TitleView_rightTextSize, 20);
-    int rightTextColor = typedArray.getColor(R.styleable.TitleView_rightTextColor, Color.WHITE);
-    boolean rightIconVisibility =
-        typedArray.getBoolean(R.styleable.TitleView_rightIconVisibility, false);
-    boolean rightTextVisibility =
-        typedArray.getBoolean(R.styleable.TitleView_rightTextVisibility, false);
-    btnMenu.setBackground(rightIcon);
-    if (rightIconVisibility) {
-      btnMenu.setVisibility(View.VISIBLE);
-    } else {
-      btnMenu.setVisibility(View.GONE);
-    }
-    if (rightTextVisibility) {
-      btnMenuText.setVisibility(View.VISIBLE);
-    } else {
-      btnMenuText.setVisibility(View.GONE);
-    }
-    btnMenuText.setText(rightText);
-    btnMenuText.setTextColor(rightTextColor);
-    btnMenuText.setTextSize(rightTextSize);
-    typedArray.recycle();
-  }
+        Drawable viewGroupDrawable = typedArray.getDrawable(R.styleable.TitleView_titleBackground);
+        if (viewGroupDrawable == null) {
+            viewGroupDrawable = ContextCompat.getDrawable(context, R.drawable.shape_gradient_title);
+        }
+        mRlViewGroup.setBackground(viewGroupDrawable);
 
-  public void setRightMenuTextVisible(boolean visible) {
-    if (visible) {
-      layoutRight.setVisibility(View.VISIBLE);
-    } else {
-      layoutRight.setVisibility(View.GONE);
+        float titleSize = typedArray.getDimension(R.styleable.TitleView_titleTextSize, 22);
+        int titleColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.WHITE);
+        String titleText = typedArray.getString(R.styleable.TitleView_titleText);
+        mTvTitle.setText(titleText);
+        mTvTitle.setTextSize(titleSize);
+        mTvTitle.setTextColor(titleColor);
+
+        Drawable leftIcon = typedArray.getDrawable(R.styleable.TitleView_leftIcon);
+        if (leftIcon == null) {
+            leftIcon = ContextCompat.getDrawable(context, R.mipmap.title_return);
+        }
+        String leftText = typedArray.getString(R.styleable.TitleView_leftText);
+        if (leftText == null || leftText.equals("")) {
+            leftText = "返回";
+        }
+        final float leftTextSize = typedArray.getDimension(R.styleable.TitleView_leftTextSize, 20);
+        final int leftTextColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.WHITE);
+        boolean leftIconVisibility =
+                typedArray.getBoolean(R.styleable.TitleView_leftIconVisibility, true);
+        boolean leftTextVisibility =
+                typedArray.getBoolean(R.styleable.TitleView_leftTextVisibility, true);
+        mBtnReturn.setBackground(leftIcon);
+        if (leftIconVisibility) {
+            mBtnReturn.setVisibility(View.VISIBLE);
+        } else {
+            mBtnReturn.setVisibility(View.GONE);
+        }
+        if (leftTextVisibility) {
+            mBtnReturnText.setVisibility(View.VISIBLE);
+        } else {
+            mBtnReturnText.setVisibility(View.GONE);
+        }
+        mBtnReturnText.setText(leftText);
+        mBtnReturnText.setTextColor(leftTextColor);
+        mBtnReturnText.setTextSize(leftTextSize);
+
+        Drawable rightIcon = typedArray.getDrawable(R.styleable.TitleView_rightIcon);
+        if (rightIcon == null) {
+            rightIcon = ContextCompat.getDrawable(context, R.mipmap.title_menu);
+        }
+        String rightText = typedArray.getString(R.styleable.TitleView_rightText);
+        if (rightText == null || leftText.equals("")) {
+            rightText = "菜单";
+        }
+        final float rightTextSize = typedArray.getDimension(R.styleable.TitleView_rightTextSize, 20);
+        final int rightTextColor = typedArray.getColor(R.styleable.TitleView_rightTextColor, Color.WHITE);
+        boolean rightIconVisibility =
+                typedArray.getBoolean(R.styleable.TitleView_rightIconVisibility, false);
+        boolean rightTextVisibility =
+                typedArray.getBoolean(R.styleable.TitleView_rightTextVisibility, false);
+        mBtnMenu.setBackground(rightIcon);
+        if (rightIconVisibility) {
+            mBtnMenu.setVisibility(View.VISIBLE);
+        } else {
+            mBtnMenu.setVisibility(View.GONE);
+        }
+        if (rightTextVisibility) {
+            mBtnMenuText.setVisibility(View.VISIBLE);
+        } else {
+            mBtnMenuText.setVisibility(View.GONE);
+        }
+        mBtnMenuText.setText(rightText);
+        mBtnMenuText.setTextColor(rightTextColor);
+        mBtnMenuText.setTextSize(rightTextSize);
+        typedArray.recycle();
     }
-  }
 
-  public void setRightTextVisible(boolean visible) {
-    if (visible) {
-      btnMenuText.setVisibility(View.VISIBLE);
-    } else {
-      btnMenuText.setVisibility(View.GONE);
+    /**
+     * 设置右部菜单View的显示
+     *
+     * @param visible 显示方式
+     */
+    public void setRightMenuTextVisible(boolean visible) {
+        if (visible) {
+            mTvTitle.setVisibility(View.VISIBLE);
+        } else {
+            mTvTitle.setVisibility(View.GONE);
+        }
     }
-  }
 
-  public void setLeftMenuTextVisible(boolean visible) {
-    if (visible) {
-      layoutLeft.setVisibility(View.VISIBLE);
-    } else {
-      layoutLeft.setVisibility(View.GONE);
+    /**
+     * 设置右部文字的显示
+     *
+     * @param visible 显示方式
+     */
+    public void setRightTextVisible(boolean visible) {
+        if (visible) {
+            mBtnMenuText.setVisibility(View.VISIBLE);
+        } else {
+            mBtnMenuText.setVisibility(View.GONE);
+        }
     }
-  }
 
-  public void setViewUpLineVisible(boolean b) {
-    if (b) {
-      viewLine.setVisibility(VISIBLE);
-    } else {
-      viewLine.setVisibility(GONE);
+    /**
+     * 设置左部菜单View的显示
+     *
+     * @param visible 显示方式
+     */
+    public void setLeftMenuTextVisible(boolean visible) {
+        if (visible) {
+            mLayoutLeft.setVisibility(View.VISIBLE);
+        } else {
+            mLayoutLeft.setVisibility(View.GONE);
+        }
     }
-  }
 
-  public LinearLayout getLayoutRight() {
-    return layoutRight;
-  }
+    /**
+     * 设置分割线View的显示
+     *
+     * @param b 是否显示
+     */
+    public void setViewUpLineVisible(boolean b) {
+        if (b) {
+            mViewLine.setVisibility(VISIBLE);
+        } else {
+            mViewLine.setVisibility(GONE);
+        }
+    }
 
-  public void setRightText(String text) {
-    btnMenuText.setText(text);
-  }
+    /**
+     * 过去右部布局
+     */
+    public LinearLayout getLayoutRight() {
+        return mLayoutRight;
+    }
 
-  public interface LeftClickListener {
-    void OnLeftButtonClick();
-  }
+    /**
+     * 设置右部文字
+     *
+     * @param text 需要显示的文字
+     */
+    public void setRightText(String text) {
+        mBtnMenuText.setText(text);
+    }
 
-  public interface RightClickListener {
-    void OnRightButtonClick();
-  }
+    /**
+     * 左部点击接口
+     */
+    public interface LeftClickListener {
+
+        void onLeftButtonClick();
+    }
+
+    /**
+     * 右部点击接口
+     */
+    public interface RightClickListener {
+
+        void onRightButtonClick();
+    }
 }

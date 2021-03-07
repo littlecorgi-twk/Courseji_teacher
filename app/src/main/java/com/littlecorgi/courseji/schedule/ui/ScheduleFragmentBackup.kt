@@ -72,17 +72,17 @@ class ScheduleFragmentBackup : Fragment() {
         week = arguments?.getInt("week") ?: 0
         // 监听Fragment生命周期变化
         parentFragmentManager.registerFragmentLifecycleCallbacks(
-            MyFragmentLifecycleCallbacks(
-                ScheduleFragment::class.java.simpleName + arguments?.getInt("week")
-            ),
-            false
+                MyFragmentLifecycleCallbacks(
+                        ScheduleFragment::class.java.simpleName + arguments?.getInt("week")
+                ),
+                false
         )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         weekDay = CourseUtils.getWeekdayInt()
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
@@ -103,11 +103,11 @@ class ScheduleFragmentBackup : Fragment() {
     }
 
     private fun initWeekPanel(
-        data: List<CourseBean>?,
-        day: Int,
-        table: TableBean,
-        list: ArrayList<ScheduleItem>,
-        adapter: ScheduleRecyclerAdapter
+            data: List<CourseBean>?,
+            day: Int,
+            table: TableBean,
+            list: ArrayList<ScheduleItem>,
+            adapter: ScheduleRecyclerAdapter
     ) {
         Log.d(TAG, "initWeekPanel: enter function list.size = ${list.size}")
         if (data == null || data.isEmpty()) return
@@ -158,14 +158,14 @@ class ScheduleFragmentBackup : Fragment() {
 
             if (c.color.isEmpty()) {
                 c.color =
-                    "#${
-                        Integer.toHexString(
-                            ViewUtils.getCustomizedColor(
-                                requireActivity(),
-                                c.id % 9
+                        "#${
+                            Integer.toHexString(
+                                    ViewUtils.getCustomizedColor(
+                                            requireActivity(),
+                                            c.id % 9
+                                    )
                             )
-                        )
-                    }"
+                        }"
             }
 
             strBuilder.append(c.courseName)
@@ -193,12 +193,12 @@ class ScheduleFragmentBackup : Fragment() {
                 // list[node - 1] = ScheduleItem(
                 //     adapter.setData(
                     adapter.notifyItemChanged(
-                        node - 1, ScheduleItem(
+                            node - 1, ScheduleItem(
                             strBuilder.toString(),
                             table.itemTextSize.toFloat(),
                             table.courseTextColor,
                             Color.parseColor(c.color)
-                        )
+                    )
                     )
             }
         }
@@ -271,9 +271,9 @@ class ScheduleFragmentBackup : Fragment() {
             }
         }
         mRvItemLists =
-            arrayListOf(mRvItemList1, mRvItemList2, mRvItemList3, mRvItemList4, mRvItemList5)
+                arrayListOf(mRvItemList1, mRvItemList2, mRvItemList3, mRvItemList4, mRvItemList5)
         mRvAdapterLists =
-            arrayListOf(mRvAdapter1, mRvAdapter2, mRvAdapter3, mRvAdapter4, mRvAdapter5)
+                arrayListOf(mRvAdapter1, mRvAdapter2, mRvAdapter3, mRvAdapter4, mRvAdapter5)
         mRecyclers.add(mRvTable1)
         mRecyclers.add(mRvTable2)
         mRecyclers.add(mRvTable3)
@@ -295,10 +295,10 @@ class ScheduleFragmentBackup : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         weekDate = CourseUtils.getDateStringFromWeek(
-            CourseUtils.countWeek(
-                viewModel.table.startDate,
-                viewModel.table.sundayFirst
-            ), week, viewModel.table.sundayFirst
+                CourseUtils.countWeek(
+                        viewModel.table.startDate,
+                        viewModel.table.sundayFirst
+                ), week, viewModel.table.sundayFirst
         )
         mBinding.tvTime.text = weekDate[0] + "\n月"
         for (i in 1..5) {

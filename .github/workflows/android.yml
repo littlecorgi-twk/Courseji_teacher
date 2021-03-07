@@ -15,36 +15,36 @@ jobs:
 #          java-version: 1.8
 #      - name: Build with Gradlea
 #        run: ./gradlew build
-      - name: Google Java Format
-        uses: axel-op/googlejavaformat-action@v3.4.0
-        with:
-          # Arguments for the Google Java Format executable
-          args: "--aosp --skip-sorting-imports" # optional, default is --replace
-          # Pattern to match files to be formatted
-          # files: # optional, default is **/*.java
-          # Set to true to not commit the changes
-          # skipCommit: # optional, default is false
-          # Version of Google Java Format to use
-          # version: # optional
-          # Recommended on MacOS machines
-          # githubToken: # optional
-          # Commit message
-          # commitMessage: # optional, default is Google Java Format
-      - name: Run java checkstyle
-        uses: nikitasavinov/checkstyle-action@0.3.1
+#      - name: Google Java Format
+#        uses: axel-op/googlejavaformat-action@v3.4.0
+#        with:
+#          # Arguments for the Google Java Format executable
+#          args: "--aosp --skip-sorting-imports" # optional, default is --replace
+#          # Pattern to match files to be formatted
+#          # files: # optional, default is **/*.java
+#          # Set to true to not commit the changes
+#          # skipCommit: # optional, default is false
+#          # Version of Google Java Format to use
+#          # version: # optional
+#          # Recommended on MacOS machines
+#          # githubToken: # optional
+#          # Commit message
+#          # commitMessage: # optional, default is Google Java Format
+      - name: runner/checkstyle
+        uses: dbelyaev/action-checkstyle@master
         with:
           # GITHUB_TOKEN.
           # github_token: # optional, default is ${{ github.token }}
           # Report level for reviewdog [info,warning,error]
-          level: error # optional, default is info
+          # level: error # optional, default is info
           # Reporter of reviewdog command [github-pr-check,github-pr-review]
           # reporter: # optional, default is github-pr-check
           # Filtering for the reviewdog command [added,diff_context,file,nofilter].Default is `added`.
-          filter_mode: nofilter # optional, default is added
+          # filter_mode: nofilter # optional, default is added
           # Exit code for reviewdog when errors are found [true,false].Default is `false`.
           # fail_on_error: # optional, default is false
           # Checkstyle config file
-          # checkstyle_config: # default is google_checks.xml
+          checkstyle_config: './checkStyle/google_aosp_checks.xml' # default is google_checks.xml
           # Working directory relative to the root directory.
           # workdir: # optional, default is .
           # Tool name to use for reviewdog reporter
