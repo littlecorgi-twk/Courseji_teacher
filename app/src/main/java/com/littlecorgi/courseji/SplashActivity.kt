@@ -7,8 +7,12 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.MainThread
 import androidx.lifecycle.lifecycleScope
-import com.bytedance.sdk.openadsdk.*
+import com.bytedance.sdk.openadsdk.AdSlot
+import com.bytedance.sdk.openadsdk.TTAdConstant
+import com.bytedance.sdk.openadsdk.TTAdNative
 import com.bytedance.sdk.openadsdk.TTAdNative.SplashAdListener
+import com.bytedance.sdk.openadsdk.TTAppDownloadListener
+import com.bytedance.sdk.openadsdk.TTSplashAd
 import com.littlecorgi.commonlib.BaseActivity
 import com.littlecorgi.commonlib.context.start
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean

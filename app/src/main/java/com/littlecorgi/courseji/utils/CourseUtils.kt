@@ -10,6 +10,7 @@ import com.littlecorgi.courseji.schedule_import.Common
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 课程相关的工具类

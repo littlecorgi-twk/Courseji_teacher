@@ -3,7 +3,6 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 2
 
 end_of_line = lf
 charset = utf-8
@@ -12,12 +11,16 @@ insert_final_newline = true
 
 [*.{java, kt, kts, scala, rs, xml, kt.spec, kts.spec}]
 indent_size = 4
+tab_width = 4
 
 [*.{kt, kts}]
 # 必留，否则ktlint会自动把.kt格式化为2个缩进
-indent_size=4
+indent_size = 4
+tab_width = 4
 ij_kotlin_imports_layout = *
-disabled_rules = no-wildcard-imports
+insert_final_newline = true
+disabled_rules = no-wildcard-imports, indent
+max_line_length = off
 
 [{Makefile, *.go}]
 indent_style = tab

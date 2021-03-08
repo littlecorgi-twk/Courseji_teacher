@@ -11,7 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.SslErrorHandler
+import android.webkit.URLUtil
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -199,16 +205,16 @@ class WebViewLoginFragment : Fragment() {
         }
 
         val js = "javascript:var ifrs=document.getElementsByTagName(\"iframe\");" +
-            "var iframeContent=\"\";" +
-            "for(var i=0;i<ifrs.length;i++){" +
-            "iframeContent=iframeContent+ifrs[i].contentDocument.body.parentElement.outerHTML;" +
-            "}\n" +
-            "var frs=document.getElementsByTagName(\"frame\");" +
-            "var frameContent=\"\";" +
-            "for(var i=0;i<frs.length;i++){" +
-            "frameContent=frameContent+frs[i].contentDocument.body.parentElement.outerHTML;" +
-            "}\n" +
-            "window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML + iframeContent + frameContent);"
+                "var iframeContent=\"\";" +
+                "for(var i=0;i<ifrs.length;i++){" +
+                "iframeContent=iframeContent+ifrs[i].contentDocument.body.parentElement.outerHTML;" +
+                "}\n" +
+                "var frs=document.getElementsByTagName(\"frame\");" +
+                "var frameContent=\"\";" +
+                "for(var i=0;i<frs.length;i++){" +
+                "frameContent=frameContent+frs[i].contentDocument.body.parentElement.outerHTML;" +
+                "}\n" +
+                "window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML + iframeContent + frameContent);"
 
         binding.fabImport.setOnClickListener {
             binding.wvCourse.loadUrl(js)
@@ -226,7 +232,7 @@ class WebViewLoginFragment : Fragment() {
         binding.llError.visibility = View.GONE
         val url =
             if (binding.etUrl.text.toString().startsWith("http://") || binding.etUrl.text.toString()
-                .startsWith("https://")
+                    .startsWith("https://")
             )
                 binding.etUrl.text.toString() else "http://" + binding.etUrl.text.toString()
         if (URLUtil.isHttpUrl(url) || URLUtil.isHttpsUrl(url)) {

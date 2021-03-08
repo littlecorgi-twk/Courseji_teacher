@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,35 +99,36 @@ public class AskLeaveFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNameEditText = (EditText) requireActivity().findViewById(R.id.edit_text_name);
-        mClassTextEditText = (EditText) requireActivity().findViewById(R.id.edit_text_class);
+        mNameEditText = requireActivity().findViewById(R.id.edit_text_name);
+        mClassTextEditText = requireActivity().findViewById(R.id.edit_text_class);
 
-        mRadioGroupType1 = (RadioGroup) requireActivity().findViewById(R.id.rg_type1);
-        mSickButton = (RadioButton) requireActivity().findViewById(R.id.rg_sick);
-        mThingButton = (RadioButton) requireActivity().findViewById(R.id.rg_thing);
-        mOtherButton = (RadioButton) requireActivity().findViewById(R.id.rg_other);
-        mRadioGroupType2 = (RadioGroup) requireActivity().findViewById(R.id.rg_type2);
-        mYesButton = (RadioButton) requireActivity().findViewById(R.id.rg_yes);
-        mNoButton = (RadioButton) requireActivity().findViewById(R.id.rg_no);
+        mRadioGroupType1 = requireActivity().findViewById(R.id.rg_type1);
+        mSickButton = requireActivity().findViewById(R.id.rg_sick);
+        mThingButton = requireActivity().findViewById(R.id.rg_thing);
+        mOtherButton = requireActivity().findViewById(R.id.rg_other);
+        mRadioGroupType2 = requireActivity().findViewById(R.id.rg_type2);
+        mYesButton = requireActivity().findViewById(R.id.rg_yes);
+        mNoButton = requireActivity().findViewById(R.id.rg_no);
 
-        mStartTimeEditText = (EditText) requireActivity().findViewById(R.id.edit_text_start_time);
-        mEndTimeEditText = (EditText) requireActivity().findViewById(R.id.edit_text_end_time);
-        mPlaceEditText = (EditText) requireActivity().findViewById(R.id.edit_text_place);
-        mMyPhoneEditText = (EditText) requireActivity().findViewById(R.id.edit_text_my_phone);
-        mOtherPhoneEditText = (EditText) requireActivity().findViewById(R.id.edit_text_other_phone);
-        mLeaveSituationEditText = (EditText) requireActivity().findViewById(R.id.edit_text_leave_situation);
+        mStartTimeEditText = requireActivity().findViewById(R.id.edit_text_start_time);
+        mEndTimeEditText = requireActivity().findViewById(R.id.edit_text_end_time);
+        mPlaceEditText = requireActivity().findViewById(R.id.edit_text_place);
+        mMyPhoneEditText = requireActivity().findViewById(R.id.edit_text_my_phone);
+        mOtherPhoneEditText = requireActivity().findViewById(R.id.edit_text_other_phone);
+        mLeaveSituationEditText =
+                requireActivity().findViewById(R.id.edit_text_leave_situation);
 
         mSubmitButton = requireActivity().findViewById(R.id.submit);
 
         mRecycler = requireActivity().findViewById(R.id.recycler);
 
-        mRadioGroupType1.setOnCheckedChangeListener((OnCheckedChangeListener) (group, checkedId) -> {
-            mRadioButton1 = (RadioButton) requireActivity()
+        mRadioGroupType1.setOnCheckedChangeListener((group, checkedId) -> {
+            mRadioButton1 = requireActivity()
                     .findViewById(mRadioGroupType1.getCheckedRadioButtonId());
             mSelectText1 = mRadioButton1.getText().toString();
         });
-        mRadioGroupType2.setOnCheckedChangeListener((OnCheckedChangeListener) (group, checkedId) -> {
-            mRadioButton2 = (RadioButton) requireActivity()
+        mRadioGroupType2.setOnCheckedChangeListener((group, checkedId) -> {
+            mRadioButton2 = requireActivity()
                     .findViewById(mRadioGroupType2.getCheckedRadioButtonId());
             mSelectText2 = mRadioButton2.getText().toString();
         });
@@ -190,7 +190,9 @@ public class AskLeaveFragment extends Fragment {
     private void initAdapter() {
         // 最多九张有图片
         mAdapter = new SelectPlotAdapter(requireActivity().getApplicationContext(), 9);
-        mRecycler.setLayoutManager(new GridLayoutManager(requireActivity().getApplicationContext(), 3));
+        mRecycler
+                .setLayoutManager(
+                        new GridLayoutManager(requireActivity().getApplicationContext(), 3));
         mAdapter.setImageList(mAllSelectList);
         mRecycler.setAdapter(mAdapter);
         mAdapter.setListener(new SelectPlotAdapter.CallbackListener() {
@@ -223,8 +225,10 @@ public class AskLeaveFragment extends Fragment {
                         .imageEngine(GlideEngine.createGlideEngine()) // 选择器展示不出图片则添加
                         .openExternalPreview(position, mSelectList);
 
-                        /*// ②:自定义布局预览
-                        // Tools.startPhotoViewActivity(MainActivity.this, categoryLists, position);*/
+                        /* 此处是CheckStyle有问题，所以/*才会这么后面
+                // ②:自定义布局预览
+                // Tools.startPhotoViewActivity(MainActivity.this, categoryLists, position);
+                        */
             }
         });
     }

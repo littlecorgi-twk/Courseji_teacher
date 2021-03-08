@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.littlecorgi.courseji.schedule.logic.model.bean.*
+import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBaseBean
+import com.littlecorgi.courseji.schedule.logic.model.bean.CourseDetailBean
+import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
+import com.littlecorgi.courseji.schedule.logic.model.bean.TimeDetailBean
+import com.littlecorgi.courseji.schedule.logic.model.bean.TimeTableBean
 import com.littlecorgi.courseji.schedule.logic.model.dao.CourseDao
 import com.littlecorgi.courseji.schedule.logic.model.dao.TableDao
 import com.littlecorgi.courseji.schedule.logic.model.dao.TimeDetailDao

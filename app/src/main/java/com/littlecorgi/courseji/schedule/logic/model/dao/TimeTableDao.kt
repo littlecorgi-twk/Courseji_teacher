@@ -1,7 +1,12 @@
 package com.littlecorgi.courseji.schedule.logic.model.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeDetailBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeTableBean
 

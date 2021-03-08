@@ -2,7 +2,11 @@ package com.littlecorgi.courseji.schedule.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
+import android.graphics.Typeface
 import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
@@ -83,6 +87,7 @@ class TipTextView(context: Context) : View(context) {
         setMeasuredDimension(width, height)
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (tipVisibility == TIP_OTHER_WEEK) {

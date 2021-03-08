@@ -1,7 +1,13 @@
 package com.littlecorgi.courseji.schedule.logic.model.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBaseBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseDetailBean
@@ -10,32 +16,47 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.CourseDetailBean
 interface CourseDao {
 
     @Transaction
-    suspend fun insertSingleCourse(courseBaseBean: CourseBaseBean, courseDetailList: List<CourseDetailBean>) {
+    suspend fun insertSingleCourse(
+        courseBaseBean: CourseBaseBean,
+        courseDetailList: List<CourseDetailBean>
+    ) {
         insertCourseBase(courseBaseBean)
         insertDetailList(courseDetailList)
     }
 
     @Transaction
-    suspend fun updateSingleCourse(courseBaseBean: CourseBaseBean, courseDetailList: List<CourseDetailBean>) {
+    suspend fun updateSingleCourse(
+        courseBaseBean: CourseBaseBean,
+        courseDetailList: List<CourseDetailBean>
+    ) {
         updateCourseBaseBean(courseBaseBean)
         deleteDetailByIdOfTable(courseBaseBean.id, courseBaseBean.tableId)
         insertDetailList(courseDetailList)
     }
 
     @Transaction
-    suspend fun updateSameCourse(courseBaseBean: CourseBaseBean, courseDetailList: List<CourseDetailBean>) {
+    suspend fun updateSameCourse(
+        courseBaseBean: CourseBaseBean,
+        courseDetailList: List<CourseDetailBean>
+    ) {
         updateCourseBaseBean(courseBaseBean)
         insertDetailList(courseDetailList)
     }
 
     @Transaction
-    suspend fun insertCourses(courseBaseList: List<CourseBaseBean>, courseDetailList: List<CourseDetailBean>) {
+    suspend fun insertCourses(
+        courseBaseList: List<CourseBaseBean>,
+        courseDetailList: List<CourseDetailBean>
+    ) {
         insertBaseList(courseBaseList)
         insertDetailList(courseDetailList)
     }
 
     @Transaction
-    suspend fun coverImport(courseBaseList: List<CourseBaseBean>, courseDetailList: List<CourseDetailBean>) {
+    suspend fun coverImport(
+        courseBaseList: List<CourseBaseBean>,
+        courseDetailList: List<CourseDetailBean>
+    ) {
         removeCourseBaseBeanOfTable(courseBaseList[0].tableId)
         insertBaseList(courseBaseList)
         insertDetailList(courseDetailList)
@@ -57,7 +78,12 @@ interface CourseDao {
     fun getCourseByDayOfTableSync(day: Int, tableId: Int): List<CourseBean>
 
     @Query("select * from coursebasebean natural join coursedetailbean where day = :day and tableId = :tableId and startWeek <= :week and endWeek >= :week and (type = 0 or type = :type)")
-    suspend fun getCourseByDayOfTable(day: Int, week: Int, type: Int, tableId: Int): List<CourseBean>
+    suspend fun getCourseByDayOfTable(
+        day: Int,
+        week: Int,
+        type: Int,
+        tableId: Int
+    ): List<CourseBean>
 
     @Query("select * from coursebasebean natural join coursedetailbean where day = :day and tableId = :tableId and startWeek <= :week and endWeek >= :week and (type = 0 or type = :type)")
     fun getCourseByDayOfTableSync(day: Int, week: Int, type: Int, tableId: Int): List<CourseBean>
