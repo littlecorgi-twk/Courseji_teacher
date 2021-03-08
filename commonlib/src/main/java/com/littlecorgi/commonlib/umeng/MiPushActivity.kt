@@ -20,7 +20,7 @@ class MiPushActivity : UmengNotifyClickActivity() {
     }
 
     override fun onMessage(p0: Intent?) {
-        super.onMessage(p0) //此方法必须调用，否则无法统计打开数
+        super.onMessage(p0) // 此方法必须调用，否则无法统计打开数
         val body = intent.getStringExtra(AgooConstants.MESSAGE_BODY) ?: "null"
         Log.i(TAG, body)
     }

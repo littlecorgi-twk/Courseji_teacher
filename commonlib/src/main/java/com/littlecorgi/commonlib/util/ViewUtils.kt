@@ -82,7 +82,6 @@ object ViewUtils {
                 hasNavigationBar = true
             }
         } catch (e: Exception) {
-
         }
 
         return hasNavigationBar
@@ -140,29 +139,28 @@ object ViewUtils {
     }
 
     fun saveImg(bitmap: Bitmap) {
-        //把图片存储在哪个文件夹
+        // 把图片存储在哪个文件夹
         val file = File(Environment.getExternalStorageDirectory(), "DCIM")
         if (!file.exists()) {
             file.mkdir()
         }
-        //图片的名称
+        // 图片的名称
         val name = "mz.jpg"
         val file1 = File(file, name)
         if (!file1.exists()) {
             try {
                 val fileOutputStream = FileOutputStream(file1)
-                //这个100表示压缩比,100说明不压缩,90说明压缩到原来的90%
-                //注意:这是对于占用存储空间而言,不是说占用内存的大小
+                // 这个100表示压缩比,100说明不压缩,90说明压缩到原来的90%
+                // 注意:这是对于占用存储空间而言,不是说占用内存的大小
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
                 fileOutputStream.flush()
                 fileOutputStream.close()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
-        //通知图库即使更新,否则不能看到图片
-        //activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file1.getAbsolutePath())));
+        // 通知图库即使更新,否则不能看到图片
+        // activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file1.getAbsolutePath())));
     }
 
     fun getViewBitmap(viewGroup: ViewGroup, low: Boolean = false, marginBottom: Int = 0): Bitmap {
@@ -173,13 +171,14 @@ object ViewUtils {
             h += viewGroup.getChildAt(i).height + marginBottom
         }
         // 创建对应大小的bitmap
-        bitmap = Bitmap.createBitmap(viewGroup.width, h,
-                if (low) Bitmap.Config.ARGB_4444 else Bitmap.Config.ARGB_8888)
+        bitmap = Bitmap.createBitmap(
+            viewGroup.width, h,
+            if (low) Bitmap.Config.ARGB_4444 else Bitmap.Config.ARGB_8888
+        )
         val canvas = Canvas(bitmap)
         viewGroup.draw(canvas)
         return bitmap
     }
-
 
     fun layoutView(v: View, width: Int, height: Int) {
         // validate view.width and view.height

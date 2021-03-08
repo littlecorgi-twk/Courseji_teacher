@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.littlecorgi.courseji.AppDatabase
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 import com.littlecorgi.courseji.utils.CourseUtils
-import java.util.*
+import java.util.Calendar
 
 class ScheduleSettingsViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -39,7 +39,6 @@ class ScheduleSettingsViewModel(application: Application) : AndroidViewModel(app
         mYear = cal.get(Calendar.YEAR)
         mMonth = cal.get(Calendar.MONTH) + 1
         mDay = cal.get(Calendar.DATE)
-        table.startDate = "${mYear}-${mMonth}-${mDay}"
+        table.startDate = "$mYear-$mMonth-$mDay"
     }
-
 }

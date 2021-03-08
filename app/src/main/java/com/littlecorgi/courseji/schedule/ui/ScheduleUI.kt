@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.graphics.ColorUtils
-import com.littlecorgi.commonlib.Ui
+import com.littlecorgi.commonlib.UI
 import com.littlecorgi.commonlib.util.dip
 import com.littlecorgi.commonlib.util.dp
 import com.littlecorgi.courseji.R
@@ -22,11 +22,11 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
  * @author littlecorgi 2020/10/20
  */
 class ScheduleUI(
-        override val ctx: Context,
-        table: TableBean,
-        day: Int,
-        forWidget: Boolean = false
-) : Ui {
+    override val ctx: Context,
+    table: TableBean,
+    day: Int,
+    forWidget: Boolean = false
+) : UI {
 
     private var col = 6
 
@@ -73,27 +73,29 @@ class ScheduleUI(
         }
         for (i in 1..table.nodes) {
             // 课程表的左侧时间栏
-            addView(FrameLayout(context).apply {
-                id = R.id.anko_tv_node1 + i - 1
-                if (showTimeDetail) {
-                    // 开始时间 eg.08:00
-                    addView(
+            addView(
+                FrameLayout(context).apply {
+                    id = R.id.anko_tv_node1 + i - 1
+                    if (showTimeDetail) {
+                        // 开始时间 eg.08:00
+                        addView(
                             AppCompatTextView(context).apply {
                                 id = R.id.tv_start
                                 setTextColor(textColor)
-                                //gravity = Gravity.CENTER
-                                //textAlignment = View.TEXT_ALIGNMENT_CENTER
+                                // gravity = Gravity.CENTER
+                                // textAlignment = View.TEXT_ALIGNMENT_CENTER
                                 setSingleLine()
                                 setTextSize(TypedValue.COMPLEX_UNIT_DIP, timeSize)
                             },
                             FrameLayout.LayoutParams(
-                                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                                    FrameLayout.LayoutParams.WRAP_CONTENT
+                                FrameLayout.LayoutParams.WRAP_CONTENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT
                             ).apply {
                                 gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
-                            })
-                    // 结束时间 eg.09:00
-                    addView(
+                            }
+                        )
+                        // 结束时间 eg.09:00
+                        addView(
                             AppCompatTextView(context).apply {
                                 id = R.id.tv_end
                                 setTextColor(textColor)
@@ -101,14 +103,15 @@ class ScheduleUI(
                                 setTextSize(TypedValue.COMPLEX_UNIT_DIP, timeSize)
                             },
                             FrameLayout.LayoutParams(
-                                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                                    FrameLayout.LayoutParams.WRAP_CONTENT
+                                FrameLayout.LayoutParams.WRAP_CONTENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT
                             ).apply {
                                 gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
-                            })
-                }
-                // 节数 eg.1
-                addView(
+                            }
+                        )
+                    }
+                    // 节数 eg.1
+                    addView(
                         AppCompatTextView(context).apply {
                             setTextColor(textColor)
                             text = i.toString()
@@ -116,34 +119,37 @@ class ScheduleUI(
                             setSingleLine()
                         },
                         FrameLayout.LayoutParams(
-                                FrameLayout.LayoutParams.WRAP_CONTENT,
-                                FrameLayout.LayoutParams.WRAP_CONTENT
+                            FrameLayout.LayoutParams.WRAP_CONTENT,
+                            FrameLayout.LayoutParams.WRAP_CONTENT
                         ).apply {
                             gravity = Gravity.CENTER
-                        })
-            }, ConstraintLayout.LayoutParams(0, itemHeight).apply {
-                topMargin = dip(2)
-                endToStart = R.id.anko_ll_week_panel_0
-                horizontalWeight = 0.5f
-                startToStart = ConstraintSet.PARENT_ID
-                when (i) {
-                    1 -> {
-                        bottomToTop = R.id.anko_tv_node1 + i
-                        topToTop = ConstraintSet.PARENT_ID
-                        verticalBias = 0f
-                        verticalChainStyle = ConstraintSet.CHAIN_PACKED
-                    }
-                    table.nodes -> {
-                        //bottomToTop = R.id.anko_navigation_bar_view
-                        bottomToBottom = ConstraintSet.PARENT_ID
-                        topToBottom = R.id.anko_tv_node1 + i - 2
-                    }
-                    else -> {
-                        bottomToTop = R.id.anko_tv_node1 + i
-                        topToBottom = R.id.anko_tv_node1 + i - 2
+                        }
+                    )
+                },
+                ConstraintLayout.LayoutParams(0, itemHeight).apply {
+                    topMargin = dip(2)
+                    endToStart = R.id.anko_ll_week_panel_0
+                    horizontalWeight = 0.5f
+                    startToStart = ConstraintSet.PARENT_ID
+                    when (i) {
+                        1 -> {
+                            bottomToTop = R.id.anko_tv_node1 + i
+                            topToTop = ConstraintSet.PARENT_ID
+                            verticalBias = 0f
+                            verticalChainStyle = ConstraintSet.CHAIN_PACKED
+                        }
+                        table.nodes -> {
+                            // bottomToTop = R.id.anko_navigation_bar_view
+                            bottomToBottom = ConstraintSet.PARENT_ID
+                            topToBottom = R.id.anko_tv_node1 + i - 2
+                        }
+                        else -> {
+                            bottomToTop = R.id.anko_tv_node1 + i
+                            topToBottom = R.id.anko_tv_node1 + i - 2
+                        }
                     }
                 }
-            })
+            )
         }
 
         // if (!forWidget && context.getPrefer().getBoolean(Const.KEY_SCHEDULE_BLANK_AREA, true)) {
@@ -162,36 +168,38 @@ class ScheduleUI(
 
         for (i in 0 until col - 1) {
             // 具体的课程表，一天一个FrameLayout
-            addView(FrameLayout(context).apply { id = R.id.anko_ll_week_panel_0 + i },
-                    ConstraintLayout.LayoutParams(
-                            0,
-                            ConstraintLayout.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        marginStart = dip(1)
-                        marginEnd = dip(1)
-                        horizontalWeight = 1f
-                        when (i) {
-                            0 -> {
-                                startToEnd = R.id.anko_tv_node1
-                                endToStart = R.id.anko_ll_week_panel_0 + i + 1
-                            }
-                            col - 2 -> {
-                                startToEnd = R.id.anko_ll_week_panel_0 + i - 1
-                                endToEnd = ConstraintSet.PARENT_ID
-                                if (!forWidget) {
-                                    marginEnd = if (col < 8) {
-                                        dip(8)
-                                    } else {
-                                        dip(4)
-                                    }
+            addView(
+                FrameLayout(context).apply { id = R.id.anko_ll_week_panel_0 + i },
+                ConstraintLayout.LayoutParams(
+                    0,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = dip(1)
+                    marginEnd = dip(1)
+                    horizontalWeight = 1f
+                    when (i) {
+                        0 -> {
+                            startToEnd = R.id.anko_tv_node1
+                            endToStart = R.id.anko_ll_week_panel_0 + i + 1
+                        }
+                        col - 2 -> {
+                            startToEnd = R.id.anko_ll_week_panel_0 + i - 1
+                            endToEnd = ConstraintSet.PARENT_ID
+                            if (!forWidget) {
+                                marginEnd = if (col < 8) {
+                                    dip(8)
+                                } else {
+                                    dip(4)
                                 }
                             }
-                            else -> {
-                                startToEnd = R.id.anko_ll_week_panel_0 + i - 1
-                                endToStart = R.id.anko_ll_week_panel_0 + i + 1
-                            }
                         }
-                    })
+                        else -> {
+                            startToEnd = R.id.anko_ll_week_panel_0 + i - 1
+                            endToStart = R.id.anko_ll_week_panel_0 + i + 1
+                        }
+                    }
+                }
+            )
         }
     }
 
@@ -204,59 +212,65 @@ class ScheduleUI(
 
     override val root = ConstraintLayout(ctx).apply {
         val textAlphaColor =
-                ColorUtils.setAlphaComponent(textColor, (0.32 * (textColor shr 24 and 0xff)).toInt())
+            ColorUtils.setAlphaComponent(textColor, (0.32 * (textColor shr 24 and 0xff)).toInt())
         for (i in 0 until col) {
-            addView(AppCompatTextView(context).apply {
-                id = R.id.anko_tv_title0 + i
-                setPadding(0, dip(8), 0, dip(8))
-                textSize = 12f
-                gravity = Gravity.CENTER
-                setLineSpacing(dp(2), 1f)
-                if (i == 0 || (day > 0 && i == dayMap[day])) {
-                    typeface = Typeface.DEFAULT_BOLD
-                    setTextColor(textColor)
-                } else {
-                    setTextColor(textAlphaColor)
-                }
-            }, ConstraintLayout.LayoutParams(0, ConstraintLayout.LayoutParams.WRAP_CONTENT).apply {
-                when (i) {
-                    0 -> {
-                        horizontalWeight = 0.5f
-                        startToStart = ConstraintSet.PARENT_ID
-                        topToTop = ConstraintSet.PARENT_ID
-                        endToStart = R.id.anko_tv_title0 + i + 1
+            addView(
+                AppCompatTextView(context).apply {
+                    id = R.id.anko_tv_title0 + i
+                    setPadding(0, dip(8), 0, dip(8))
+                    textSize = 12f
+                    gravity = Gravity.CENTER
+                    setLineSpacing(dp(2), 1f)
+                    if (i == 0 || (day > 0 && i == dayMap[day])) {
+                        typeface = Typeface.DEFAULT_BOLD
+                        setTextColor(textColor)
+                    } else {
+                        setTextColor(textAlphaColor)
                     }
-                    col - 1 -> {
-                        horizontalWeight = 1f
-                        startToEnd = R.id.anko_tv_title0 + i - 1
-                        endToEnd = ConstraintSet.PARENT_ID
-                        baselineToBaseline = R.id.anko_tv_title0 + i - 1
-                        if (!forWidget) {
-                            marginEnd = if (col < 8) {
-                                dip(8)
-                            } else {
-                                dip(4)
+                },
+                ConstraintLayout.LayoutParams(0, ConstraintLayout.LayoutParams.WRAP_CONTENT).apply {
+                    when (i) {
+                        0 -> {
+                            horizontalWeight = 0.5f
+                            startToStart = ConstraintSet.PARENT_ID
+                            topToTop = ConstraintSet.PARENT_ID
+                            endToStart = R.id.anko_tv_title0 + i + 1
+                        }
+                        col - 1 -> {
+                            horizontalWeight = 1f
+                            startToEnd = R.id.anko_tv_title0 + i - 1
+                            endToEnd = ConstraintSet.PARENT_ID
+                            baselineToBaseline = R.id.anko_tv_title0 + i - 1
+                            if (!forWidget) {
+                                marginEnd = if (col < 8) {
+                                    dip(8)
+                                } else {
+                                    dip(4)
+                                }
                             }
                         }
-                    }
-                    else -> {
-                        horizontalWeight = 1f
-                        startToEnd = R.id.anko_tv_title0 + i - 1
-                        endToStart = R.id.anko_tv_title0 + i + 1
-                        baselineToBaseline = R.id.anko_tv_title0 + i - 1
+                        else -> {
+                            horizontalWeight = 1f
+                            startToEnd = R.id.anko_tv_title0 + i - 1
+                            endToStart = R.id.anko_tv_title0 + i + 1
+                            baselineToBaseline = R.id.anko_tv_title0 + i - 1
+                        }
                     }
                 }
-            })
+            )
         }
 
-        addView(scrollView, ConstraintLayout.LayoutParams(
+        addView(
+            scrollView,
+            ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
                 ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-        ).apply {
-            bottomToBottom = ConstraintSet.PARENT_ID
-            topToBottom = R.id.anko_tv_title0
-            startToStart = ConstraintSet.PARENT_ID
-            endToEnd = ConstraintSet.PARENT_ID
-        })
+            ).apply {
+                bottomToBottom = ConstraintSet.PARENT_ID
+                topToBottom = R.id.anko_tv_title0
+                startToStart = ConstraintSet.PARENT_ID
+                endToEnd = ConstraintSet.PARENT_ID
+            }
+        )
     }
 }

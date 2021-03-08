@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import java.security.MessageDigest
 
-
 object Utils {
 
     fun openUrl(context: Context, url: String) {
@@ -26,7 +25,8 @@ object Utils {
             for (i in byteArray.indices) {
                 if (Integer.toHexString(0xFF and byteArray[i].toInt()).length == 1)
                     md5StrBuff.append("0").append(
-                            Integer.toHexString(0xFF and byteArray[i].toInt()))
+                        Integer.toHexString(0xFF and byteArray[i].toInt())
+                    )
                 else
                     md5StrBuff.append(Integer.toHexString(0xFF and byteArray[i].toInt()))
             }
@@ -35,5 +35,4 @@ object Utils {
         }
         return md5StrBuff.toString()
     }
-
 }

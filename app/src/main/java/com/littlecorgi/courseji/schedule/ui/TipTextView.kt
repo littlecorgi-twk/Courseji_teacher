@@ -2,7 +2,11 @@ package com.littlecorgi.courseji.schedule.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
+import android.graphics.Typeface
 import android.os.Build
 import android.text.Layout
 import android.text.StaticLayout
@@ -83,6 +87,7 @@ class TipTextView(context: Context) : View(context) {
         setMeasuredDimension(width, height)
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (tipVisibility == TIP_OTHER_WEEK) {
@@ -94,19 +99,19 @@ class TipTextView(context: Context) : View(context) {
         if (mStaticLayout == null) {
             mStaticLayout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 StaticLayout
-                        .Builder
-                        .obtain(text, 0, text.length, mTextPaint, width - paddingRight - paddingLeft)
-                        .setIncludePad(false)
-                        .build()
+                    .Builder
+                    .obtain(text, 0, text.length, mTextPaint, width - paddingRight - paddingLeft)
+                    .setIncludePad(false)
+                    .build()
             } else {
                 StaticLayout(
-                        text,
-                        mTextPaint,
-                        width - paddingRight - paddingLeft,
-                        Layout.Alignment.ALIGN_NORMAL,
-                        1.0f,
-                        0f,
-                        false
+                    text,
+                    mTextPaint,
+                    width - paddingRight - paddingLeft,
+                    Layout.Alignment.ALIGN_NORMAL,
+                    1.0f,
+                    0f,
+                    false
                 )
             }
         }
@@ -124,14 +129,18 @@ class TipTextView(context: Context) : View(context) {
             path.close() // 使这些点构成封闭的多边形
             canvas.drawPath(path, mPaint)
         } else if (tipVisibility == -1) {
-            canvas.drawLine(width - 12 * dpUnit,
-                    height - 6 * dpUnit,
-                    width - 6 * dpUnit,
-                    height - 12 * dpUnit, mPaint)
-            canvas.drawLine(width - 6 * dpUnit,
-                    height - 6 * dpUnit,
-                    width - 12 * dpUnit,
-                    height - 12 * dpUnit, mPaint)
+            canvas.drawLine(
+                width - 12 * dpUnit,
+                height - 6 * dpUnit,
+                width - 6 * dpUnit,
+                height - 12 * dpUnit, mPaint
+            )
+            canvas.drawLine(
+                width - 6 * dpUnit,
+                height - 6 * dpUnit,
+                width - 12 * dpUnit,
+                height - 12 * dpUnit, mPaint
+            )
         }
     }
 

@@ -65,13 +65,12 @@ class ChooseImportFragment : BaseDialogFragment<FragmentChooseImportBinding>() {
             launch {
                 val tableId = tableDao.getDefaultTableId()
                 requireActivity().startActivityForResult(
-                        Intent(activity, LoginWebActivity::class.java).apply {
-                            putExtra("url", "http://www.zfjw.xupt.edu.cn/jwglxt/")
-                            putExtra("importType", Common.TYPE_ZF_NEW)
-                            putExtra("tableId", tableId)
-
-                        },
-                        Const.REQUEST_CODE_IMPORT
+                    Intent(activity, LoginWebActivity::class.java).apply {
+                        putExtra("url", "http://www.zfjw.xupt.edu.cn/jwglxt/")
+                        putExtra("importType", Common.TYPE_ZF_NEW)
+                        putExtra("tableId", tableId)
+                    },
+                    Const.REQUEST_CODE_IMPORT
                 )
                 dismiss()
             }
@@ -80,19 +79,19 @@ class ChooseImportFragment : BaseDialogFragment<FragmentChooseImportBinding>() {
 
     private fun showSAFTips(block: () -> Unit) {
         MaterialAlertDialogBuilder(requireActivity())
-                .setTitle("提示")
-                .setMessage("为了避免使用敏感的外部存储读写权限，本应用采用了系统级的文件选择器来选择文件。如果找不到路径，请点选择器右上角的三个点，选择「显示内部存储设备」，然后通过侧栏选择路径。")
-                .setNeutralButton("查看图文教程") { _, _ ->
-                    Utils.openUrl(
-                            requireActivity(),
-                            "https://support.qq.com/embed/phone/97617/faqs/59884"
-                    )
-                }
-                .setPositiveButton("确定") { _, _ ->
-                    block.invoke()
-                }
-                .setNegativeButton("取消", null)
-                .setCancelable(false)
-                .show()
+            .setTitle("提示")
+            .setMessage("为了避免使用敏感的外部存储读写权限，本应用采用了系统级的文件选择器来选择文件。如果找不到路径，请点选择器右上角的三个点，选择「显示内部存储设备」，然后通过侧栏选择路径。")
+            .setNeutralButton("查看图文教程") { _, _ ->
+                Utils.openUrl(
+                    requireActivity(),
+                    "https://support.qq.com/embed/phone/97617/faqs/59884"
+                )
+            }
+            .setPositiveButton("确定") { _, _ ->
+                block.invoke()
+            }
+            .setNegativeButton("取消", null)
+            .setCancelable(false)
+            .show()
     }
 }

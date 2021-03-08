@@ -1,0 +1,33 @@
+# http://editorconfig.org
+root = true
+
+[*]
+indent_style = space
+
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{java, kt, kts, scala, rs, xml, kt.spec, kts.spec}]
+indent_size = 4
+tab_width = 4
+
+[*.{kt, kts}]
+# 必留，否则ktlint会自动把.kt格式化为2个缩进
+indent_size = 4
+tab_width = 4
+ij_kotlin_imports_layout = *
+insert_final_newline = true
+disabled_rules = no-wildcard-imports, indent
+max_line_length = off
+
+[{Makefile, *.go}]
+indent_style = tab
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+
+[gradle/verification-metadata.xml]
+indent_size = 3

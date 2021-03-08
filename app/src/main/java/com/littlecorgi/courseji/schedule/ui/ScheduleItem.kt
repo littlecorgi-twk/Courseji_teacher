@@ -8,8 +8,8 @@ import androidx.annotation.ColorInt
  * @author littlecorgi 2021/1/24
  */
 data class ScheduleItem(
-        val text: String = "",
-        val textSize: Float = 16F,
-        val textColor: Int = Color.TRANSPARENT,
-        @ColorInt val backgroundColor: Int = Color.TRANSPARENT
+    val text: String = "",
+    val textSize: Float = 16F,
+    val textColor: Int = Color.TRANSPARENT,
+    @ColorInt val backgroundColor: Int = Color.TRANSPARENT
 )

@@ -47,9 +47,9 @@ class ScheduleSettingsActivity : AppCompatActivity() {
         mViewModel.mMonth = Integer.parseInt(mViewModel.termStartList[1])
         mViewModel.mDay = Integer.parseInt(mViewModel.termStartList[2])
         currentWeekItem = SettingsMultipleEntity(
-                SettingsMultipleEntity.SETTINGS_TEXT,
-                "当前周",
-                mViewModel.getCurrentWeek().toString()
+            SettingsMultipleEntity.SETTINGS_TEXT,
+            "当前周",
+            mViewModel.getCurrentWeek().toString()
         )
 
         mRecycler = findViewById(R.id.rv_settings)
@@ -62,18 +62,18 @@ class ScheduleSettingsActivity : AppCompatActivity() {
     private fun initItem() {
         mSettingsMultipleEntities.apply {
             add(
-                    SettingsMultipleEntity(
-                            SettingsMultipleEntity.SETTINGS_TEXT,
-                            "学期开始时间",
-                            mViewModel.table.startDate
-                    )
+                SettingsMultipleEntity(
+                    SettingsMultipleEntity.SETTINGS_TEXT,
+                    "学期开始时间",
+                    mViewModel.table.startDate
+                )
             )
             add(
-                    SettingsMultipleEntity(
-                            SettingsMultipleEntity.SETTINGS_TEXT,
-                            "学期周数",
-                            mViewModel.table.maxWeek.toString()
-                    )
+                SettingsMultipleEntity(
+                    SettingsMultipleEntity.SETTINGS_TEXT,
+                    "学期周数",
+                    mViewModel.table.maxWeek.toString()
+                )
             )
             add(currentWeekItem)
         }
@@ -92,22 +92,22 @@ class ScheduleSettingsActivity : AppCompatActivity() {
             when (item.title) {
                 "学期开始时间" -> {
                     DatePickerDialog(
-                            this,
-                            { _, year, monthOfYear, dayOfMonth ->
-                                mViewModel.mYear = year
-                                mViewModel.mMonth = monthOfYear + 1
-                                mViewModel.mDay = dayOfMonth
-                                val mDate =
-                                        "${mViewModel.mYear}-${mViewModel.mMonth}-${mViewModel.mDay}"
-                                item.value = mDate
-                                mViewModel.table.startDate = mDate
-                                currentWeekItem.value = mViewModel.getCurrentWeek().toString()
-                                mAdapter.notifyItemChanged(position)
-                                mAdapter.notifyItemChanged(position + 1)
-                            },
-                            mViewModel.mYear,
-                            mViewModel.mMonth - 1,
-                            mViewModel.mDay
+                        this,
+                        { _, year, monthOfYear, dayOfMonth ->
+                            mViewModel.mYear = year
+                            mViewModel.mMonth = monthOfYear + 1
+                            mViewModel.mDay = dayOfMonth
+                            val mDate =
+                                "${mViewModel.mYear}-${mViewModel.mMonth}-${mViewModel.mDay}"
+                            item.value = mDate
+                            mViewModel.table.startDate = mDate
+                            currentWeekItem.value = mViewModel.getCurrentWeek().toString()
+                            mAdapter.notifyItemChanged(position)
+                            mAdapter.notifyItemChanged(position + 1)
+                        },
+                        mViewModel.mYear,
+                        mViewModel.mMonth - 1,
+                        mViewModel.mDay
                     ).show()
                     if (mViewModel.table.sundayFirst) {
                         // Toasty.success(this, "为了周数计算准确，建议选择周日哦", Toast.LENGTH_LONG).show()
@@ -125,19 +125,19 @@ class ScheduleSettingsActivity : AppCompatActivity() {
     }
 
     private fun onSeekBarItemClick(
-            item: SettingsMultipleEntity,
-            min: Int,
-            max: Int,
-            unitText: String,
-            position: Int
+        item: SettingsMultipleEntity,
+        min: Int,
+        max: Int,
+        unitText: String,
+        position: Int
     ) {
         val dialog = MaterialAlertDialogBuilder(this)
-                .setTitle(item.title)
-                .setView(R.layout.dialog_edit_text)
-                .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.sure, null)
-                .setCancelable(false)
-                .create()
+            .setTitle(item.title)
+            .setView(R.layout.dialog_edit_text)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.sure, null)
+            .setCancelable(false)
+            .create()
         dialog.show()
         val inputLayout = dialog.findViewById<TextInputLayout>(R.id.text_input_layout)
         val editText = dialog.findViewById<TextInputEditText>(R.id.edit_text)
