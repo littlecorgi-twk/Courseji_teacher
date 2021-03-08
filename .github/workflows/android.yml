@@ -13,7 +13,7 @@ jobs:
         uses: dbelyaev/action-checkstyle@master
         with:
           # GITHUB_TOKEN.
-          # github_token: # optional, default is ${{ github.token }}
+          github_token: ${{ github.token }} # optional, default is ${{ github.token }}
           # Report level for reviewdog [info,warning,error]
           level: error # optional, default is info
           # Reporter of reviewdog command [github-pr-check,github-pr-review]
@@ -32,7 +32,7 @@ jobs:
         uses: ScaCap/action-ktlint@1.3
         with:
           # GITHUB_TOKEN
-          github_token: d45167cff079f048707263ce525268f43f05a796
+          github_token: ${{ secrets.github_token }}
           # Report level for reviewdog [info,warning,error]
           level: error # optional, default is error
           # Reporter of reviewdog command [github-pr-check,github-pr-review].Default is github-pr-check.
