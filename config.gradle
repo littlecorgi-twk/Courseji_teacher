@@ -37,9 +37,9 @@ ext {
             // Jetpack
             "viewModel"              : "androidx.lifecycle:lifecycle-viewmodel:${android["lifecycleVersion"]}",
             "liveData"               : "androidx.lifecycle:lifecycle-livedata:${android["lifecycleVersion"]}",
-            "lifecycleJava8"         : "androidx.lifecycle:lifecycle-viewmodel-ktx:${android["lifecycleVersion"]}",
+            "lifecycleJava8"         : "androidx.lifecycle:lifecycle-common-java8:${android["lifecycleVersion"]}",
             "viewModelKtx"           : "androidx.lifecycle:lifecycle-viewmodel-ktx:${android["lifecycleVersion"]}",
-            "liveDataKtx"            : "androidx.lifecycle:lifecycle-viewmodel-ktx:${android["lifecycleVersion"]}",
+            "liveDataKtx"            : "androidx.lifecycle:lifecycle-livedata-ktx:${android["lifecycleVersion"]}",
             "startup"                : "androidx.startup:startup-runtime:1.0.0",
             "room"                   : "androidx.room:room-runtime:${android["room_version"]}",
             "roomKtx"               : "androidx.room:room-ktx:${android["room_version"]}",
