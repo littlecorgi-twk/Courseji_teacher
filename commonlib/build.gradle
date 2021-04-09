@@ -70,6 +70,7 @@ dependencies {
     api rootProject.ext.dependencies["viewpager2"]
     api rootProject.ext.dependencies["fragment"]
     api rootProject.ext.dependencies["fragmentKtx"]
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]

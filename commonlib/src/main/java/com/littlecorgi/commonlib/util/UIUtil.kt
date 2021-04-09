@@ -11,11 +11,11 @@ import com.google.android.material.snackbar.Snackbar
  * UI相关工具类
  * @author littlecorgi 2020/12/26
  */
-inline fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()
-inline fun Context.dp(value: Int): Float = (value * resources.displayMetrics.density)
+fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()
+fun Context.dp(value: Int): Float = (value * resources.displayMetrics.density)
 
-inline fun View.dip(value: Int) = context.dip(value)
-inline fun View.dp(value: Int) = context.dp(value)
+fun View.dip(value: Int) = context.dip(value)
+fun View.dp(value: Int) = context.dp(value)
 
 inline fun View.snack(
     msg: CharSequence,
