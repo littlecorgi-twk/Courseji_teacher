@@ -8,7 +8,6 @@ import android.content.Intent
  * @author littlecorgi 2021/4/9
  */
 
-
 /**
  * 从当前Activity启动「Activity A」。configIntent可以设置intent一些内容，可选项
  */
