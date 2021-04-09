@@ -70,19 +70,22 @@ dependencies {
     api rootProject.ext.dependencies["viewpager2"]
     api rootProject.ext.dependencies["fragment"]
     api rootProject.ext.dependencies["fragmentKtx"]
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
 
     // Toasty https://github.com/GrenderG/Toasty
-//    api rootProject.ext.dependencies["toasty"]
+    //    api rootProject.ext.dependencies["toasty"]
 
     // Jetpack
+    // lifecycle
+    api rootProject.ext.dependencies["lifecycleJava8"]
     // ViewModel
     api rootProject.ext.dependencies["viewModel"]
+    api rootProject.ext.dependencies["viewModelKtx"]
     // LiveData
     api rootProject.ext.dependencies["liveData"]
+    api rootProject.ext.dependencies["liveDataKtx"]
     // App Startup
     api rootProject.ext.dependencies["startup"]
     // Room
