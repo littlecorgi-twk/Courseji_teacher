@@ -16,6 +16,5 @@ public class MyMainActivity extends BaseActivity {
         CrashReport.initCrashReport(getApplicationContext(),"28d25075a1",true);
         CrashReport.testJavaCrash();
          */
-
     }
 }

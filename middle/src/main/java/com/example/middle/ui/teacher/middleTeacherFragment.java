@@ -208,7 +208,6 @@ public class middleTeacherFragment extends Fragment  {
             Ing = ing;
         }));
 
-
     }
     private void initStartTime() {
         TeacherStartTimeLineaLayout.setOnClickListener(v -> startTimeActivity());

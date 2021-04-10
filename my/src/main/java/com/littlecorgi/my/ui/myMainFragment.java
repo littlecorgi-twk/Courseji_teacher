@@ -111,7 +111,7 @@ public class myMainFragment extends Fragment {
                 //在这设置数据吧得到的数据先用SharedPreferences数据库保存
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(sharedPreferencesFile,MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                /*
+                 /*
                 //设置数据
                 editor.putInt("image",response.body().getMyImage());
                  */

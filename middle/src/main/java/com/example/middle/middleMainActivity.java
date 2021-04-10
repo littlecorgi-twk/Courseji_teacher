@@ -16,7 +16,7 @@ public class middleMainActivity extends BaseActivity {
     /*
         true为学生端，false为教师端
      */
-    public final boolean ISStudent = true;
+    public final boolean ISStudent = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -136,6 +136,7 @@ public class middleSignActivity extends BaseActivity {
     }
     private View addView(int layout) {
         View view = View.inflate(this, layout, null);
+        //view.setVisibility();
         ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
         this.addContentView(view, lp);
@@ -257,7 +258,7 @@ public class middleSignActivity extends BaseActivity {
                 LatLng center = new LatLng(Double.parseDouble(sign.getLat()), Double.parseDouble(sign.getLng()));
                 baiDuMapService.setCircle(center);
                 LatLng mPoint = new LatLng(mLat, mIng);
-                isIn = SpatialRelationUtil.isCircleContainsPoint(center, 50, mPoint);
+                isIn = SpatialRelationUtil.isCircleContainsPoint(center, 20, mPoint);
                 if (isIn) {
                     Text.setText("已在指定范围内");
                     Text.setTextColor(getResources().getColor(R.color.finish));
