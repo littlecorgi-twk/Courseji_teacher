@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umeng.message.PushAgent
 import com.yanzhenjie.permission.Action
 import com.yanzhenjie.permission.AndPermission
-import es.dmoral.toasty.Toasty
 
 open class BaseActivity() : AppCompatActivity() {
 
@@ -27,7 +26,8 @@ open class BaseActivity() : AppCompatActivity() {
         withIcon: Boolean = true,
         duration: Int = Toast.LENGTH_SHORT
     ) {
-        Toasty.error(context, msg, duration, withIcon).show()
+        // Toasty.error(context, msg, duration, withIcon).show()
+        Toast.makeText(context, msg, duration).show()
     }
 
     /**
@@ -39,7 +39,8 @@ open class BaseActivity() : AppCompatActivity() {
         withIcon: Boolean = true,
         duration: Int = Toast.LENGTH_SHORT
     ) {
-        Toasty.success(context, msg, duration, withIcon).show()
+        // Toasty.success(context, msg, duration, withIcon).show()
+        Toast.makeText(context, msg, duration).show()
     }
 
     /**
@@ -51,7 +52,8 @@ open class BaseActivity() : AppCompatActivity() {
         withIcon: Boolean = true,
         duration: Int = Toast.LENGTH_SHORT
     ) {
-        Toasty.info(context, msg, duration, withIcon).show()
+        // Toasty.info(context, msg, duration, withIcon).show()
+        Toast.makeText(context, msg, duration).show()
     }
 
     /**
@@ -63,7 +65,8 @@ open class BaseActivity() : AppCompatActivity() {
         withIcon: Boolean = true,
         duration: Int = Toast.LENGTH_SHORT
     ) {
-        Toasty.warning(context, msg, duration, withIcon).show()
+        // Toasty.warning(context, msg, duration, withIcon).show()
+        Toast.makeText(context, msg, duration).show()
     }
 
     /**

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 kapt {
@@ -28,6 +29,11 @@ android {
         // 将腾讯Bugly的类放到主Dex
         // 具体见 https://bugly.qq.com/docs/user-guide/instruction-manual-android/?v=20200903211433#multidex
         multiDexKeepProguard file("multidexKeep.pro")
+        // Bugly热修复
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -43,8 +49,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
     sourceSets {
         main {
@@ -54,6 +60,7 @@ android {
 }
 
 dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
     api rootProject.ext.dependencies["kotlinStdlib"]
     api rootProject.ext.dependencies["coreKtx"]
     api rootProject.ext.dependencies["appcompat"]
@@ -61,34 +68,52 @@ dependencies {
     api rootProject.ext.dependencies["constraintLayout"]
     api rootProject.ext.dependencies["DrawerLayout"]
     api rootProject.ext.dependencies["viewpager2"]
+    api rootProject.ext.dependencies["fragment"]
+    api rootProject.ext.dependencies["fragmentKtx"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
 
     // Toasty https://github.com/GrenderG/Toasty
-    api rootProject.ext.dependencies["toasty"]
+    //    api rootProject.ext.dependencies["toasty"]
 
     // Jetpack
+    // lifecycle
+    api rootProject.ext.dependencies["lifecycleJava8"]
     // ViewModel
     api rootProject.ext.dependencies["viewModel"]
+    api rootProject.ext.dependencies["viewModelKtx"]
     // LiveData
     api rootProject.ext.dependencies["liveData"]
+    api rootProject.ext.dependencies["liveDataKtx"]
     // App Startup
     api rootProject.ext.dependencies["startup"]
+    // Room
+    api rootProject.ext.dependencies["room"]
+    api rootProject.ext.dependencies["roomKtx"]
+    kapt rootProject.ext.dependencies["room-compiler"]
 
     // Koin
-    // Koin AndroidX Scope feature
-    api rootProject.ext.dependencies["KoinAndroidX"]
-    // Koin AndroidX ViewModel feature
-    api rootProject.ext.dependencies["KoinAndroidXViewModel"]
-    // Koin AndroidX Fragment Factory
-    api rootProject.ext.dependencies["KoinAndroidXFragment"]
+    api rootProject.ext.dependencies["KoinCore"]
+    api rootProject.ext.dependencies["KoinTest"]
+    api rootProject.ext.dependencies["KoinJunit5"]
+    api rootProject.ext.dependencies["KoinCoreExt"]
+    api rootProject.ext.dependencies["KoinAndroid"]
+    api rootProject.ext.dependencies["KoinAndroidExt"]
 
     // LeakCanary
     debugApi rootProject.ext.dependencies["leakcanary"]
 
     // AndPermission
     api rootProject.ext.dependencies["AndPermission"]
+
+    // Retrofit
+    api rootProject.ext.dependencies["Retrofit"]
+    api rootProject.ext.dependencies["Retrofit-converter-gson"]
+
+    //ButterKnife
+    api rootProject.ext.dependencies["butterknife"]
+    kapt rootProject.ext.dependencies["butterknife-compiler"]
 
     // Glide
     api rootProject.ext.dependencies["Glide"]
@@ -106,8 +131,35 @@ dependencies {
     // 已从这里移除，请见UMeng_Push.gradle以及此文件最后一行
 
     // Bugly
-    api rootProject.ext.dependencies["Bugly"]
+    // api rootProject.ext.dependencies["BuglyCrashReport"]
+    api rootProject.ext.dependencies["BuglyCrashReportUpgrade"]
+    api rootProject.ext.dependencies["BuglyNativeCrashReport"]
 
+    // NumberPickerView
+    api rootProject.ext.dependencies["NumberPickerView"]
+
+    // Jsoup
+    api rootProject.ext.dependencies["Jsoup"]
+
+    api rootProject.ext.dependencies["PickerView"]
+
+    //下拉刷新
+    api rootProject.ext.dependencies["swiperefreshlayout"]
+
+    //第三方刷新
+    api rootProject.ext.dependencies["refresh-layout-kernel"]
+    api rootProject.ext.dependencies["refresh-header-classics"]
+
+    //图片选择器
+    api rootProject.ext.dependencies["PictureSelector"]
+
+    // CircleImageView
+    api rootProject.ext.dependencies["circleimageview"]
+
+    api rootProject.ext.dependencies["MPAndroidChart"]
+
+    // 百度地图
+    api files('libs/BaiduLBS_Android.jar')
 }
 
 apply from: 'UMeng_Push.gradle'

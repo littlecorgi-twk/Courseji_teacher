@@ -1,19 +1,20 @@
 package com.littlecorgi.my.logic.dao;
 
-
 import android.content.Context;
-
 import android.widget.Toast;
-
-
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-
 import com.bigkoo.pickerview.view.OptionsPickerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * PickerView的工具类
+ */
 public class PickerViewHelp {
+
+    /**
+     * 返回数据集合
+     */
     public static List<String> getNationalList() {
         List<String> list = new ArrayList<>();
         list.add("汉族");
@@ -75,21 +76,29 @@ public class PickerViewHelp {
         return list;
     }
 
-    /*
-        Dialog形式弹出PickerView
+    /**
+     * Dialog形式弹出PickerView
      */
-    public static void initOptionsPickerView(Context context){
-
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(context, (options1, option2, options3, v) -> {
-            //返回的分别是三个级别的选中位置
-            String str = "options1: " + options1 + "\noptions2: " + option2 + "\noptions3: " + options3;
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-        }).build();
-        //设置数据
+    public static void initOptionsPickerView(Context context) {
+        OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(
+                context,
+                (options1, option2, options3, v) -> {
+                    // 返回的分别是三个级别的选中位置
+                    String str =
+                            "options1: "
+                                    + options1
+                                    + "\noptions2: "
+                                    + option2
+                                    + "\noptions3: "
+                                    + options3;
+                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+                })
+                .build();
+        // 设置数据
         pvOptions.setPicker(getNationalList());
         pvOptions.show();
-        /*
-         .setTitleText("城市选择")
+
+        /*pvOptions.setTitleText("城市选择")
                 .setContentTextSize(20)//设置滚轮文字大小
                 .setDividerColor(Color.LTGRAY)//设置分割线的颜色
                 .setSelectOptions(0, 1)//默认选中项
@@ -112,10 +121,9 @@ public class PickerViewHelp {
                 })
                 .build();
 
-       pvOptions.setSelectOptions(1,1);
+        pvOptions.setSelectOptions(1, 1);
         pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器
         /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
-
     }
 }

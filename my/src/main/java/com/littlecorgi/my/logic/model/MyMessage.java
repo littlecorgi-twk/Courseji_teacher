@@ -3,30 +3,51 @@ package com.littlecorgi.my.logic.model;
 import java.io.Serializable;
 import java.util.Map;
 
+/**
+ * 我的信息数据bean
+ */
 public class MyMessage implements Serializable {
 
-    private String Picture;
+    private String picture;
 
-    private int MyImage;            //图片
+    private int myImage; // 图片
 
-    private String imagePath;       //图像路径
+    private String imagePath; // 图像路径
 
-    private String Name;            //名字
+    private String name; // 名字
 
-    private String Id;              //身份证
+    private String id; // 身份证
 
-    private String Gender;          //性别
+    private String gender; // 性别
 
-    private String Professional;    //专业
+    private String professional; // 专业
 
-    private String Describe;        //描述
+    private String describe; // 描述
 
-    private String national;        //民族
+    private String national; // 民族
 
-    private Map<Integer,String> MyClass;   //班级
+    private Map<Integer, String> myClass; // 班级
 
-    private String Version;         //版本号
-    private String update;          //下载地址
+    private String version; // 版本号
+
+    private String update; // 下载地址
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public int getMyImage() {
+        return myImage;
+    }
+
+    public void setMyImage(int myImage) {
+        this.myImage = myImage;
+    }
+
     public String getImagePath() {
         return imagePath;
     }
@@ -34,78 +55,45 @@ public class MyMessage implements Serializable {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
-    public String getUpdate() {
-        return update;
-    }
-
-    public void setUpdate(String update) {
-        this.update = update;
-    }
-
-    public String getVersion() {
-        return Version;
-    }
-
-    public void setVersion(String version) {
-        Version = version;
-    }
-
-
-
-    public String getPicture() {
-        return Picture;
-    }
-
-    public void setPicture(String picture) {
-        Picture = picture;
-    }
-
-    public int getMyImage() {
-        return MyImage;
-    }
-
-    public void setMyImage(int myImage) {
-        MyImage = myImage;
-    }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(String gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
     public String getProfessional() {
-        return Professional;
+        return professional;
     }
 
     public void setProfessional(String professional) {
-        Professional = professional;
+        this.professional = professional;
     }
 
     public String getDescribe() {
-        return Describe;
+        return describe;
     }
 
     public void setDescribe(String describe) {
-        Describe = describe;
+        this.describe = describe;
     }
 
     public String getNational() {
@@ -114,5 +102,29 @@ public class MyMessage implements Serializable {
 
     public void setNational(String national) {
         this.national = national;
+    }
+
+    public Map<Integer, String> getMyClass() {
+        return myClass;
+    }
+
+    public void setMyClass(Map<Integer, String> myClass) {
+        this.myClass = myClass;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(String update) {
+        this.update = update;
     }
 }

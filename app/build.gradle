@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 kapt {
@@ -43,8 +43,8 @@ android {
         config {
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties.containsKey("KEYSTORE_PASS") ? keystoreProperties['KEYSTORE_PASS'] : System.getenv("KEYSTORE_PASS")
-            keyAlias      keystoreProperties.containsKey("ALIAS_NAME")    ? keystoreProperties['ALIAS_NAME']    : System.getenv("ALIAS_NAME")
-            keyPassword   keystoreProperties.containsKey("ALIAS_PASS")    ? keystoreProperties['ALIAS_PASS']    : System.getenv("ALIAS_PASS")
+            keyAlias keystoreProperties.containsKey("ALIAS_NAME") ? keystoreProperties['ALIAS_NAME'] : System.getenv("ALIAS_NAME")
+            keyPassword keystoreProperties.containsKey("ALIAS_PASS") ? keystoreProperties['ALIAS_PASS'] : System.getenv("ALIAS_PASS")
         }
     }
 
@@ -66,13 +66,28 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
     }
 }
 
 dependencies {
     implementation project(':commonlib')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // 穿山甲广告sdk
+    implementation(name: 'open_ad_sdk', ext: 'aar')
 
     // 在下面添加只有APP需要的依赖
     testImplementation rootProject.ext.dependencies["junit"]
@@ -84,9 +99,16 @@ dependencies {
     kapt rootProject.ext.dependencies["Glide-compiler"]
     // ARouterCompiler
     kapt rootProject.ext.dependencies["ARouterCompiler"]
+    // RoomCompiler
+    kapt rootProject.ext.dependencies["room-compiler"]
+    // ButterKnife
+    kapt rootProject.ext.dependencies["butterknife-compiler"]
 
     // 每加入一个新的模块，就需要在下面对应的添加一行
     if (!isRunAlone.toBoolean()) {
-        //implementation project(':my')
+        implementation project(':my')
+        implementation project(':middle')
+        implementation project(':leave')
+        implementation project(':attendance')
     }
 }

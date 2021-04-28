@@ -50,11 +50,13 @@ open class App : Application() {
          *  比如
          *      1. Splash页面停3秒
          *      2. 显示一些Debug的Toast等等
+         *      3. Bugly的调试开关
          * 对于这些情况我们就需要此开关
          *
          * true代表调试，false代表线上
          */
-        const val isDebug: Boolean = true
+        @JvmField
+        val isDebug: Boolean = BuildConfig.DEBUG
 
         // private lateinit var context: Context
         //
