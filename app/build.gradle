@@ -29,7 +29,7 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        applicationId "com.littlecorgi.courseji"
+        applicationId "com.littlecorgi.courseji.student"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -57,18 +57,6 @@ android {
         }
         debug {
             signingConfig signingConfigs.config
-        }
-    }
-    // 产品变种
-    flavorDimensions "version"
-    productFlavors {
-        student {
-            dimension "version"
-        }
-        teacher {
-            dimension "version"
-            applicationIdSuffix ".teacher"
-            versionNameSuffix "-teacher"
         }
     }
     compileOptions {
