@@ -34,6 +34,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    // 产品变种
+    flavorDimensions "version"
+    productFlavors {
+        student {
+            dimension "version"
+            applicationIdSuffix ".student"
+            versionNameSuffix "-student"
+        }
+        teacher {
+            dimension "version"
+            applicationIdSuffix ".teacher"
+            versionNameSuffix "-teacher"
+        }
+    }
     sourceSets {
         main {
             // 单独调试与集成调试时使用不同的 AndroidManifest.xml 文件
