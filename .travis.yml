@@ -6,8 +6,8 @@ notifications:
 # Travis暂时没有30的SDK，等修复后修改为30 和 30.0.2
 android:
   components:
-    - build-tools-29.0.2
-    - android-29
+    - build-tools-30.0.2
+    - android-30
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository

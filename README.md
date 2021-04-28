@@ -1,4 +1,4 @@
-# Courseji
+# Courseji 教师端
 
 ![Travis状态](https://travis-ci.com/littlecorgi-twk/Courseji.svg?branch=master)
 
