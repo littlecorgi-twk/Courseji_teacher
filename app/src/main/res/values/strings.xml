@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Courseji</string>
-
     <string name="text_login_web_title">Log in educational system</string>
     <string name="hint_student_id">Student ID</string>
     <string name="hint_password">Password</string>

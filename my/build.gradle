@@ -39,12 +39,12 @@ android {
     productFlavors {
         student {
             dimension "version"
-            applicationIdSuffix ".student"
+            if (isRunAlone.toBoolean()) applicationIdSuffix ".student"
             versionNameSuffix "-student"
         }
         teacher {
             dimension "version"
-            applicationIdSuffix ".teacher"
+            if (isRunAlone.toBoolean()) applicationIdSuffix ".teacher"
             versionNameSuffix "-teacher"
         }
     }
