@@ -94,12 +94,12 @@ dependencies {
     kapt rootProject.ext.dependencies["room-compiler"]
 
     // Koin
-    // Koin AndroidX Scope feature
-    api rootProject.ext.dependencies["KoinAndroidX"]
-    // Koin AndroidX ViewModel feature
-    api rootProject.ext.dependencies["KoinAndroidXViewModel"]
-    // Koin AndroidX Fragment Factory
-    api rootProject.ext.dependencies["KoinAndroidXFragment"]
+    api rootProject.ext.dependencies["KoinCore"]
+    api rootProject.ext.dependencies["KoinTest"]
+    api rootProject.ext.dependencies["KoinJunit5"]
+    api rootProject.ext.dependencies["KoinCoreExt"]
+    api rootProject.ext.dependencies["KoinAndroid"]
+    api rootProject.ext.dependencies["KoinAndroidExt"]
 
     // LeakCanary
     debugApi rootProject.ext.dependencies["leakcanary"]

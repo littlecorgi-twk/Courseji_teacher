@@ -87,7 +87,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // 穿山甲广告sdk
-    compile(name: 'open_ad_sdk', ext: 'aar')
+    implementation(name: 'open_ad_sdk', ext: 'aar')
 
     // 在下面添加只有APP需要的依赖
     testImplementation rootProject.ext.dependencies["junit"]
