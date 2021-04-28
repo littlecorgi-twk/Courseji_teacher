@@ -84,7 +84,8 @@ public class MyMainFragment extends Fragment {
     private void initClick() {
         ConstraintLayout messageLayout = mView.findViewById(R.id.my_message);
         ConstraintLayout aboutLayout = mView.findViewById(R.id.my_about);
-        messageLayout.setOnClickListener(v -> startMessageActivity(getContext(), mMyMessage));
+        messageLayout
+                .setOnClickListener(v -> startMessageActivity(getContext(), mMyMessage));
         aboutLayout.setOnClickListener(v -> startAboutActivity(getContext(), mMyMessage));
     }
 
@@ -113,10 +114,12 @@ public class MyMainFragment extends Fragment {
                 new Callback<MyMessage>() {
                     @Override
                     public void onResponse(
-                            @NotNull Call<MyMessage> call, @NotNull Response<MyMessage> response) {
+                            @NotNull Call<MyMessage> call,
+                            @NotNull Response<MyMessage> response) {
                         // 在这设置数据吧得到的数据先用SharedPreferences数据库保存
                         SharedPreferences sharedPreferences = requireActivity()
-                                .getSharedPreferences(SHARED_PREFERENCES_FILE, MODE_PRIVATE);
+                                .getSharedPreferences(SHARED_PREFERENCES_FILE,
+                                        MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
 
                         // //设置数据
@@ -128,32 +131,36 @@ public class MyMainFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<MyMessage> call, @NotNull Throwable t) {
-                        Toast.makeText(getContext(), "加载数据失败，请检查网络", Toast.LENGTH_LONG).show();
+                    public void onFailure(@NotNull Call<MyMessage> call,
+                                          @NotNull Throwable t) {
+                        Toast.makeText(getContext(), "加载数据失败，请检查网络",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
         return isSuccess[0];
     }
 
     /**
-     * 从本地获取数据 SharedPreferences保存路径 /data/data/com.littlecorgi.courseji/shared_prefs/myMessageData.xml
+     * 从本地获取数据 SharedPreferences保存路径
+     * /data/data/com.littlecorgi.courseji/shared_prefs/myMessageData.xml
      */
     private boolean getLocalData() {
         @SuppressLint("SdCardPath")
-        String sharedPreferencesPath =
-                "/data/data/com.littlecorgi.courseji/shared_prefs/" + SHARED_PREFERENCES_FILE
-                        + ".xml";
+        String sharedPreferencesPath = "/data/data/com.littlecorgi.courseji/shared_prefs/"
+                + SHARED_PREFERENCES_FILE + ".xml";
         File file = new File(sharedPreferencesPath);
         if (file.exists()) {
             String emptyData = "";
             int emptyImage = 0;
             SharedPreferences sharedPreferences =
-                    requireActivity().getSharedPreferences(SHARED_PREFERENCES_FILE, MODE_PRIVATE);
+                    requireActivity().getSharedPreferences(SHARED_PREFERENCES_FILE,
+                            MODE_PRIVATE);
             mMyMessage.setMyImage(sharedPreferences.getInt("image", emptyImage));
             mMyMessage.setName(sharedPreferences.getString("name", emptyData));
             mMyMessage.setId(sharedPreferences.getString("id", emptyData));
             mMyMessage.setGender(sharedPreferences.getString("gender", emptyData));
-            mMyMessage.setProfessional(sharedPreferences.getString("professional", emptyData));
+            mMyMessage.setProfessional(
+                    sharedPreferences.getString("professional", emptyData));
             mMyMessage.setDescribe(sharedPreferences.getString("describe", emptyData));
             mMyMessage.setVersion(sharedPreferences.getString("version", emptyData));
             mMyMessage.setUpdate(sharedPreferences.getString("update", emptyData));
