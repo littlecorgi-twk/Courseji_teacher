@@ -11,7 +11,7 @@ android {
     defaultConfig {
         if (isRunAlone.toBoolean()) {
             // 单独调试时添加 applicationId ，集成调试时移除
-            applicationId "com.littlecorgi.my.student"
+            applicationId "com.littlecorgi.my"
         }
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -32,6 +32,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    // 产品变种
+    flavorDimensions "version"
+    productFlavors {
+        student {
+            dimension "version"
+            if (isRunAlone.toBoolean()) applicationIdSuffix ".student"
+            versionNameSuffix "-student"
+        }
+        teacher {
+            dimension "version"
+            if (isRunAlone.toBoolean()) applicationIdSuffix ".teacher"
+            versionNameSuffix "-teacher"
         }
     }
     sourceSets {
