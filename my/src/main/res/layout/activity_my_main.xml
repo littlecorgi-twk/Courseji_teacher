@@ -9,6 +9,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:id="@+id/my_Fragment"
-      android:name="com.littlecorgi.my.ui.myMainFragment" />
+      android:name="com.littlecorgi.my.ui.MyMainFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
