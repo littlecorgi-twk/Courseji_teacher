@@ -3,7 +3,6 @@ os: linux
 dist: trusty
 notifications:
   email: true
-# Travis暂时没有30的SDK，等修复后修改为30 和 30.0.2
 android:
   components:
     - build-tools-30.0.2
@@ -22,6 +21,3 @@ cache:
     - "$HOME/.android/build-cache"
 script:
   - "./gradlew assembleRelease"
-before_install:
-  - openssl aes-256-cbc -K $encrypted_1d5650018551_key -iv $encrypted_1d5650018551_iv
-    -in littlecorgi.jks.enc -out key/littlecorgi.jks -d
