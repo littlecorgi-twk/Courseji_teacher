@@ -64,8 +64,6 @@ android {
     productFlavors {
         student {
             dimension "version"
-            applicationIdSuffix ".student"
-            versionNameSuffix "-student"
         }
         teacher {
             dimension "version"
