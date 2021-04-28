@@ -38,7 +38,7 @@ jobs:
           # Report level for reviewdog [info,warning,error]
           level: error # optional, default is error
           # Reporter of reviewdog command [github-pr-check,github-pr-review].Default is github-pr-check.
-          # reporter: # optional, default is github-pr-check
+          reporter: github-pr-review # optional, default is github-pr-check
           # Fails the current check if any error was found [true/false].Default is false.
           fail_on_error: true # optional, default is false
           # Print files relative to the working directory
