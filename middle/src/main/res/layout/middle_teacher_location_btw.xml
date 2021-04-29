@@ -84,21 +84,22 @@
       android:background="@drawable/search_bg"
       app:layout_constraintTop_toBottomOf="@id/guideline"
       android:id="@+id/location_actionBarLayout">
+
         <androidx.appcompat.widget.AppCompatEditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:id="@+id/location_searchPlaceEdit"
-          android:layout_alignParentBottom="true"
-          android:layout_gravity="center_vertical"
-          android:layout_marginStart="30dp"
-          android:layout_marginEnd="80dp"
-          android:textSize="17sp"
-          android:textColor="?android:attr/textColorPrimary"
-          android:background="@color/white"
-          android:imeOptions="actionSearch"
-          android:singleLine="true"
-          android:hint="输入地址"
-          android:layout_marginBottom="10dp"></androidx.appcompat.widget.AppCompatEditText>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_searchPlaceEdit"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="80dp"
+            android:textSize="17sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:background="@color/white"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:hint="输入地址"
+            android:layout_marginBottom="10dp" />
         <androidx.appcompat.widget.AppCompatButton
           android:id="@+id/searchPlaceButton"
           android:layout_width="30dp"
