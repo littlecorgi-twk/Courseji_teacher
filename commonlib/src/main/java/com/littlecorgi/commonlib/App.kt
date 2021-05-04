@@ -58,6 +58,8 @@ open class App : Application() {
         @JvmField
         val isDebug: Boolean = BuildConfig.DEBUG
 
+        const val versionCode = "1.0"
+
         // private lateinit var context: Context
         //
         // fun getContext(): Context {
