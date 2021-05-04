@@ -125,8 +125,8 @@ public class PictureSelectorHelp {
      */
     public static void openGallery(AppCompatActivity activity, int maxSize) {
         PictureSelector.create(activity)
-                .openGallery(
-                        PictureMimeType.ofImage()) // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                .openGallery(PictureMimeType.ofImage())
+                // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 // .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
                 .maxSelectNum(maxSize) // 最大图片选择数量 int
                 .minSelectNum(1) // 最小选择数量 int
