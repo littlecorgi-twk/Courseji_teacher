@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.teacher;
+package com.littlecorgi.leave;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

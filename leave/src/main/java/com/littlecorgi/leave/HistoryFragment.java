@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.teacher;
+package com.littlecorgi.leave;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.littlecorgi.leave.R;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,20 +29,12 @@ public class HistoryFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_history_leave, container, false);
-        initLeaveHistory();
         RecyclerView recyclerView = view.findViewById(R.id.teacher_history_leave_recycler);
         HistoryFragmentAdapter adapter = new HistoryFragmentAdapter(mHistoryList);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         return view;
-    }
-
-    private void initLeaveHistory() {
-        RecyclerItem history = new RecyclerItem("病假", "已批准", "2020-12-23至2020-12-24", "发烧生病", "李明");
-        mHistoryList.add(history);
-        RecyclerItem history2 = new RecyclerItem("事假", "已批准", "2020-12-23至2020-12-24", "放假回家", "张三");
-        mHistoryList.add(history2);
     }
 
     class HistoryFragmentAdapter extends RecyclerView.Adapter<HistoryFragmentAdapter.ViewHolder> {

@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.teacher;
+package com.littlecorgi.leave;
 
 /**
  * 请求Recycler的Item

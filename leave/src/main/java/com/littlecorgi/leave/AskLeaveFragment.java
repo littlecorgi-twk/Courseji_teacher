@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.teacher;
+package com.littlecorgi.leave;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.littlecorgi.leave.R;
 import java.util.ArrayList;
 import java.util.List;
 
