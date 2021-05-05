@@ -124,7 +124,6 @@ public class MessageActivity extends BaseActivity {
 
     private void saveMessage() {
         if (mIsChanged) {
-            // todo 补全资料更新网络请求
             SharedPreferences sp = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             if (mMessageChange.getMyImagePath() != null) {
@@ -249,6 +248,9 @@ public class MessageActivity extends BaseActivity {
 
         mIdLayout = findViewById(R.id.my_message_id);
         mIdTitle = findViewById(R.id.my_message_idTitle);
+
+        mPhoneLayout = findViewById(R.id.my_message_phone);
+        mPhoneTitle = findViewById(R.id.my_message_phoneTitle);
     }
 
     private void initIdVIew() {
