@@ -1,4 +1,4 @@
-package com.littlecorgi.leave;
+package com.littlecorgi.leave.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

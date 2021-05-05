@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
+import com.littlecorgi.leave.ui.AskLeaveFragment;
+import com.littlecorgi.leave.ui.HistoryFragment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +38,7 @@ public class TeacherLeaveActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(viewPager);
 
-        String[] titles = new String[]{"批准请假", "请假历史"};
+        String[] titles = new String[] {"批准请假", "请假历史"};
         for (int i = 0; i < titles.length; i++) {
             Objects.requireNonNull(mTabLayout.getTabAt(i)).setText(titles[i]);
         }

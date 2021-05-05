@@ -1,4 +1,4 @@
-package com.littlecorgi.leave;
+package com.littlecorgi.leave.ui;
 
 /**
  * 请求Recycler的Item
