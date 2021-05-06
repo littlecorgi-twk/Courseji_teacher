@@ -195,7 +195,8 @@ public class LocationActivity extends BaseActivity {
                         }
                         mLocationAdapt.notifyDataSetChanged();
                     });
-                    baiDuBugService.startBugSearch(mCity.substring(0, mCity.length() - 1), s.toString());
+                    baiDuBugService
+                            .startBugSearch(mCity.substring(0, mCity.length() - 1), s.toString());
                 }
             }
         });
@@ -265,7 +266,8 @@ public class LocationActivity extends BaseActivity {
      * @param activity       Activity
      * @param passedLocation 定位信息
      */
-    public static void startLocationActivity(Activity activity, PassedDataHelp.PassedLocation passedLocation) {
+    public static void startLocationActivity(Activity activity,
+                                             PassedDataHelp.PassedLocation passedLocation) {
         Intent intent = new Intent(activity, LocationActivity.class);
         mPassLocation = passedLocation;
         activity.startActivity(intent);
