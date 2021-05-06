@@ -24,6 +24,9 @@
         <entry key="leave/src/main/res/layout/teacher_ask_leave_item.xml" value="0.24864130434782608" />
         <entry key="leave/src/main/res/layout/teacher_history_leave.xml" value="0.33605072463768115" />
         <entry key="leave/src/main/res/layout/teacher_pass_leave.xml" value="0.33605072463768115" />
+        <entry key="middle/src/main/res/layout/middle_teacharfragment.xml" value="0.33605072463768115" />
+        <entry key="middle/src/main/res/layout/middle_teacher_showclass_btw.xml" value="0.21770833333333334" />
+        <entry key="middle/src/main/res/layout/middle_teacher_themesetting.xml" value="0.33605072463768115" />
         <entry key="my/src/main/res/drawable/ic_baseline_arrow_back_24_back.xml" value="0.4046875" />
         <entry key="my/src/main/res/layout/activity_login.xml" value="0.34646739130434784" />
         <entry key="my/src/main/res/layout/activity_sign_up.xml" value="0.3496376811594203" />

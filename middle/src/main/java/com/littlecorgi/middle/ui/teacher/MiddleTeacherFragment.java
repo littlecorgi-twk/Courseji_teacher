@@ -3,9 +3,10 @@ package com.littlecorgi.middle.ui.teacher;
 import static com.littlecorgi.middle.ui.teacher.LocationActivity.startLocationActivity;
 import static com.littlecorgi.middle.ui.teacher.SetTitleActivity.startSetTitle;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +21,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.view.WheelView;
+import com.littlecorgi.commonlib.util.DialogUtil;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.middle.R;
+import com.littlecorgi.middle.logic.AttendanceRepository;
+import com.littlecorgi.middle.logic.ClassRepository;
 import com.littlecorgi.middle.logic.dao.BTWHelp;
 import com.littlecorgi.middle.logic.dao.PassedDataHelp;
-import com.littlecorgi.middle.logic.dao.PickerViewHelp;
 import com.littlecorgi.middle.logic.dao.SetTimeHelp;
 import com.littlecorgi.middle.logic.dao.Tool;
-import com.littlecorgi.middle.logic.network.RetrofitHelp;
-import java.text.SimpleDateFormat;
+import com.littlecorgi.middle.logic.model.AllClassResponse;
+import com.littlecorgi.middle.logic.model.AttendanceRequest;
+import com.littlecorgi.middle.logic.model.AttendanceResponse;
+import com.littlecorgi.middle.logic.model.ClassDetailBean;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,6 +46,7 @@ import retrofit2.Response;
  */
 public class MiddleTeacherFragment extends Fragment {
 
+    private static final String TAG = "MiddleTeacherFragment";
     private View mView;
     private AppCompatTextView mReturnButton;
     private AppCompatImageView mTeacherBg;
@@ -71,6 +75,8 @@ public class MiddleTeacherFragment extends Fragment {
 
     private AppCompatButton mTeacherStartSignButton;
 
+    private WheelView mClassWheelView;
+
     private Dialog mClassDialog;
     private Dialog mThemeDialog;
 
@@ -80,6 +86,11 @@ public class MiddleTeacherFragment extends Fragment {
     private int mPosition;
     private String mLat; // 纬度
     private String mIng; // 经度
+    private int mSelectedClass;
+    private long mTeacherId;
+
+    private final ArrayList<ClassDetailBean> mClassList = new ArrayList<>();
+    private ArrayWheelAdapter<String> mClassAdapter;
 
     @Nullable
     @Override
@@ -145,22 +156,20 @@ public class MiddleTeacherFragment extends Fragment {
         List<String> list = Tool.getThemeList();
         wheelView.setAdapter(new ArrayWheelAdapter<>(list));
         wheelView.setCurrentItem(0);
-        mTeacherTheme.setOnClickListener(
-                v -> {
-                    if (mThemeDialog != null) {
-                        mThemeDialog.show();
-                    } else {
-                        mThemeDialog = BTWHelp.dialogBtw(themeBtw, getContext());
-                    }
-                });
+        mTeacherTheme.setOnClickListener(v -> {
+            if (mThemeDialog != null) {
+                mThemeDialog.show();
+            } else {
+                mThemeDialog = BTWHelp.dialogBtw(themeBtw, getContext());
+            }
+        });
         AppCompatButton cancel = themeBtw.findViewById(R.id.theme_blw_cancelButton);
         AppCompatButton sure = themeBtw.findViewById(R.id.theme_blw_sureButton);
         cancel.setOnClickListener(v -> mThemeDialog.dismiss());
-        sure.setOnClickListener(
-                v -> {
-                    mTeacherThemeText.setText(list.get(wheelView.getCurrentItem()));
-                    mThemeDialog.dismiss();
-                });
+        sure.setOnClickListener(v -> {
+            mTeacherThemeText.setText(list.get(wheelView.getCurrentItem()));
+            mThemeDialog.dismiss();
+        });
     }
 
     private void initTitle() {
@@ -169,28 +178,26 @@ public class MiddleTeacherFragment extends Fragment {
     }
 
     private void initClass() {
-
         View classBtw = View.inflate(getContext(), R.layout.middle_teacher_showclass_btw, null);
-        WheelView wheelView = classBtw.findViewById(R.id.class_blw_wheelView);
-        List<String> list = PickerViewHelp.getClassList();
-        wheelView.setAdapter(new ArrayWheelAdapter<>(list));
-        wheelView.setCurrentItem(0);
-        mTeacherClass.setOnClickListener(
-                v -> {
-                    if (mClassDialog != null) {
-                        mClassDialog.show();
-                    } else {
-                        mClassDialog = BTWHelp.dialogBtw(classBtw, getContext());
-                    }
-                });
+        mClassWheelView = classBtw.findViewById(R.id.class_blw_wheelView);
+        mClassAdapter = new ArrayWheelAdapter<>(new ArrayList<>());
+        mClassWheelView.setAdapter(mClassAdapter);
+        mClassWheelView.setCurrentItem(0);
+        mTeacherClass.setOnClickListener(v -> {
+            if (mClassDialog != null) {
+                mClassDialog.show();
+            } else {
+                mClassDialog = BTWHelp.dialogBtw(classBtw, getContext());
+            }
+        });
         AppCompatButton cancel = classBtw.findViewById(R.id.class_blw_cancelButton);
         AppCompatButton sure = classBtw.findViewById(R.id.class_blw_sureButton);
         cancel.setOnClickListener(v -> mClassDialog.dismiss());
-        sure.setOnClickListener(
-                v -> {
-                    mTeacherClassText.setText(list.get(wheelView.getCurrentItem()));
-                    mClassDialog.dismiss();
-                });
+        sure.setOnClickListener(v -> {
+            mSelectedClass = mClassWheelView.getCurrentItem();
+            mTeacherClassText.setText(mClassList.get(mSelectedClass).getName());
+            mClassDialog.dismiss();
+        });
     }
 
     private void initLabel() {
@@ -202,13 +209,11 @@ public class MiddleTeacherFragment extends Fragment {
 
     private void initLocation() {
         mTeacherLocation.setOnClickListener(v ->
-                startLocationActivity(
-                        getActivity(),
-                        (placeName, lat, ing) -> {
-                            mTeacherLocationText.setText(placeName);
-                            mLat = lat;
-                            mIng = ing;
-                        }));
+                startLocationActivity(getActivity(), (placeName, lat, ing) -> {
+                    mTeacherLocationText.setText(placeName);
+                    mLat = lat;
+                    mIng = ing;
+                }));
     }
 
     private void initStartTime() {
@@ -217,8 +222,7 @@ public class MiddleTeacherFragment extends Fragment {
 
     private void startTimeActivity() {
         StartTimeActivity.startStartTimeActivity(
-                getContext(),
-                new PassedDataHelp.PassedStartTime() {
+                getContext(), new PassedDataHelp.PassedStartTime() {
                     @Override
                     public void noCustomPassed(String startTime, int position) {
                         mTeacherStartTime.setText(startTime);
@@ -237,37 +241,74 @@ public class MiddleTeacherFragment extends Fragment {
 
     private void initEndTime() {
         mTeacherEndTimeLineaLayout.setOnClickListener(v ->
-                EndTimeActivity.startEndTimeActivity(
-                        getContext(),
-                        (endTime1, duration) -> {
-                            mTeacherEndTime.setText(endTime1);
-                            mEndTimeMilliseconds = duration;
-                        }));
+                EndTimeActivity.startEndTimeActivity(getContext(), (endTime1, duration) -> {
+                    mTeacherEndTime.setText(endTime1);
+                    mEndTimeMilliseconds = duration;
+                }));
+    }
+
+    private void initClick() {
+        mTeacherStartSignButton.setOnClickListener(v -> sendSign());
+        mReturnButton.setOnClickListener(v -> requireActivity().finish());
+        mHistory.setOnClickListener(v -> {
+            // todo 跳转到签到历史记录
+        });
     }
 
     private void initData() {
-        initImage();
-
         // 初始化开始时间为现在
         mTeacherStartTime.setText("现在");
         mPosition = 0;
         // 初始化持续时间为5分钟：
         mTeacherEndTime.setText("五分钟");
         mEndTimeMilliseconds = 1000 * 60 * 5;
+
+        mTeacherId = requireContext()
+                .getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE)
+                .getLong(UserSPConstant.TEACHER_USER_ID, 5L);
+
+        if (mTeacherId != -1) {
+            getClassFromInternet();
+        }
     }
 
-    private void initImage() {
-    /*
-       设置背景？TeacherBg
-    */
-    }
+    private void getClassFromInternet() {
+        Dialog dialog = DialogUtil.writeLoadingDialog(requireContext(), false, "获取数据中");
+        dialog.show();
+        dialog.setCancelable(false);
+        ClassRepository.getAllClassFromTeacher(mTeacherId).enqueue(
+                new Callback<AllClassResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<AllClassResponse> call,
+                                           @NonNull Response<AllClassResponse> response) {
+                        dialog.cancel();
+                        AllClassResponse allClassResponse = response.body();
+                        Log.d(TAG, "onResponse: " + response.toString());
+                        assert allClassResponse != null;
+                        if (allClassResponse.getStatus() == 800) {
+                            mClassList.clear();
+                            mClassList.addAll(allClassResponse.getData());
+                            ArrayList<String> classList = new ArrayList<>();
+                            for (ClassDetailBean theClass : mClassList) {
+                                classList.add(theClass.getName());
+                            }
+                            mClassAdapter = new ArrayWheelAdapter<>(classList);
+                            mClassWheelView.setAdapter(mClassAdapter);
+                        } else {
+                            Log.d(TAG, "onResponse: 请求错误" + allClassResponse.getMsg());
+                            Toast.makeText(requireContext(), "错误，" + allClassResponse.getMsg(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-    private void initClick() {
-        mTeacherStartSignButton.setOnClickListener(v -> sendSign());
-        mReturnButton.setOnClickListener(v -> requireActivity().finish());
-        mHistory.setOnClickListener(
-                v -> {
-                    // 跳转到另一组件
+                    @Override
+                    public void onFailure(@NonNull Call<AllClassResponse> call,
+                                          @NonNull Throwable t) {
+                        dialog.cancel();
+                        Log.e(TAG, "onFailure: " + t.getMessage());
+                        t.printStackTrace();
+                        Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 
@@ -285,12 +326,10 @@ public class MiddleTeacherFragment extends Fragment {
             dialog.setCancelable(false); // 设置不可用Back键关闭对话框
             // 设置确定按钮的点击事件
             dialog.setPositiveButton("重新设置", (dialogInterface, i) -> startTimeActivity());
-            dialog.setNegativeButton(
-                    "从当前时间开始",
-                    (dialogInterface, i) -> {
-                        mStartTimeMilliseconds = new Date().getTime();
-                        response();
-                    });
+            dialog.setNegativeButton("从当前时间开始", (dialogInterface, i) -> {
+                mStartTimeMilliseconds = new Date().getTime();
+                response();
+            });
             dialog.show();
         } else {
             response();
@@ -298,53 +337,50 @@ public class MiddleTeacherFragment extends Fragment {
     }
 
     private void response() {
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Map<String, Object> map = new HashMap<>();
-        map.put("Theme", mTeacherThemeText.getText().toString());
-        map.put("Title", mTeacherClassText.getText().toString());
-        map.put("Label", Tool.SFaceLocation);
-        map.put("ClassName", "111"); // 需要修改
+        AttendanceRequest request = new AttendanceRequest();
         if (mIsCustom) {
-            map.put("StartTime", simpleDateFormat.format(mStartTimeMilliseconds));
-            map.put("EndTime",
-                    simpleDateFormat.format(mStartTimeMilliseconds + mEndTimeMilliseconds));
+            request.setStartTime(mStartTimeMilliseconds);
+            request.setEndTime(mEndTimeMilliseconds);
         } else {
-            map.put("StartTime",
-                    simpleDateFormat.format(SetTimeHelp.getTimeMillisecondList(mPosition)));
-            map.put(
-                    "EndTime",
-                    simpleDateFormat.format(
-                            SetTimeHelp.getTimeMillisecondList(mPosition) + mEndTimeMilliseconds));
+            request.setStartTime(SetTimeHelp.getTimeMillisecondList(mPosition));
+            request.setEndTime(
+                    SetTimeHelp.getTimeMillisecondList(mPosition) + mEndTimeMilliseconds);
         }
-        map.put("Lat", mLat);
-        map.put("Ing", mIng);
-        Call<ResponseBody> call = RetrofitHelp.signInRetrofit(map);
-        call.enqueue(
-                new Callback<ResponseBody>() {
+        request.setTitle(mTeacherThemeText.getText().toString());
+        request.setDescription(mTeacherTitleText.getText().toString());
+        request.setLatitude(Double.parseDouble(mLat));
+        request.setLongitude(Double.parseDouble(mIng));
+        request.setRadius(50);
+        Log.d(TAG, "response: 发起的请求 AttendanceRequest= " + request.toString());
+
+        Dialog dialog = DialogUtil.writeLoadingDialog(requireContext(), false, "获取数据中");
+        dialog.show();
+        dialog.setCancelable(false);
+        AttendanceRepository.createAttendance(mClassList.get(mSelectedClass).getId(), request)
+                .enqueue(new Callback<AttendanceResponse>() {
                     @Override
-                    public void onResponse(
-                            @NotNull Call<ResponseBody> call,
-                            @NotNull Response<ResponseBody> response) {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
-                        dialog.setMessage("发送成功"); // 设置内容
-                        dialog.setCancelable(true); // 设置不可用Back键关闭对话框
-                        // 设置确定按钮的点击事件
-                        dialog.setPositiveButton("退出",
-                                (dialogInterface, i) -> requireActivity().finish());
-                        // 设置取消按钮的点击事件
-                        dialog.setNegativeButton(
-                                "查看签到结果",
-                                (dialogInterface, i) -> {
-                                    // 跳转到签到统计界面
-                                    requireActivity().finish();
-                                });
-                        dialog.show();
+                    public void onResponse(@NonNull Call<AttendanceResponse> call,
+                                           @NonNull Response<AttendanceResponse> response) {
+                        dialog.cancel();
+                        AttendanceResponse attendance = response.body();
+                        Log.d(TAG, "onResponse: " + response.toString());
+                        assert attendance != null;
+                        if (attendance.getStatus() == 800) {
+                            Toast.makeText(requireContext(), "创建成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d(TAG, "onResponse: 请求错误" + attendance.getMsg());
+                            Toast.makeText(requireContext(), "错误，" + attendance.getMsg(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                        Toast.makeText(getContext(), "发送失败，过会在试吧", Toast.LENGTH_LONG).show();
+                    public void onFailure(@NonNull Call<AttendanceResponse> call,
+                                          @NonNull Throwable t) {
+                        dialog.cancel();
+                        Log.e(TAG, "onFailure: " + t.getMessage());
+                        t.printStackTrace();
+                        Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
