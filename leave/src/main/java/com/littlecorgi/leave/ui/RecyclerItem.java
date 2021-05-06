@@ -1,64 +1,18 @@
 package com.littlecorgi.leave.ui;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 请求Recycler的Item
  */
+@Data
+@NoArgsConstructor
 public class RecyclerItem {
 
-    private String type;
-    private String pass;
-    private String student;
-    private String time;
-    private String reason;
-
-    /**
-     * 构造方法
-     */
-    public RecyclerItem(String type, String pass, String time, String reason, String student) {
-        this.type = type;
-        this.pass = pass;
-        this.time = time;
-        this.reason = reason;
-        this.student = student;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getStudent() {
-        return student;
-    }
-
-    public void setStudent(String student) {
-        this.student = student;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    private String type; // 请假类型
+    private String pass; // 审核状态
+    private String student; // 学生姓名
+    private String time; // 申请时间
+    private String reason; // 请假理由
 }

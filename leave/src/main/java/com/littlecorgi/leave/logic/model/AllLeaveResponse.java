@@ -14,5 +14,6 @@ public class AllLeaveResponse implements Serializable {
     private static final long serialVersionUID = 1234567890401L;
     private int status;
     private String msg;
+    private String errorMsg;
     private List<LeaveBean> data;
 }

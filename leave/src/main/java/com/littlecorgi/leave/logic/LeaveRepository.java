@@ -8,7 +8,7 @@ import retrofit2.Call;
 /**
  * @author littlecorgi 2021/5/5
  */
-class LeaveRepository {
+public class LeaveRepository {
 
     private static LeaveInterface getInterface() {
         return TencentServerRetrofitKt.getTencentCloudRetrofit().create(LeaveInterface.class);
