@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.ui.adapter.HistoryFragmentAdapter;
 import com.littlecorgi.leave.ui.viewmodel.LeaveViewModel;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,15 @@ public class HistoryFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter);
+
+        SmartRefreshLayout refreshLayout = view.findViewById(R.id.teacher_history_refresh);
+        refreshLayout.setPrimaryColorsId(R.color.blue_title, android.R.color.white);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(v -> {
+            initData();
+            v.finishRefresh(true);
+        });
+
         return view;
     }
 

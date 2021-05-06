@@ -22,6 +22,7 @@ import com.littlecorgi.leave.logic.LeaveRepository;
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
 import com.littlecorgi.leave.ui.adapter.AskLeaveAdapter;
 import com.littlecorgi.leave.ui.viewmodel.LeaveViewModel;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -56,6 +57,14 @@ public class AskLeaveFragment extends Fragment {
         if (teacherId != -1) {
             initData();
         }
+
+        SmartRefreshLayout refreshLayout = view.findViewById(R.id.ask_leave_refresh);
+        refreshLayout.setPrimaryColorsId(R.color.blue_title, android.R.color.white);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(v -> {
+            initData();
+            v.finishRefresh(true);
+        });
 
         RecyclerView recyclerView = view.findViewById(R.id.teacher_pass_leave_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
