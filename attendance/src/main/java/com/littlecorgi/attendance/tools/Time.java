@@ -12,4 +12,5 @@ public class Time {
     private String time; // 创建时间
     private String proportion; // 统计
     private String class1; // 班级
+    private long attendanceId; // 考勤id
 }

@@ -1,11 +1,13 @@
 package com.littlecorgi.attendance;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.littlecorgi.attendance.logic.AttendanceRepository;
 import com.littlecorgi.attendance.logic.model.AllAttendanceResponse;
 import com.littlecorgi.attendance.logic.model.AttendanceBean;
@@ -38,37 +41,46 @@ public class TeacherAttendanceActivity extends AppCompatActivity {
     private final List<AttendanceBean> mAttendances = new ArrayList<>();
     private TeacherTimeAdapter mAdapter;
     private long mTeacherId;
+    private String mTeacherAvatar;
+    private String mTeacherName;
+
+    private ImageView mIvTeacherAvatar;
+    private TextView mTvTeacherName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_attendance_activity);
 
-        mTeacherId = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE)
-                .getLong(UserSPConstant.TEACHER_USER_ID, 5L);
+        SharedPreferences sp = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
+        mTeacherId = sp.getLong(UserSPConstant.TEACHER_USER_ID, -1L);
+        mTeacherAvatar = sp.getString(UserSPConstant.TEACHER_AVATAR, "");
+        mTeacherName = sp.getString(UserSPConstant.TEACHER_NAME, "");
 
-        initData();
+        mIvTeacherAvatar = findViewById(R.id.civ_user_icon);
+        mTvTeacherName = findViewById(R.id.teacher_name);
+
+        if (!mTeacherAvatar.isEmpty()) {
+            Glide.with(this).load(mTeacherAvatar).into(mIvTeacherAvatar);
+        }
+        if (!mTeacherName.isEmpty()) {
+            mTvTeacherName.setText(mTeacherName);
+        }
+        if (mTeacherId != -1) {
+            initData();
+            RefreshLayout refreshLayout = findViewById(R.id.srl_flush);
+            refreshLayout.setEnableRefresh(true);
+            refreshLayout.setOnRefreshListener(v -> {
+                initData();
+                v.finishRefresh(true);
+            });
+        }
+
         RecyclerView recyclerView = findViewById(R.id.teacher_time_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mAdapter = new TeacherTimeAdapter(mTimeLists);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter);
-
-        RefreshLayout refreshLayout = findViewById(R.id.srl_flush);
-        refreshLayout.setEnableRefresh(true);
-        refreshLayout.setOnRefreshListener(v -> {
-            initData();
-            v.finishRefresh(true);
-        });
-
-        TextView textView = findViewById(R.id.teacher_name);
-        textView.setOnClickListener(v -> {
-            FragmentManager manager1 = getSupportFragmentManager();
-            FragmentTransaction transaction = manager1.beginTransaction();
-            transaction.replace(R.id.teacher_attendance, new TeacherTimeFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
     }
 
     private void initData() {
@@ -117,6 +129,7 @@ public class TeacherAttendanceActivity extends AppCompatActivity {
             time.setClass1(attendance.getClassDetail().getName());
             time.setProportion(
                     attendance.getCheckInNum() + "/" + attendance.getClassDetail().getStudentNum());
+            time.setAttendanceId(attendance.getId());
             mTimeLists.add(time);
         }
         mAdapter.notifyDataSetChanged();
@@ -152,15 +165,7 @@ public class TeacherAttendanceActivity extends AppCompatActivity {
             View view =
                     LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.teacher_time_item, parent, false);
-            final ViewHolder holder = new ViewHolder(view);
-            holder.timeView.setOnClickListener(v -> {
-                FragmentManager manager = getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.teacher_attendance, new TeacherTimeFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            });
-            return holder;
+            return new ViewHolder(view);
         }
 
         @Override
@@ -169,6 +174,15 @@ public class TeacherAttendanceActivity extends AppCompatActivity {
             holder.proportion.setText(time.getProportion());
             holder.time.setText(time.getTime());
             holder.class1.setText(time.getClass1());
+
+            holder.timeView.setOnClickListener(v -> {
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.teacher_attendance,
+                        new TeacherTimeFragment(mTimeLists.get(position).getAttendanceId()));
+                transaction.addToBackStack(null);
+                transaction.commit();
+            });
         }
 
         @Override

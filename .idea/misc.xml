@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.41510416666666666" />
         <entry key="attendance/src/main/res/layout/activity_attendance.xml" value="0.21145833333333333" />
         <entry key="attendance/src/main/res/layout/layout_attendance.xml" value="0.21145833333333333" />
         <entry key="attendance/src/main/res/layout/teacher_attendance.xml" value="0.24864130434782608" />
