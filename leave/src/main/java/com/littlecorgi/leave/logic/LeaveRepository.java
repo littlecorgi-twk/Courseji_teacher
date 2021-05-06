@@ -2,6 +2,8 @@ package com.littlecorgi.leave.logic;
 
 import com.littlecorgi.commonlib.logic.TencentServerRetrofitKt;
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
+import com.littlecorgi.leave.logic.model.ApproveLeaveRequest;
+import com.littlecorgi.leave.logic.model.ApproveLeaveResponse;
 import com.littlecorgi.leave.logic.net.LeaveInterface;
 import retrofit2.Call;
 
@@ -16,5 +18,10 @@ public class LeaveRepository {
 
     public static Call<AllLeaveResponse> getLeaveFromTeacher(long teacherId) {
         return getInterface().getLeaveFromTeacher(teacherId);
+    }
+
+    public static Call<ApproveLeaveResponse> approveLeaveResponse(long leaveId,
+                                                                  ApproveLeaveRequest request) {
+        return getInterface().approveLeaveFromTeacher(leaveId, request);
     }
 }

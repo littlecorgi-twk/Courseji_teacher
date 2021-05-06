@@ -60,6 +60,7 @@ public class LeaveViewModel extends ViewModel {
         ArrayList<RecyclerItem> recyclerItems = new ArrayList<>();
         for (LeaveBean leaveBean : leaveBeans) {
             RecyclerItem item = new RecyclerItem();
+            item.setLeaveId(leaveBean.getId());
             item.setType(leaveBean.getTitle());
             String passStr = "";
             if (leaveBean.getStates() == 0) {
@@ -70,7 +71,12 @@ public class LeaveViewModel extends ViewModel {
                 passStr = "不准假";
             }
             item.setPass(passStr);
+            item.setStudentId(leaveBean.getStudent().getId());
             item.setStudent(leaveBean.getStudent().getName());
+            item.setStudentPhone(leaveBean.getStudent().getPhone());
+            item.setStudentAvatar(leaveBean.getStudent().getAvatar());
+            item.setStartTime(TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getStartTime()));
+            item.setEndTime(TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getEndTime()));
             item.setTime(TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getStartTime()));
             item.setReason(leaveBean.getDescription());
             recyclerItems.add(item);

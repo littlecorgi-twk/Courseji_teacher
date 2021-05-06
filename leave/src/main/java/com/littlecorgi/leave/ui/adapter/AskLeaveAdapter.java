@@ -53,17 +53,7 @@ public class AskLeaveAdapter extends RecyclerView.Adapter<AskLeaveAdapter.ViewHo
         View view =
                 LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.teacher_ask_leave_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.mTeacherAskLeave.setOnClickListener(v -> {
-            PassLeaveFragment passLeaveFragment = new PassLeaveFragment();
-            FragmentManager manager =
-                    askLeaveFragment.requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_teacher_leave, passLeaveFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -74,6 +64,16 @@ public class AskLeaveAdapter extends RecyclerView.Adapter<AskLeaveAdapter.ViewHo
         holder.mStudentText.setText(askLeave.getStudent());
         holder.mReasonText.setText(askLeave.getReason());
         holder.mTimeText.setText(askLeave.getTime());
+        holder.mTeacherAskLeave.setOnClickListener(v -> {
+            PassLeaveFragment passLeaveFragment =
+                    new PassLeaveFragment(mAskLeaveList.get(position));
+            FragmentManager manager =
+                    askLeaveFragment.requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.activity_teacher_leave, passLeaveFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
     }
 
     @Override

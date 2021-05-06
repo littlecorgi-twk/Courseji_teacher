@@ -54,15 +54,7 @@ public class HistoryFragmentAdapter
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.teacher_history_leave_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        holder.mHistoryView.setOnClickListener(v -> {
-            FragmentManager manager = historyFragment.requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_teacher_leave, new PassLeaveFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -73,6 +65,14 @@ public class HistoryFragmentAdapter
         holder.mPassText.setText(history.getPass());
         holder.mReasonText.setText(history.getReason());
         holder.mStudentText.setText(history.getStudent());
+        holder.mHistoryView.setOnClickListener(v -> {
+            FragmentManager manager = historyFragment.requireActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.activity_teacher_leave,
+                    new PassLeaveFragment(mHistoryList.get(position)));
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
     }
 
     @Override
