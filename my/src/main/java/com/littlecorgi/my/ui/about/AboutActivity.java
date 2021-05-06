@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.littlecorgi.commonlib.App;
 import com.littlecorgi.commonlib.BaseActivity;
-import com.littlecorgi.my.BuildConfig;
 import com.littlecorgi.my.R;
 
 /**
