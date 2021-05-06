@@ -174,7 +174,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/teacher_time_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="393dp" />
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
