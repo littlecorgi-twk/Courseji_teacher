@@ -19,8 +19,11 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.view.WheelView;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.middle.R;
@@ -44,13 +47,14 @@ import retrofit2.Response;
 /**
  * 教师Fragment。 未完成：1.名单选择的数据，需要从我的里面获取 2.传给服务器的是班级的代码 2.发起签到传到服务器
  */
+@Route(path = "/middle/fragment_middle_teacher")
 public class MiddleTeacherFragment extends Fragment {
+
+    // todo 待完善，当切换到此页面时重新加载数据
 
     private static final String TAG = "MiddleTeacherFragment";
     private View mView;
-    private AppCompatTextView mReturnButton;
     private AppCompatImageView mTeacherBg;
-    private AppCompatTextView mHistory;
 
     private ConstraintLayout mTeacherTheme;
     private AppCompatTextView mTeacherThemeText;
@@ -87,6 +91,8 @@ public class MiddleTeacherFragment extends Fragment {
     private String mLat; // 纬度
     private String mIng; // 经度
     private int mSelectedClass;
+
+    private AppViewModel mViewModel;
     private long mTeacherId;
 
     private final ArrayList<ClassDetailBean> mClassList = new ArrayList<>();
@@ -105,26 +111,35 @@ public class MiddleTeacherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        Log.d(TAG, "onViewCreated: " + mViewModel);
+        mTeacherId = mViewModel.getTeacherId();
+
         initView();
-        initData();
+        if (mTeacherId == -1) {
+            Toast.makeText(requireContext(), "未登录或者数据错误", Toast.LENGTH_SHORT).show();
+        } else {
+            initData();
+        }
     }
 
     private void initView() {
         initFind();
         initTheme();
         initTitle();
-        initClass();
         initLabel();
         initLocation();
         initStartTime();
         initEndTime();
         initClick();
+        if (mTeacherId != -1) {
+            initClass();
+        }
     }
 
     private void initFind() {
-        mReturnButton = mView.findViewById(R.id.middle_Teacher_returnButton);
         mTeacherBg = mView.findViewById(R.id.middle_Teacher_bg);
-        mHistory = mView.findViewById(R.id.middle_Teacher_History);
 
         mTeacherTheme = mView.findViewById(R.id.middle_TeacherTheme);
         mTeacherThemeText = mView.findViewById(R.id.middle_TeacherThemeText);
@@ -248,11 +263,14 @@ public class MiddleTeacherFragment extends Fragment {
     }
 
     private void initClick() {
-        mTeacherStartSignButton.setOnClickListener(v -> sendSign());
-        mReturnButton.setOnClickListener(v -> requireActivity().finish());
-        mHistory.setOnClickListener(v -> {
-            // todo 跳转到签到历史记录
-        });
+        if (mTeacherId != -1) {
+            mTeacherStartSignButton.setOnClickListener(v -> sendSign());
+        } else {
+            Toast.makeText(requireContext(), "用户未登录或者数据错误", Toast.LENGTH_SHORT).show();
+        }
+        // todo 跳转到签到历史记录
+        // mHistory.setOnClickListener(v -> {
+        // });
     }
 
     private void initData() {

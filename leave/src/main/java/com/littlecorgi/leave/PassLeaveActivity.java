@@ -1,61 +1,54 @@
-package com.littlecorgi.leave.ui;
+package com.littlecorgi.leave;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.bumptech.glide.Glide;
-import com.littlecorgi.leave.R;
-import com.littlecorgi.leave.databinding.TeacherPassLeaveBinding;
+import com.littlecorgi.leave.databinding.ActivityPassLeaveBinding;
 import com.littlecorgi.leave.logic.LeaveRepository;
 import com.littlecorgi.leave.logic.model.ApproveLeaveRequest;
 import com.littlecorgi.leave.logic.model.ApproveLeaveResponse;
+import com.littlecorgi.leave.ui.RecyclerItem;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 通过请假
+ * @author littlecorgi 2021/05/07
  */
-public class PassLeaveFragment extends Fragment {
+public class PassLeaveActivity extends AppCompatActivity {
 
-    private static final String TAG = "PassLeaveFragment";
 
-    private final RecyclerItem mRecyclerItem;
-    private TeacherPassLeaveBinding mBinding;
-    private final ApproveLeaveRequest mRequest;
+    private static final String TAG = "PassLeaveActivity";
+
+    private RecyclerItem mRecyclerItem;
+    private ActivityPassLeaveBinding mBinding;
+    private ApproveLeaveRequest mRequest;
     private AlertDialog mDialog;
 
-    public PassLeaveFragment(RecyclerItem recyclerItem) {
-        this.mRecyclerItem = recyclerItem;
-        this.mRequest = new ApproveLeaveRequest();
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pass_leave);
 
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.teacher_pass_leave, container, false);
+        if (getIntent() != null) {
+            mRecyclerItem = (RecyclerItem) getIntent().getSerializableExtra("recyclerItem");
+        }
 
         initView();
         initEvent();
-        return mBinding.getRoot();
     }
 
     private void initView() {
-        mDialog = new AlertDialog.Builder(requireContext())
+        mDialog = new AlertDialog.Builder(this)
                 .setMessage("是否准假")
                 .setPositiveButton("准假", (dialog1, which) -> {
                     mRequest.setState(1);
@@ -68,7 +61,7 @@ public class PassLeaveFragment extends Fragment {
                     doLeave();
                 }).create();
 
-        Glide.with(requireContext()).load(mRecyclerItem.getStudentAvatar())
+        Glide.with(this).load(mRecyclerItem.getStudentAvatar())
                 .into(mBinding.teacherPassAvatar);
         mBinding.studentNameText.setText(mRecyclerItem.getStudent());
         mBinding.teacherStartNameText.setText(mRecyclerItem.getStartTime());
@@ -93,12 +86,12 @@ public class PassLeaveFragment extends Fragment {
             });
         }
         tvButton.setOnClickListener(v -> {
-            FragmentManager manager = requireActivity().getSupportFragmentManager();
+            FragmentManager manager = getSupportFragmentManager();
             manager.popBackStack();
         });
 
         btnButton.setOnClickListener(v -> {
-            FragmentManager manager = requireActivity().getSupportFragmentManager();
+            FragmentManager manager = getSupportFragmentManager();
             manager.popBackStack();
         });
     }
@@ -120,7 +113,8 @@ public class PassLeaveFragment extends Fragment {
                             mBinding.teacherXiaojia.setBackgroundResource(R.drawable.button_shape2);
                         } else {
                             Log.d(TAG, "onResponse: 请求错误" + approveLeaveResponse.getMsg());
-                            Toast.makeText(requireContext(), "错误，" + approveLeaveResponse.getMsg(),
+                            Toast.makeText(PassLeaveActivity.this,
+                                    "错误，" + approveLeaveResponse.getMsg(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -131,8 +125,20 @@ public class PassLeaveFragment extends Fragment {
                         mDialog.cancel();
                         Log.d(TAG, "onFailure: " + t.getMessage());
                         t.printStackTrace();
-                        Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PassLeaveActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    /**
+     * 跳转到PassLeaveActivity
+     *
+     * @param context      上下文
+     * @param recyclerItem 具体的请假列表数据
+     */
+    public static void startPassLeaveActivity(Context context, RecyclerItem recyclerItem) {
+        Intent intent = new Intent(context, PassLeaveActivity.class);
+        intent.putExtra("recyclerItem", recyclerItem);
+        context.startActivity(intent);
     }
 }

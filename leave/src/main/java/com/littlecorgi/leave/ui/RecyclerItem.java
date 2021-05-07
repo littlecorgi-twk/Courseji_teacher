@@ -1,5 +1,6 @@
 package com.littlecorgi.leave.ui;
 
+import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class RecyclerItem {
+public class RecyclerItem implements Serializable {
     private long leaveId; // 请假id
     private String type; // 请假类型
     private String pass; // 审核状态

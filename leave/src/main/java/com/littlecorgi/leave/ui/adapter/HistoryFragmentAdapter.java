@@ -5,12 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import com.littlecorgi.leave.PassLeaveActivity;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.ui.HistoryFragment;
-import com.littlecorgi.leave.ui.PassLeaveFragment;
 import com.littlecorgi.leave.ui.RecyclerItem;
 import java.util.List;
 
@@ -66,12 +64,9 @@ public class HistoryFragmentAdapter
         holder.mReasonText.setText(history.getReason());
         holder.mStudentText.setText(history.getStudent());
         holder.mHistoryView.setOnClickListener(v -> {
-            FragmentManager manager = historyFragment.requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_teacher_leave,
-                    new PassLeaveFragment(mHistoryList.get(position)));
-            transaction.addToBackStack(null);
-            transaction.commit();
+            PassLeaveActivity.startPassLeaveActivity(
+                    historyFragment.requireContext(),
+                    mHistoryList.get(position));
         });
     }
 

@@ -1,8 +1,6 @@
 package com.littlecorgi.leave.ui;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.commonlib.util.DialogUtil;
-import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.logic.LeaveRepository;
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
@@ -36,9 +33,13 @@ public class AskLeaveFragment extends Fragment {
 
     private static final String TAG = "AskLeaveFragment";
     private final List<RecyclerItem> mAskLeaveLists = new ArrayList<>();
-    private long teacherId;
+    private final long teacherId;
     private LeaveViewModel mLeaveViewModel;
     private AskLeaveAdapter mAdapter;
+
+    public AskLeaveFragment(long teacherId) {
+        this.teacherId = teacherId;
+    }
 
     @Nullable
     @Override
@@ -47,13 +48,7 @@ public class AskLeaveFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.teacher_ask_leave, container, false);
-
         mLeaveViewModel = new ViewModelProvider(requireActivity()).get(LeaveViewModel.class);
-
-        SharedPreferences sp = requireContext()
-                .getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
-        teacherId = sp.getLong(UserSPConstant.TEACHER_USER_ID, 5L);
-
         if (teacherId != -1) {
             initData();
         }

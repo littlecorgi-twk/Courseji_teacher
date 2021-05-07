@@ -5,12 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import com.littlecorgi.leave.PassLeaveActivity;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.ui.AskLeaveFragment;
-import com.littlecorgi.leave.ui.PassLeaveFragment;
 import com.littlecorgi.leave.ui.RecyclerItem;
 import java.util.List;
 
@@ -65,14 +63,9 @@ public class AskLeaveAdapter extends RecyclerView.Adapter<AskLeaveAdapter.ViewHo
         holder.mReasonText.setText(askLeave.getReason());
         holder.mTimeText.setText(askLeave.getTime());
         holder.mTeacherAskLeave.setOnClickListener(v -> {
-            PassLeaveFragment passLeaveFragment =
-                    new PassLeaveFragment(mAskLeaveList.get(position));
-            FragmentManager manager =
-                    askLeaveFragment.requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.activity_teacher_leave, passLeaveFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            PassLeaveActivity.startPassLeaveActivity(
+                    askLeaveFragment.requireContext(),
+                    mAskLeaveList.get(position));
         });
     }
 
