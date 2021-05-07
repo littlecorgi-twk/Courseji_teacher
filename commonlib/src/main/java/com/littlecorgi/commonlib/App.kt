@@ -66,6 +66,6 @@ open class App : Application() {
         lateinit var mApplicationContext: Context
 
         // APP版本号
-        const val versionCodes = "1.0"
+        const val versionCode = "1.0"
     }
 }

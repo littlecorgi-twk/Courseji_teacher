@@ -27,13 +27,15 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.BaseActivity;
-import com.littlecorgi.commonlib.logic.FileRetrofitRepository;
+import com.littlecorgi.commonlib.uploadfiles.logic.FileRetrofitRepository;
+import com.littlecorgi.commonlib.uploadfiles.logic.UploadFileResponse;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.ActivitySignUpBinding;
 import com.littlecorgi.my.logic.UserRetrofitRepository;
 import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Teacher;
+import com.littlecorgi.my.logic.model.TeacherBean;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import java.io.File;
@@ -52,7 +54,7 @@ import retrofit2.Response;
 public class SignUpActivity extends BaseActivity {
 
     private ActivitySignUpBinding mBinding;
-    private Teacher.DataBean mSignUpInfo;
+    private TeacherBean mSignUpInfo;
 
     private Dialog mAvatarDialog;
     private Dialog mEmailDialog;
@@ -66,7 +68,7 @@ public class SignUpActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
-        mSignUpInfo = new Teacher.DataBean();
+        mSignUpInfo = new TeacherBean();
         // 因为initView需要用到initData的数据，所以把initData放前面
         initData();
         initView();

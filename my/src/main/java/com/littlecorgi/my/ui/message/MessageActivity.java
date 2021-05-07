@@ -25,15 +25,18 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.BaseActivity;
-import com.littlecorgi.commonlib.logic.FileRetrofitRepository;
+import com.littlecorgi.commonlib.uploadfiles.logic.FileRetrofitRepository;
+import com.littlecorgi.commonlib.uploadfiles.logic.UploadFileResponse;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.model.MessageChange;
 import com.littlecorgi.my.logic.model.Teacher;
+import com.littlecorgi.my.logic.model.TeacherBean;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
@@ -50,7 +53,7 @@ import retrofit2.Response;
  */
 public class MessageActivity extends BaseActivity {
 
-    private AppCompatTextView mReturnButton;
+    private Toolbar mToolbar;
     private AppCompatButton mSureButton;
     private ConstraintLayout mPictureLayout;
     private AppCompatImageView mPictureView;
@@ -63,7 +66,7 @@ public class MessageActivity extends BaseActivity {
     private ConstraintLayout mPhoneLayout;
     private AppCompatTextView mPhoneTitle;
 
-    private Teacher.DataBean mMyInfo;
+    private TeacherBean mMyInfo;
     private MessageChange mMessageChange;
 
     private Dialog mPictureDialog;
@@ -117,7 +120,7 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void initClick() {
-        mReturnButton.setOnClickListener(v -> finish());
+        mToolbar.setNavigationOnClickListener(v -> finish());
         mSureButton.setOnClickListener(v -> saveMessage());
     }
 
@@ -236,7 +239,7 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void initFind() {
-        mReturnButton = findViewById(R.id.my_message_returnButton);
+        mToolbar = findViewById(R.id.my_message_toolbar);
         mSureButton = findViewById(R.id.my_message_SureButton);
 
         mPictureLayout = findViewById(R.id.my_message_picture);

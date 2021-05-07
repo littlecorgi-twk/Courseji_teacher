@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.littlecorgi.commonlib.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.addgroup.GroupActivity"
+            android:exported="true" />
         <activity android:name=".ui.signup.SignUpActivity" />
         <activity
             android:name=".ui.signin.LoginActivity"

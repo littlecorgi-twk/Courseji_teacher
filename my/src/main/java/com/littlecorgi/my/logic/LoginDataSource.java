@@ -2,6 +2,7 @@ package com.littlecorgi.my.logic;
 
 import android.util.Log;
 import com.littlecorgi.my.logic.model.Teacher;
+import com.littlecorgi.my.logic.model.TeacherBean;
 import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -35,7 +36,7 @@ public class LoginDataSource {
                     result = new Result.Success<>(teacher);
                 } else if (teacher.getStatus() == 1002) {
                     // 用户不存在，转注册
-                    teacher.setData(new Teacher.DataBean());
+                    teacher.setData(new TeacherBean());
                     teacher.getData().setEmail(username);
                     teacher.getData().setPassword(password);
                     result = new Result.Success<>(teacher);

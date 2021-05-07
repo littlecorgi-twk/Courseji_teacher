@@ -79,11 +79,11 @@ public class LoginRepository {
         Result result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
             Teacher student = ((Result.Success<Teacher>) result).getData();
-            setLoggedInUser(context, student);
             LoggedInUser loggedInUser = null;
             if (student.getStatus() == 800) {
                 loggedInUser = new LoggedInUser("" + student.getData().getId(),
                         student.getData().getName());
+                setLoggedInUser(context, student);
             } else if (student.getStatus() == 1002) {
                 loggedInUser = new LoggedInUser("" + student.getData().getId(),
                         "用户不存在！");

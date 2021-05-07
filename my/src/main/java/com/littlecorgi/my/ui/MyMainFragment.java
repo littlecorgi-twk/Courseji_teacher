@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,10 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.LoginDataSource;
@@ -30,6 +34,7 @@ import com.littlecorgi.my.logic.LoginRepository;
 import com.littlecorgi.my.logic.Result;
 import com.littlecorgi.my.logic.UserRetrofitRepository;
 import com.littlecorgi.my.logic.model.Teacher;
+import com.littlecorgi.my.ui.addgroup.GroupActivity;
 import com.littlecorgi.my.ui.signin.LoginActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -37,11 +42,10 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 /**
  * My 主页
  */
+@Route(path = "/my/fragment_my_main")
 public class MyMainFragment extends Fragment {
 
-    /*
-      未完成的：在这里要完成学生个人信息的获取吧信息填充到myMessage中
-    */
+    private static final String TAG = "MyMainFragment";
     private View mView;
     private Teacher teacher;
     private long teacherId;
@@ -50,13 +54,14 @@ public class MyMainFragment extends Fragment {
     private AppCompatTextView mTvProfessional;
     private AppCompatImageView mIvAvatar;
     private SharedPreferences sp;
+    private AppViewModel mViewModel;
 
     ActivityResultLauncher<Intent> mGetContent =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            sp = requireContext()
-                                    .getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
+                            teacherId = sp.getLong(UserSPConstant.TEACHER_USER_ID, -1L);
+                            mViewModel.setTeacherId(teacherId);
                             initView();
                             initData();
                             initClick();
@@ -70,6 +75,9 @@ public class MyMainFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.my_fragment, container, false);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        Log.d(TAG, "onCreateView: " + mViewModel);
+        teacherId = mViewModel.getTeacherId();
         return mView;
     }
 
@@ -96,7 +104,6 @@ public class MyMainFragment extends Fragment {
     }
 
     private void initView() {
-        teacherId = sp.getLong(UserSPConstant.TEACHER_USER_ID, -1L);
         refreshLayout = mView.findViewById(R.id.refreshLayout);
         if (teacherId == -1) {
             // 没有登录
@@ -130,7 +137,6 @@ public class MyMainFragment extends Fragment {
             mIvAvatar = mView.findViewById(R.id.my_picture);
         }
         initBarColor();
-
     }
 
     private void initBarColor() {
@@ -140,6 +146,7 @@ public class MyMainFragment extends Fragment {
     private void initClick() {
         ConstraintLayout messageLayout = mView.findViewById(R.id.my_message);
         ConstraintLayout aboutLayout = mView.findViewById(R.id.my_about);
+        ConstraintLayout groupLayout = mView.findViewById(R.id.my_addGroup);
         messageLayout.setOnClickListener(v -> {
             if (teacherId == -1) {
                 mGetContent.launch(new Intent(requireContext(), LoginActivity.class));
@@ -148,6 +155,7 @@ public class MyMainFragment extends Fragment {
             }
         });
         aboutLayout.setOnClickListener(v -> startAboutActivity(getContext()));
+        groupLayout.setOnClickListener(v -> GroupActivity.startGroupActivity(getContext()));
     }
 
     private void initData() {

@@ -5,7 +5,6 @@ import static com.littlecorgi.my.logic.dao.BTWHelp.dialogBtw;
 import static com.littlecorgi.my.logic.dao.PictureSelectorHelp.choicePhoto;
 import static com.littlecorgi.my.logic.dao.PictureSelectorHelp.choiceVideo;
 import static com.littlecorgi.my.logic.dao.WindowHelp.setWindowStatusBarColor;
-import static com.littlecorgi.my.logic.network.RetrofitHelp.adviceRetrofit;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -140,49 +139,7 @@ public class AdviceActivity extends BaseActivity implements View.OnClickListener
         if (id == R.id.my_advice_getPicture) {
             showBtw();
         } else if (id == R.id.my_advice_SureButton) {
-            sendAdvice();
-        }
-    }
-
-    private void sendAdvice() {
-        String title = Objects.requireNonNull(mEditText.getText()).toString();
-        if (title.equals("")) {
-            Toast.makeText(AdviceActivity.this, "输入不能为空", Toast.LENGTH_LONG).show();
-        } else {
-            Map<String, Object> map = new HashMap<>();
-            map.put("advice_title", title);
-            map.put("advice_imagePath", mAllSelectList);
-            Call<ResponseBody> call = adviceRetrofit(map);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(
-                        @NotNull Call<ResponseBody> call,
-                        @NotNull Response<ResponseBody> response) {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(
-                            AdviceActivity.this);
-                    dialog.setMessage("您的建议我们已经收到了！"); // 设置内容
-                    dialog.setCancelable(true); // 设置不可用Back键关闭对话框
-                    // 设置确定按钮的点击事件
-                    dialog.setPositiveButton("退出", (dialogInterface, i) -> finish());
-                    // 设置取消按钮的点击事件
-                    dialog.setNegativeButton(
-                            "再写一个",
-                            (dialogInterface, i) -> {
-                                // 清除缓存文件
-                                PictureFileUtils.deleteAllCacheDirFile(AdviceActivity.this);
-                                mAllSelectList.clear();
-                                mEditText.setText("");
-                                mAdapt.notifyDataSetChanged();
-                            });
-                    dialog.show();
-                }
-
-                @Override
-                public void onFailure(@NotNull Call<ResponseBody> call,
-                                      @NotNull Throwable t) {
-                    Toast.makeText(AdviceActivity.this, "", Toast.LENGTH_LONG).show();
-                }
-            });
+            // sendAdvice();
         }
     }
 

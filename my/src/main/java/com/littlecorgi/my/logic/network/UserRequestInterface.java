@@ -2,6 +2,7 @@ package com.littlecorgi.my.logic.network;
 
 import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Teacher;
+import com.littlecorgi.my.logic.model.TeacherBean;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,7 +21,7 @@ public interface UserRequestInterface {
      * @return 响应结果，包含Sting类型的结果
      */
     @POST("/teacher/signUp")
-    Call<SignUpResponse> signUp(@Body Teacher.DataBean teacher);
+    Call<SignUpResponse> signUp(@Body TeacherBean teacher);
 
     /**
      * 登录

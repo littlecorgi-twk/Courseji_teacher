@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SignUpResponse {
-    private Integer status; // 状态
+    private int status; // 状态
     private String msg; // 信息（包含错误信息）
     private String data; // 注册数据
     private String errorMsg; // 错误信息

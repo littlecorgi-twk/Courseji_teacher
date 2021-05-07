@@ -5,6 +5,7 @@ import com.littlecorgi.commonlib.logic.TencentServerRetrofitKt;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Teacher;
+import com.littlecorgi.my.logic.model.TeacherBean;
 import com.littlecorgi.my.logic.network.UserRequestInterface;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -20,7 +21,7 @@ public class UserRetrofitRepository {
      *
      * @param teacher 注册所需的用户信息
      */
-    public static Call<SignUpResponse> getUserSignUpCall(Teacher.DataBean teacher) {
+    public static Call<SignUpResponse> getUserSignUpCall(TeacherBean teacher) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
                         .create(UserRequestInterface.class);
@@ -52,12 +53,13 @@ public class UserRetrofitRepository {
     public static Teacher getTeacherFromSP(SharedPreferences sp) {
         Teacher teacher = new Teacher();
         teacher.setStatus(800);
-        Teacher.DataBean data = new Teacher.DataBean();
+        TeacherBean data = new TeacherBean();
         data.setId(sp.getLong(UserSPConstant.TEACHER_USER_ID, -1));
         data.setName(sp.getString(UserSPConstant.TEACHER_NAME, ""));
         data.setPassword(sp.getString(UserSPConstant.TEACHER_PASSWORD, ""));
         data.setPhone(sp.getString(UserSPConstant.TEACHER_PHONE, ""));
         data.setAvatar(sp.getString(UserSPConstant.TEACHER_AVATAR, ""));
+        data.setEmail(sp.getString(UserSPConstant.TEACHER_EMAIL, ""));
         teacher.setData(data);
         return teacher;
     }
