@@ -14,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -200,14 +198,9 @@ public class TeacherAttendanceFragment extends Fragment {
             holder.proportion.setText(time.getProportion());
             holder.time.setText(time.getTime());
             holder.class1.setText(time.getClass1());
-
             holder.timeView.setOnClickListener(v -> {
-                FragmentManager manager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.teacher_attendance,
-                        new TeacherTimeFragment(mTimeLists.get(position).getAttendanceId()));
-                transaction.addToBackStack(null);
-                transaction.commit();
+                TeacherTimeActivity.startTeacherTimeActivity(requireContext(),
+                        mTimeLists.get(position).getAttendanceId());
             });
         }
 

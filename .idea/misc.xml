@@ -22,6 +22,7 @@
         <entry key="attendance/src/main/res/layout/layout_titleview.xml" value="0.317481884057971" />
         <entry key="attendance/src/main/res/layout/teacher_attendance.xml" value="0.24864130434782608" />
         <entry key="attendance/src/main/res/layout/teacher_attendance_activity.xml" value="0.24864130434782608" />
+        <entry key="attendance/src/main/res/layout/teacher_class_student_item.xml" value="0.3134057971014493" />
         <entry key="attendance/src/main/res/layout/teacher_class_students.xml" value="0.24864130434782608" />
         <entry key="commonlib/src/main/res/drawable/dialog_loading.xml" value="0.4046875" />
         <entry key="commonlib/src/main/res/drawable/ic_outer_circle.xml" value="0.23020833333333332" />

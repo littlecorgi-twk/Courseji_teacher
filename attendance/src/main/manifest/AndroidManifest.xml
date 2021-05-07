@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
+        <activity android:name=".TeacherTimeActivity" />
         <activity android:name=".TeacherAttendanceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

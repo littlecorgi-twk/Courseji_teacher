@@ -1,6 +1,8 @@
 package com.littlecorgi.attendance;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,9 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,55 +30,52 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 教师端时间Fragment
+ * 具体的签到详情页
+ *
+ * @author littlecorgi 2021/05/07
  */
-public class TeacherTimeFragment extends Fragment {
+public class TeacherTimeActivity extends AppCompatActivity {
 
-    private static final String TAG = "TeacherTimeFragment";
+    private static final String TAG = "TeacherTimeActivity";
     private final List<StudentBean> mNotSignList = new ArrayList<>();
     private final List<StudentBean> mSignList = new ArrayList<>();
     private final List<CheckOnBean> mCheckOnList = new ArrayList<>();
-    private final long mAttendanceId;
+    private long mAttendanceId;
     private TeacherTimeFragmentAdapter mAdapterSign;
     private TeacherTimeFragmentAdapter mAdapterNotSign;
 
-    public TeacherTimeFragment(long attendanceId) {
-        this.mAttendanceId = attendanceId;
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.teacher_class_students, container, false);
-        Toolbar toolbar = view.findViewById(R.id.teacher_class_toolbar);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_teacher_time);
+
+        if (getIntent() != null) {
+            mAttendanceId = getIntent().getLongExtra("attendanceId", -1L);
+        }
+
+        Toolbar toolbar = findViewById(R.id.teacher_class_toolbar);
         toolbar.setNavigationOnClickListener(v -> {
-            FragmentManager manager = requireActivity().getSupportFragmentManager();
+            FragmentManager manager = getSupportFragmentManager();
             manager.popBackStack();
         });
 
-        final LinearLayoutManager managerNotSign = new LinearLayoutManager(getActivity());
-
-        RecyclerView recyclerViewNotSign = view.findViewById(R.id.student_not_sign_in_recycler);
+        final LinearLayoutManager managerNotSign = new LinearLayoutManager(this);
+        RecyclerView recyclerViewNotSign = findViewById(R.id.student_not_sign_in_recycler);
         mAdapterNotSign = new TeacherTimeFragmentAdapter(mNotSignList);
         recyclerViewNotSign.setLayoutManager(managerNotSign);
         recyclerViewNotSign.setAdapter(mAdapterNotSign);
 
-        final LinearLayoutManager managerSign = new LinearLayoutManager(getActivity());
-        RecyclerView recyclerViewSign = view.findViewById(R.id.student_sign_in_recycler);
+        final LinearLayoutManager managerSign = new LinearLayoutManager(this);
+        RecyclerView recyclerViewSign = findViewById(R.id.student_sign_in_recycler);
         mAdapterSign = new TeacherTimeFragmentAdapter(mSignList);
         recyclerViewSign.setLayoutManager(managerSign);
         recyclerViewSign.setAdapter(mAdapterSign);
 
         initData();
-
-        return view;
     }
 
     private void initData() {
-        Dialog loading = DialogUtil.writeLoadingDialog(requireContext(), false, "加载中");
+        Dialog loading = DialogUtil.writeLoadingDialog(this, false, "加载中");
         loading.show();
         loading.setCancelable(false);
         CheckOnRepository.getCheckOnFromAttendance(mAttendanceId).enqueue(
@@ -106,7 +104,8 @@ public class TeacherTimeFragment extends Fragment {
                             mAdapterSign.notifyDataSetChanged();
                         } else {
                             Log.d(TAG, "onResponse: 请求错误" + allCheckOnResponse.getMsg());
-                            Toast.makeText(requireContext(), "错误，" + allCheckOnResponse.getMsg(),
+                            Toast.makeText(TeacherTimeActivity.this,
+                                    "错误，" + allCheckOnResponse.getMsg(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -117,9 +116,21 @@ public class TeacherTimeFragment extends Fragment {
                         loading.cancel();
                         Log.d(TAG, "onFailure: " + t.getMessage());
                         t.printStackTrace();
-                        Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TeacherTimeActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    /**
+     * 跳转到此activity
+     *
+     * @param context      上下文
+     * @param attendanceId 考勤id
+     */
+    public static void startTeacherTimeActivity(Context context, long attendanceId) {
+        Intent intent = new Intent(context, TeacherTimeActivity.class);
+        intent.putExtra("attendanceId", attendanceId);
+        context.startActivity(intent);
     }
 
     static class TeacherTimeFragmentAdapter
