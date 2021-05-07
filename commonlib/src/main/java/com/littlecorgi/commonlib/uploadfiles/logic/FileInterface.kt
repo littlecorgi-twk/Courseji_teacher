@@ -1,4 +1,4 @@
-package com.littlecorgi.commonlib.logic
+package com.littlecorgi.commonlib.uploadfiles.logic
 
 import okhttp3.MultipartBody
 import retrofit2.Call

@@ -28,7 +28,6 @@ import androidx.databinding.DataBindingUtil;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.commonlib.logic.FileRetrofitRepository;
-import com.littlecorgi.commonlib.logic.UploadFileResponse;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.ActivitySignUpBinding;
