@@ -39,7 +39,7 @@
             android:name=".schedule_import.LoginWebActivity"
             android:configChanges="keyboardHidden"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".runalone.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -47,7 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".runalone.MainActivity" />
         <!--穿山甲-->
         <provider
             android:name="com.bytedance.sdk.openadsdk.TTFileProvider"

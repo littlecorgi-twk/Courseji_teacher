@@ -9,6 +9,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.41510416666666666" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_location_alt_24.xml" value="0.4046875" />
+        <entry key="app/src/main/res/drawable/navigation_item_color.xml" value="0.4046875" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.328804347826087" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.328804347826087" />
+        <entry key="app/src/main/res/menu/navigation.xml" value="0.3885416666666667" />
         <entry key="attendance/src/main/res/layout/activity_attendance.xml" value="0.21145833333333333" />
         <entry key="attendance/src/main/res/layout/layout_attendance.xml" value="0.21145833333333333" />
         <entry key="attendance/src/main/res/layout/teacher_attendance.xml" value="0.24864130434782608" />

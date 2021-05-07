@@ -4,6 +4,7 @@ import android.util.Log
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.littlecorgi.commonlib.App
+import com.littlecorgi.courseji.utils.TTAdManagerHolder
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
@@ -78,8 +79,8 @@ class AppApp : App() {
          */
         // 小米通道
         MiPushRegistar.register(this, "2882303761518784162", "5681878493162")
-        // 华为通道，注意华为通道的初始化参数在manifest中配置
-        HuaWeiRegister.register(this)
+        // // 华为通道，注意华为通道的初始化参数在manifest中配置
+        // HuaWeiRegister.register(this)
         // 魅族通道
         // MeizuRegister.register(this, "填写您在魅族后台APP对应的app id", "填写您在魅族后台APP对应的app key");
         // OPPO通道
