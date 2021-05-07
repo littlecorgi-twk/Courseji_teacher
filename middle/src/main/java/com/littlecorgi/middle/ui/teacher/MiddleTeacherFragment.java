@@ -3,6 +3,7 @@ package com.littlecorgi.middle.ui.teacher;
 import static com.littlecorgi.middle.ui.teacher.LocationActivity.startLocationActivity;
 import static com.littlecorgi.middle.ui.teacher.SetTitleActivity.startSetTitle;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.middle.R;
 import com.littlecorgi.middle.logic.AttendanceRepository;
 import com.littlecorgi.middle.logic.ClassRepository;
+import com.littlecorgi.middle.logic.dao.AndPermissionHelp;
 import com.littlecorgi.middle.logic.dao.BTWHelp;
 import com.littlecorgi.middle.logic.dao.PassedDataHelp;
 import com.littlecorgi.middle.logic.dao.SetTimeHelp;
@@ -111,6 +113,16 @@ public class MiddleTeacherFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        AndPermissionHelp.andPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
 
         mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         Log.d(TAG, "onViewCreated: " + mViewModel);

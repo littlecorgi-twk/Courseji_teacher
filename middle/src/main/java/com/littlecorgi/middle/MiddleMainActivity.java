@@ -1,9 +1,11 @@
 package com.littlecorgi.middle;
 
+import android.Manifest;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.littlecorgi.commonlib.BaseActivity;
+import com.littlecorgi.middle.logic.dao.AndPermissionHelp;
 import com.littlecorgi.middle.ui.teacher.MiddleTeacherFragment;
 
 /**

@@ -21,6 +21,10 @@
 
     <application android:allowBackup="false">
         <activity android:name=".MiddleMainActivity" />
+        <activity android:name=".ui.teacher.SetTitleActivity" />
+        <activity android:name=".ui.teacher.EndTimeActivity" />
+        <activity android:name=".ui.teacher.StartTimeActivity" />
+        <activity android:name=".ui.teacher.LocationActivity" />
 
         <service
             android:name="com.baidu.location.f"
