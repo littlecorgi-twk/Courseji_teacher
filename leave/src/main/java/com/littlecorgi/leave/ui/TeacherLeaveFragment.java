@@ -50,8 +50,8 @@ public class TeacherLeaveFragment extends Fragment {
     private void initView() {
         mTabLayout = mView.findViewById(R.id.tab_layout);
 
-        // mFragments.add(new AskLeaveFragment(mViewModel.getTeacherId()));
-        mFragments.add(new AskLeaveFragment(5));
+        mFragments.add(new AskLeaveFragment(mViewModel.getTeacherId()));
+        // mFragments.add(new AskLeaveFragment(5));
         mFragments.add(new HistoryFragment());
 
         ViewPager viewPager = mView.findViewById(R.id.leave_viewpager);
