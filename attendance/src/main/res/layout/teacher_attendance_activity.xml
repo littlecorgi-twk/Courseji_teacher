@@ -6,6 +6,4 @@
     android:layout_height="wrap_content"
     tools:context=".TeacherAttendanceActivity">
 
-    <include layout="@layout/teacher_attendance" />
-
 </FrameLayout>

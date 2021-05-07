@@ -1,5 +1,6 @@
 package com.littlecorgi.my.ui.about;
 
+import static com.littlecorgi.my.logic.dao.AndPermissionHelp.andPermission;
 import static com.littlecorgi.my.logic.dao.Tool.copyHelper;
 import static com.littlecorgi.my.logic.dao.WindowHelp.setWindowStatusBarColor;
 import static com.littlecorgi.my.ui.about.AdviceActivity.startAdviceActivity;
@@ -13,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.littlecorgi.commonlib.App;
 import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.my.R;
+import com.yanzhenjie.permission.runtime.Permission;
 
 /**
  * 关于页面
@@ -29,6 +31,10 @@ public class AboutActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_about);
+
+        // 申请请求
+        andPermission(this, Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE);
+
         initView();
         initData();
         // 点击事件

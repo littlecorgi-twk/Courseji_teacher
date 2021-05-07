@@ -96,9 +96,9 @@ class MainActivity : BaseActivity() {
         mAttendanceFragment =
             ARouter.getInstance().build("/attendance/fragment_attendance").navigation() as Fragment
         mMiddleFragment =
-            ARouter.getInstance().build("/middle/fragment_middle_student").navigation() as Fragment
+            ARouter.getInstance().build("/middle/fragment_middle_teacher").navigation() as Fragment
         mLeaveFragment =
-            ARouter.getInstance().build("/leave/fragment_student_leave").navigation() as Fragment
+            ARouter.getInstance().build("/leave/fragment_teacher_leave").navigation() as Fragment
         mMyFragment = ARouter.getInstance().build("/my/fragment_my_main").navigation() as Fragment
 
         val ft = supportFragmentManager.beginTransaction()

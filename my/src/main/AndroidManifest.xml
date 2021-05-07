@@ -12,10 +12,11 @@
         <activity
             android:name=".ui.signin.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".ui.addgroup.AddGroupActivity" />
-        <activity android:name=".ui.message.OriginalActivity" />
-        <activity android:name=".ui.about.AdviceActivity" />
         <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.about.AdviceActivity" />
+        <activity android:name=".ui.addgroup.AddGroupActivity" />
+        <activity android:name=".ui.addgroup.GroupActivity" />
+        <activity android:name=".ui.message.OriginalActivity" />
         <activity android:name=".ui.message.MessageActivity" />
         <activity android:name=".MyMainActivity" />
     </application>

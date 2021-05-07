@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentManager;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.leave.databinding.ActivityPassLeaveBinding;
 import com.littlecorgi.leave.logic.LeaveRepository;
@@ -39,9 +38,14 @@ public class PassLeaveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pass_leave);
 
+        setSupportActionBar(mBinding.passLeaveToolbar);
+        mBinding.passLeaveToolbar.setNavigationOnClickListener(v -> finish());
+
         if (getIntent() != null) {
             mRecyclerItem = (RecyclerItem) getIntent().getSerializableExtra("recyclerItem");
         }
+
+        mRequest = new ApproveLeaveRequest();
 
         initView();
         initEvent();
@@ -78,22 +82,11 @@ public class PassLeaveActivity extends AppCompatActivity {
     }
 
     private void initEvent() {
-        Button btnButton = mBinding.getRoot().findViewById(R.id.btn_return);
-        Button tvButton = mBinding.getRoot().findViewById(R.id.tv_return);
         if (mRecyclerItem.getPass().equals("待审核")) {
             mBinding.teacherXiaojia.setOnClickListener(v -> {
                 mDialog.show();
             });
         }
-        tvButton.setOnClickListener(v -> {
-            FragmentManager manager = getSupportFragmentManager();
-            manager.popBackStack();
-        });
-
-        btnButton.setOnClickListener(v -> {
-            FragmentManager manager = getSupportFragmentManager();
-            manager.popBackStack();
-        });
     }
 
     private void doLeave() {

@@ -79,7 +79,6 @@ public class AdviceActivity extends BaseActivity implements View.OnClickListener
         getPicture.setOnClickListener(this);
         sureButton.setOnClickListener(this);
         initBarColor();
-        initPermission();
         initRecyclerView();
         initBtw();
     }
@@ -97,13 +96,6 @@ public class AdviceActivity extends BaseActivity implements View.OnClickListener
         photo.setOnClickListener(v -> uploadPhoto());
         video.setOnClickListener(v -> uploadVideo());
         cancel.setOnClickListener(v -> mDialog.dismiss());
-    }
-
-    /**
-     * 使用AndPermission获取动态权限
-     */
-    private void initPermission() {
-        andPermission(this, Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void initRecyclerView() {

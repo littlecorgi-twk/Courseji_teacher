@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.tabs.TabLayout;
 import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.leave.R;
@@ -20,6 +21,7 @@ import java.util.Objects;
  *
  * @author littlecorgi 2021/05/07
  */
+@Route(path = "/leave/fragment_teacher_leave")
 public class TeacherLeaveFragment extends Fragment {
 
     public TabLayout mTabLayout;
