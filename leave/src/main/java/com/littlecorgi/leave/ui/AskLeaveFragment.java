@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.logic.LeaveRepository;
@@ -33,8 +34,9 @@ public class AskLeaveFragment extends Fragment {
 
     private static final String TAG = "AskLeaveFragment";
     private final List<RecyclerItem> mAskLeaveLists = new ArrayList<>();
-    private final long teacherId;
+    private long teacherId;
     private LeaveViewModel mLeaveViewModel;
+    private AppViewModel mViewModel;
     private AskLeaveAdapter mAdapter;
 
     public AskLeaveFragment(long teacherId) {
@@ -49,6 +51,7 @@ public class AskLeaveFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.teacher_ask_leave, container, false);
         mLeaveViewModel = new ViewModelProvider(requireActivity()).get(LeaveViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         if (teacherId != -1) {
             initData();
         }
@@ -57,6 +60,7 @@ public class AskLeaveFragment extends Fragment {
         refreshLayout.setPrimaryColorsId(R.color.blue_title, android.R.color.white);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(v -> {
+            teacherId = mViewModel.getTeacherId();
             initData();
             v.finishRefresh(true);
         });
