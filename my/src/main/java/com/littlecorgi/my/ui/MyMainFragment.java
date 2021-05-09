@@ -64,7 +64,15 @@ public class MyMainFragment extends Fragment {
                             teacherId = sp.getLong(UserSPConstant.TEACHER_USER_ID, -1L);
                             mViewModel.setTeacherId(teacherId);
                             JPushInterface.deleteAlias(requireContext(), 0);
-                            JPushInterface.setAlias(requireContext(), 10, "教师" + teacherId);
+                            // 刚刚发起一个请求，必须过一段时间再发送另一个请求，否则极光推送会报6022错误
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(5 * 1000);
+                                    JPushInterface.setAlias(requireContext(), 10, "教师" + teacherId);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }).start();
                             initView();
                             initData();
                             initClick();
