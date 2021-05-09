@@ -28,7 +28,7 @@ class AppApp : App() {
         TTAdManagerHolder.init(this)
 
         // 极光推送
-        JPushInterface.setDebugMode(true)
+        JPushInterface.setDebugMode(isDebug)
         JPushInterface.init(this)
 
         Log.d("UMengInitializer", "onCreate: APP APP初始化了")
