@@ -1,7 +1,6 @@
 package com.littlecorgi.courseji.utils;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.littlecorgi.commonlib.App.isDebug;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,7 +9,6 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.commonsdk.utils.UMUtils;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
-import com.umeng.message.inapp.InAppMessageManager;
 import org.android.agoo.xiaomi.MiPushRegistar;
 
 /**
@@ -61,9 +59,17 @@ public class PushHelper {
         final PushAgent pushAgent = PushAgent.getInstance(context);
 
         // 应用内消息测试模式，线上时注释掉此代码
-        InAppMessageManager.getInstance(context).setInAppMsgDebugMode(!isDebug);
+        // InAppMessageManager.getInstance(context).setInAppMsgDebugMode(!isDebug);
+
         // 自检
         pushAgent.setPushCheck(false);
+
+        // 打印当前Resource包名
+        Log.i(TAG, "create: resourcePackageName: " + pushAgent.getResourcePackageName());
+
+        pushAgent.setResourcePackageName("com.littlecorgi.courseji");
+
+        Log.i(TAG, "create: resourcePackageName: " + pushAgent.getResourcePackageName());
 
         // pushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SERVER); //服务端控制声音
         // pushAgent.setDisplayNotificationNumber(0);
@@ -78,7 +84,8 @@ public class PushHelper {
                         context.getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE)
                                 .getLong(UserSPConstant.TEACHER_USER_ID, -1L);
                 if (teacherId != -1) {
-                    pushAgent.setAlias("xxx", "wx", (b, s) -> Log.i(TAG, "b:" + b + " s:" + s));
+                    pushAgent.setAlias(teacherId + "", "教师",
+                            (b, s) -> Log.i(TAG, "b:" + b + " s:" + s));
                 }
             }
 
@@ -88,9 +95,9 @@ public class PushHelper {
             }
         });
 
-        if (UMUtils.isMainProgress(context)) {
-            registerDeviceChannel(context);
-        }
+        registerDeviceChannel(context);
+        // if (UMUtils.isMainProgress(context)) {
+        // }
     }
 
     /**

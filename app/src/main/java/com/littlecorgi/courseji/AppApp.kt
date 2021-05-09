@@ -40,7 +40,8 @@ class AppApp : App() {
      */
     private fun initPushSDK2() {
         if (UMUtils.isMainProgress(this)) {
-            Thread { PushHelper.init(applicationContext) }.start()
+            // Thread { PushHelper.init(applicationContext) }.start()
+            PushHelper.init(applicationContext)
         }
     }
 }

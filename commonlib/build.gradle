@@ -62,6 +62,7 @@ android {
 
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
+    api fileTree(dir: "libs", include: ["*.so"])
     api rootProject.ext.dependencies["kotlinStdlib"]
     api rootProject.ext.dependencies["coreKtx"]
     api rootProject.ext.dependencies["appcompat"]
@@ -172,6 +173,8 @@ dependencies {
     api rootProject.ext.dependencies["MPAndroidChart"]
 
     api rootProject.ext.dependencies["lottie"]
+
+    api rootProject.ext.dependencies["pangle"]
 
     // 百度地图
     api files('libs/BaiduLBS_Android.jar')

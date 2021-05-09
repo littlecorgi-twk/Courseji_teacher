@@ -102,8 +102,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
-    // 穿山甲广告sdk
-    implementation(name: 'open_ad_sdk', ext: 'aar')
+    implementation fileTree(dir: "libs", include: ["*.so"])
 
     // 在下面添加只有APP需要的依赖
     testImplementation rootProject.ext.dependencies["junit"]
@@ -128,3 +127,5 @@ dependencies {
         implementation project(':attendance')
     }
 }
+
+//apply from: 'UMeng_Push.gradle'
