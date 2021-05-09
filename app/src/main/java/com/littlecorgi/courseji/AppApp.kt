@@ -1,6 +1,7 @@
 package com.littlecorgi.courseji
 
 import android.util.Log
+import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.littlecorgi.commonlib.App
@@ -25,6 +26,10 @@ class AppApp : App() {
 
         // 初始化穿山甲广告SDK
         TTAdManagerHolder.init(this)
+
+        // 极光推送
+        JPushInterface.setDebugMode(true)
+        JPushInterface.init(this)
 
         Log.d("UMengInitializer", "onCreate: APP APP初始化了")
     }

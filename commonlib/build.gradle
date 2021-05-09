@@ -18,7 +18,6 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-//        applicationId "com.littlecorgi.corseji.commonlib" commonlib是library，不需要applicationId
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -30,11 +29,6 @@ android {
         // 将腾讯Bugly的类放到主Dex
         // 具体见 https://bugly.qq.com/docs/user-guide/instruction-manual-android/?v=20200903211433#multidex
         multiDexKeepProguard file("multidexKeep.pro")
-        // Bugly热修复
-        ndk {
-            //设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
     }
 
     buildTypes {
@@ -85,7 +79,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     // Toasty https://github.com/GrenderG/Toasty
-    //    api rootProject.ext.dependencies["toasty"]
+    api rootProject.ext.dependencies["toasty"]
 
     // Jetpack
     // lifecycle
@@ -179,3 +173,5 @@ dependencies {
     // 百度地图
     api files('libs/BaiduLBS_Android.jar')
 }
+
+apply from: 'JPush.gradle'
