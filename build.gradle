@@ -7,8 +7,6 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        // 友盟
-        maven { url 'https://repo1.maven.org/maven2/' }
         // 穿山甲
         maven { url 'https://artifact.bytedance.com/repository/pangle' }
         jcenter()
@@ -29,8 +27,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        // 友盟
-        maven { url 'https://repo1.maven.org/maven2/' }
         // 穿山甲
         maven { url 'https://artifact.bytedance.com/repository/pangle' }
         jcenter()

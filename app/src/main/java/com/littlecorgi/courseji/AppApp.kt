@@ -4,9 +4,7 @@ import android.util.Log
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.littlecorgi.commonlib.App
-import com.littlecorgi.courseji.utils.PushHelper
 import com.littlecorgi.courseji.utils.TTAdManagerHolder
-import com.umeng.commonsdk.utils.UMUtils
 
 /**
  * 自定义的Application。继承自commonlib库中的App。
@@ -18,10 +16,6 @@ class AppApp : App() {
 
     override fun onCreate() {
         super.onCreate()
-        //预初始化
-        PushHelper.preInit(this);
-        //正式初始化
-        initPushSDK2()
 
         // 在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this)
@@ -33,15 +27,5 @@ class AppApp : App() {
         TTAdManagerHolder.init(this)
 
         Log.d("UMengInitializer", "onCreate: APP APP初始化了")
-    }
-
-    /**
-     * 场景二：如果考虑启动速度等，可在子线程做初始化
-     */
-    private fun initPushSDK2() {
-        if (UMUtils.isMainProgress(this)) {
-            // Thread { PushHelper.init(applicationContext) }.start()
-            PushHelper.init(applicationContext)
-        }
     }
 }
