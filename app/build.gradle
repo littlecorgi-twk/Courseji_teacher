@@ -48,8 +48,8 @@ android {
                 JPUSH_PKGNAME: "com.littlecorgi.courseji.teacher",
                 JPUSH_APPKEY : "d903ad14a1573503cff28e6b", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
-                XIAOMI_APPID : "2882303761519907307",
-                XIAOMI_APPKEY: "5391990793307"
+                XIAOMI_APPID : "MI-2882303761519907307",
+                XIAOMI_APPKEY: "MI-5391990793307"
         ]
         // 极光推送end
     }

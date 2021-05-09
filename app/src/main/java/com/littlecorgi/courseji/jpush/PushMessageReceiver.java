@@ -23,7 +23,7 @@ public class PushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
         Log.e(TAG, "[onMessage] " + customMessage);
-        Intent intent = new Intent("com.jiguang.demo.message");
+        Intent intent = new Intent("com.littlecorgi.courseji.teacher");
         intent.putExtra("msg", customMessage.message);
         context.sendBroadcast(intent);
     }
