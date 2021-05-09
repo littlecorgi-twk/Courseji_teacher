@@ -24,6 +24,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import cn.jpush.android.api.JPushInterface;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.AppViewModel;
@@ -62,6 +63,8 @@ public class MyMainFragment extends Fragment {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             teacherId = sp.getLong(UserSPConstant.TEACHER_USER_ID, -1L);
                             mViewModel.setTeacherId(teacherId);
+                            JPushInterface.deleteAlias(requireContext(), 0);
+                            JPushInterface.setAlias(requireContext(), 10, "教师" + teacherId);
                             initView();
                             initData();
                             initClick();
