@@ -3,6 +3,8 @@ package com.littlecorgi.courseji.jpush;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -10,6 +12,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.api.NotificationMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
+import com.littlecorgi.courseji.DialogActivity;
 import com.littlecorgi.courseji.MainActivity;
 
 /**
@@ -23,9 +26,14 @@ public class PushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
         Log.e(TAG, "[onMessage] " + customMessage);
-        Intent intent = new Intent("com.littlecorgi.courseji.teacher");
-        intent.putExtra("msg", customMessage.message);
-        context.sendBroadcast(intent);
+
+        new Handler(Looper.getMainLooper()).post(() -> {
+            Intent intent = new Intent(context, DialogActivity.class);
+            intent.putExtra("title", customMessage.title);
+            intent.putExtra("message", customMessage.message);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
     }
 
     @Override
