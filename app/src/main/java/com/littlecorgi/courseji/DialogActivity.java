@@ -23,8 +23,7 @@ public class DialogActivity extends BaseActivity {
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("了解", (v, which) -> {
-                })
+                .setPositiveButton("了解", (v, which) -> finish())
                 .show();
     }
 }
