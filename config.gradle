@@ -71,8 +71,6 @@ ext {
             // Koin Android - experimental builder extensions
             "KoinAndroidExt"               : "io.insert-koin:koin-android-ext:${android["koinVersion"]}",
 
-            "pangle"                       : "com.pangle.cn:ads-sdk:3.5.0.6",
-
             // 第三方框架
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",// BaseRecyclerViewAdapterHelper
             "BuglyCrashReport"             : "com.tencent.bugly:crashreport:1.5.1",//BuglyCrashReport
@@ -86,6 +84,7 @@ ext {
             "lottie"                       : "com.airbnb.android:lottie:3.7.0",
             "MPAndroidChart"               : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
             "PictureSelector"              : 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0',   //PictureSelector
+            "pangle"                       : "com.pangle.cn:ads-sdk:3.5.0.6", // 穿山甲
             "Retrofit"                     : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",//Retrofit
             "Retrofit-converter-gson"      : "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",//Retrofit
             "ToastUtils"                   : "com.github.getActivity:ToastUtils:9.1",
@@ -95,7 +94,6 @@ ext {
             "ARouter"                      : 'com.alibaba:arouter-api:1.5.0',//ARouter api
             "ARouterCompiler"              : 'com.alibaba:arouter-compiler:1.2.2',//ARouter
             "AndPermission"                : 'com.yanzhenjie:permission:2.0.3',//AndPermission
-            "NumberPickerView"             : "cn.carbswang.android:NumberPickerView:1.2.0", //NumberPickerView
             "PickerView"                   : 'com.contrarywind:Android-PickerView:4.1.9',  //PickerView
             "refresh-layout-kernel"        : 'com.scwang.smart:refresh-layout-kernel:2.0.1',                  //SmartRefreshLayout
             "refresh-header-classics"      : 'com.scwang.smart:refresh-header-classics:2.0.1',
