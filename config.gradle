@@ -78,8 +78,6 @@ ext {
             "BuglyCrashReport"             : "com.tencent.bugly:crashreport:1.5.1",//BuglyCrashReport
             "BuglyCrashReportUpgrade"      : "com.tencent.bugly:crashreport_upgrade:1.5.1",//BuglyCrashReport升级功能
             "BuglyNativeCrashReport"       : "com.tencent.bugly:nativecrashreport:3.9.0",//BuglyNativeCrashReport
-            "butterknife"                  : 'com.jakewharton:butterknife:10.2.3',//ButterKnife
-            "butterknife-compiler"         : 'com.jakewharton:butterknife-compiler:10.2.3',//ButterKnife-Compiler
             "circleimageview"              : 'de.hdodenhof:circleimageview:3.1.0',        //CircleImageView
             "Glide"                        : "com.github.bumptech.glide:glide:${android["glideVersion"]}",// Glide
             "Glide-compiler"               : "com.github.bumptech.glide:compiler:${android["glideVersion"]}",// Glide-Compiler
